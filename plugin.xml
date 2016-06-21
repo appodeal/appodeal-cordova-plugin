@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.appodeal.plugin" version="1.4.1" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+  <name>Appodeal Plugin</name>
+  <description>Appodeal Plugin</description>
+  <author>Appodeal</author>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module name="AppodealPlugin" src="www/appodeal.js">
+      <clobbers target="Appodeal"/>
+    </js-module>
+
+    <platform name="android">
+      <config-file parent="/*" target="res/xml/config.xml">
+        <feature name="AppodealPlugin">
+          <param name="android-package" value="com.appodeal.plugin.AppodealPlugin"/>
+        </feature>
+      </config-file>
+
+      <config-file parent="/manifest" target="AndroidManifest.xml">
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+      </config-file>
+
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+
+			<meta-data android:name="com.appodeal.framework" android:value="cordova" />
+			<activity android:name="com.appodeal.ads.InterstitialActivity"
+					android:configChanges="orientation|screenSize"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+			<activity android:name="com.appodeal.ads.VideoActivity"
+					android:configChanges="orientation|screenSize"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+			<activity android:name="com.appodeal.ads.LoaderActivity"
+					android:configChanges="orientation|screenSize"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+			<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+			<activity android:name="com.google.android.gms.ads.AdActivity"
+					android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+					android:theme="@android:style/Theme.Translucent" />
+
+			<activity android:name="com.chartboost.sdk.CBImpressionActivity"
+					android:theme="@android:style/Theme.Translucent"
+					android:excludeFromRecents="true" />
+
+			<activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
+					android:theme="@android:style/Theme.Translucent" />
+
+			<activity android:name="com.mopub.mobileads.MoPubActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize"
+					android:theme="@android:style/Theme.Translucent" />
+			<activity android:name="com.mopub.common.MoPubBrowser"
+					android:configChanges="keyboardHidden|orientation|screenSize" />
+			<activity android:name="com.mopub.mobileads.MraidActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize" />
+			<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize" />
+
+			<activity android:name="org.nexage.sourcekit.mraid.MRAIDBrowser"
+					android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+					android:theme="@android:style/Theme.Translucent" />
+
+			<activity android:name="com.amazon.device.ads.AdActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+			<activity android:name="com.unity3d.ads.android.view.UnityAdsFullscreenActivity"
+					android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+					android:hardwareAccelerated="true" />
+
+			<activity android:name="ru.mail.android.mytarget.ads.MyTargetActivity"
+					android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
+			<activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
+					android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+			<activity android:name="com.facebook.ads.InterstitialAdActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize" />
+
+			<activity android:name="com.jirbo.adcolony.AdColonyOverlay"
+					android:configChanges="keyboardHidden|orientation|screenSize"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+			<activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
+					android:configChanges="keyboardHidden|orientation|screenSize"
+					android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+			<activity android:name="com.jirbo.adcolony.AdColonyBrowser"
+					android:configChanges="keyboardHidden|orientation|screenSize"
+					android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+			<activity android:name="com.vungle.publisher.FullScreenAdActivity"
+					android:configChanges="keyboardHidden|orientation|screenSize"
+					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
+        </config-file>
+
+		<source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
+		<source-file src="libs/android-support-v4-22.2.1.jar" target-dir="libs" />
+		<source-file src="libs/applovin-sdk-6.0.1.jar" target-dir="libs" />
+		<source-file src="libs/chartboost-5.2.0.jar" target-dir="libs" />
+		<source-file src="libs/appodeal-1.13.1.jar" target-dir="libs" />
+		<source-file src="libs/my-target-4.0.13.jar" target-dir="libs" />
+		<source-file src="libs/unity-ads-1.4.7.jar" target-dir="libs" />
+
+    </platform>
+
+    <platform name="ios">
+      <config-file parent="/widget" target="config.xml">
+        <feature name="AppodealPlugin">
+          <param name="ios-package" value="AppodealPlugin"/>
+        </feature>
+      </config-file>
+
+      <header-file src="src/ios/AppodealPlugin.h"/>
+      <source-file src="src/ios/AppodealPlugin.m"/>
+
+      <framework src="AdSupport.framework"/>
+      <framework src="AudioToolbox.framework"/>
+      <framework src="AVFoundation.framework"/>
+      <framework src="CFNetwork.framework"/>
+      <framework src="CoreFoundation.framework"/>
+      <framework src="CoreGraphics.framework"/>
+      <framework src="CoreImage.framework"/>
+      <framework src="CoreLocation.framework"/>
+      <framework src="CoreMedia.framework"/>
+      <framework src="CoreMotion.framework"/>
+      <!--framework src="CoreTelefony.framework"/-->
+      <framework src="EventKit.framework"/>
+      <framework src="EventKitUI.framework"/>
+      <framework src="JavaScriptCore.framework"/>
+      <framework src="MediaPlayer.framework"/>
+      <framework src="MessageUI.framework"/>
+      <framework src="MobileCoreServices.framework"/>
+      <framework src="QuartzCore.framework"/>
+      <framework src="Security.framework"/>
+      <framework src="Social.framework"/>
+      <framework src="StoreKit.framework"/>
+      <framework src="SafariServices.framework"/>
+      <framework src="SystemConfiguration.framework"/>
+      <framework src="Twitter.framework"/>
+      <framework src="UIKit.framework"/>
+      <framework src="WebKit.framework"/>
+      <framework src="CoreBluetooth.framework"/>
+
+      <framework src="libc++.dylib"/>
+      <framework src="libsqlite3.dylib"/>
+      <framework src="libxml2.2.dylib"/>
+      <framework src="libz.dylib"/>
+
+      <framework custom="true" src="libs/Appodeal/Appodeal.framework"/>
+
+      <resource-file src="libs/Appodeal/Resources/__vungle.db"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_adbadge.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_adbadge@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_adbadge@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_close.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_daa_icon.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_mute_off.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_mute_on.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_pattern.png"/>
+      <resource-file src="libs/Appodeal/Resources/appodeal_pattern@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPAdBrowserController.nib"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseBtn.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseBtn@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseBtn@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseButtonX.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseButtonX@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPCloseButtonX@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPDAAIcon.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPDAAIcon@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPDAAIcon@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPMutedBtn.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPMutedBtn@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPMutedBtn@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPPlayBtn.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPPlayBtn@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPPlayBtn@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPUnmutedBtn.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPUnmutedBtn@2x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MPUnmutedBtn@3x.png"/>
+      <resource-file src="libs/Appodeal/Resources/MRAID.bundle"/>
+      <resource-file src="libs/Appodeal/Resources/StartApp.bundle"/>
+      <resource-file src="libs/Appodeal/Resources/SVProgressHUD.bundle"/>
+      <resource-file src="libs/Appodeal/Resources/UnityAds.bundle"/>
+      <resource-file src="libs/Appodeal/Resources/vg_close.png"/>
+      <resource-file src="libs/Appodeal/Resources/vg_cta.png"/>
+      <resource-file src="libs/Appodeal/Resources/vg_mute_off.png"/>
+      <resource-file src="libs/Appodeal/Resources/vg_mute_on.png"/>
+      <resource-file src="libs/Appodeal/Resources/vg_privacy.png"/>
+    </platform>
+  </plugin>
