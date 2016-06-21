@@ -1,0 +1,1 @@
+# appodeal-cordova-plugin
