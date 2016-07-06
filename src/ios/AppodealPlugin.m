@@ -111,11 +111,61 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void)nativeAdServiceDidLoad: (AppodealNativeAd*) nativeAd{
     self.ad = nativeAd;
-    self.attributes.width=320;
-    self.attributes.heigth=50;
-    self.adView = [AppodealNativeAdView nativeAdViewWithType:self.adViewType andNativeAd:self.ad andAttributes:self.attributes rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
-    [self.adView setFrame: CGRectMake(self.x, self.y, self.attributes.width, self.attributes.heigth)];
-    [self.webView addSubview:self.adView];
+    self.myView = [[UIView alloc] init];
+    [self.myView setFrame: CGRectMake(10, 350, 200, 200)];
+    [self.myView setBackgroundColor:[UIColor clearColor]];
+
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.ad.image.imageUrl]];
+    UIImageView* blockView = [[UIImageView alloc] initWithImage:image];
+    blockView.frame = CGRectMake(0 ,0, 50,50);
+    [self.myView addSubview:blockView];
+
+    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.ad.icon.imageUrl]];
+    UIImageView* blockView1 = [[UIImageView alloc] initWithImage:icon];
+    blockView1.frame = CGRectMake(55 ,0, 50,50);
+    [self.myView addSubview:blockView1];
+
+    UILabel *yourLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 100, 20)];
+    [yourLabel setTextColor:[UIColor blackColor]];
+    [yourLabel setBackgroundColor:[UIColor clearColor]];
+    [yourLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 10.0f]];
+    [yourLabel setText:self.ad.title];
+    [self.myView addSubview:yourLabel];
+
+    UILabel *yourLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, 100, 20)];
+    [yourLabel1 setTextColor:[UIColor blackColor]];
+    [yourLabel1 setBackgroundColor:[UIColor clearColor]];
+    [yourLabel1 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 10.0f]];
+    [yourLabel1 setText:self.ad.subtitle];
+    [self.myView addSubview:yourLabel1];
+
+    UILabel *yourLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
+    [yourLabel2 setTextColor:[UIColor blackColor]];
+    [yourLabel2 setBackgroundColor:[UIColor clearColor]];
+    [yourLabel2 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 10.0f]];
+    [yourLabel2 setText:self.ad.descriptionText];
+    [self.myView addSubview:yourLabel2];
+
+    UILabel *yourLabel4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 100, 20)];
+    [yourLabel4 setTextColor:[UIColor blackColor]];
+    [yourLabel4 setBackgroundColor:[UIColor clearColor]];
+    [yourLabel4 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 10.0f]];
+    [yourLabel4 setText:self.ad.callToActionText];
+    [self.myView addSubview:yourLabel4];
+
+    UILabel *yourLabel5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 100, 20)];
+    [yourLabel5 setTextColor:[UIColor blackColor]];
+    [yourLabel5 setBackgroundColor:[UIColor clearColor]];
+    [yourLabel5 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 10.0f]];
+    [yourLabel5 setText:self.ad.contentRating];
+    [self.myView addSubview:yourLabel5];
+
+    [self.webView addSubview:self.myView];
+    [self.ad attachToView:self.myView viewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
+
+//    self.adView = [AppodealNativeAdView nativeAdViewWithType:self.adViewType andNativeAd:self.ad andAttributes:self.attributes rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
+//    [self.adView setFrame: CGRectMake(self.x, self.y, self.attributes.width, self.attributes.heigth)];
+//    [self.webView addSubview:self.adView];
     [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nativeAdServiceDidLoad'); cordova.fireDocumentEvent('nativeAdServiceDidLoad')" completionHandler:nil];
 }
 
@@ -325,7 +375,7 @@ int nativeShowStyleForType(int adTypes) {
     [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoDidClick')" completionHandler:nil];
 }
 
-- (void) enableInterstitialCallbacks:(CDVInvokedUrlCommand*)command
+- (void) enableIntertitialCallbacks:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setInterstitialDelegate:self];
 }
@@ -376,6 +426,8 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) initialize:(CDVInvokedUrlCommand*)command
 {
+    [Appodeal disableNetworkForAdType:AppodealAdTypeAll name:kAppodealFacebookNetworkName];
+    
     CDVPluginResult* pluginResult = nil;
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"initialized"];
     
@@ -388,13 +440,14 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) initializeAdType:(CDVInvokedUrlCommand*)command
 {
+    [Appodeal disableNetworkForAdType:AppodealAdTypeAll name:kAppodealFacebookNetworkName];
     CDVPluginResult* pluginResult = nil;
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"ok"];
     
     NSString* appKey = [[command arguments] objectAtIndex:0];
     id adType = [[command arguments] objectAtIndex:1];
     [Appodeal initializeWithApiKey:appKey types:nativeAdTypesForType([adType integerValue])];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
