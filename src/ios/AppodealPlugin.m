@@ -2,20 +2,82 @@
 #import <UIKit/UIKit.h>
 
 const int INTERSTITIAL        = 1;
-const int SKIPPABLE_VIDEO     = 2;
+const int VIDEO               = 2;
 const int BANNER              = 4;
-const int NATIVE              = 8;
-const int REWARDED_VIDEO      = 16;
-const int MREC                = 32;
-const int NON_SKIPPABLE_VIDEO = 64;
+const int BANNER_BOTTOM       = 8;
+const int BANNER_TOP          = 16;
+const int REWARDED_VIDEO      = 128;
+const int NON_SKIPPABLE_VIDEO = 256;
+const int NATIVE              = 512;
+const int MREC                = 1024;
 
-const int SHOW_INTERSTITIAL        = 1;
-const int SHOW_SKIPPABLE_VIDEO     = 2;
-const int SHOW_VIDEO_INTERSTITIAL  = 3;
-const int SHOW_BANNER_TOP          = 4;
-const int SHOW_BANNER_BOTTOM       = 5;
-const int SHOW_REWARDED_VIDEO      = 6;
-const int SHOW_NON_SKIPPABLE_VIDEO = 7;
+int nativeAdTypesForType(int adTypes) {
+    int nativeAdTypes = 0;
+    
+    if ((adTypes & INTERSTITIAL) > 0) {
+        nativeAdTypes |= AppodealAdTypeInterstitial;
+    }
+    
+    if ((adTypes & VIDEO) > 0) {
+        nativeAdTypes |= AppodealAdTypeSkippableVideo;
+    }
+    
+    if ((adTypes & BANNER) > 0 ||
+        (adTypes & BANNER_TOP) > 0 ||
+        (adTypes & BANNER_BOTTOM) > 0) {
+        
+        nativeAdTypes |= AppodealAdTypeBanner;
+    }
+    
+    if ((adTypes & REWARDED_VIDEO) > 0) {
+        nativeAdTypes |= AppodealAdTypeRewardedVideo;
+    }
+    
+    if ((adTypes & NON_SKIPPABLE_VIDEO) >0) {
+        nativeAdTypes |= AppodealAdTypeNonSkippableVideo;
+    }
+    
+    if ((adTypes & NATIVE) >0) {
+        nativeAdTypes |= AppodealAdTypeNativeAd;
+    }
+    
+    if ((adTypes & MREC) >0) {
+        nativeAdTypes |= AppodealAdTypeMREC;
+    }
+    
+    return nativeAdTypes;
+}
+
+int nativeShowStyleForType(int adTypes) {
+    bool isInterstitial = (adTypes & INTERSTITIAL) > 0;
+    bool isVideo = (adTypes & VIDEO) > 0;
+    
+    if (isInterstitial && isVideo) {
+        return AppodealShowStyleVideoOrInterstitial;
+    } else if (isVideo) {
+        return AppodealShowStyleSkippableVideo;
+    } else if (isInterstitial) {
+        return AppodealShowStyleInterstitial;
+    }
+    
+    if ((adTypes & BANNER_TOP) > 0) {
+        return AppodealShowStyleBannerTop;
+    }
+    
+    if ((adTypes & BANNER_BOTTOM) > 0) {
+        return AppodealShowStyleBannerBottom;
+    }
+    
+    if ((adTypes & REWARDED_VIDEO) > 0) {
+        return AppodealShowStyleRewardedVideo;
+    }
+    
+    if ((adTypes & NON_SKIPPABLE_VIDEO) > 0) {
+        return AppodealShowStyleNonSkippableVideo;
+    }
+    
+    return 0;
+}
 
 @implementation AppodealPlugin
 
@@ -24,9 +86,9 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 {
     NSString* bool_;
     if(precache)
-        bool_ = @"TRUE";
+    bool_ = @"TRUE";
     else
-        bool_ = @"FALSE";
+    bool_ = @"FALSE";
     
     NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('bannerDidLoadAdisPrecache', { precache: '%@' })", bool_];
     
@@ -63,9 +125,9 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 {
     NSString* bool_;
     if(precache)
-        bool_ = @"TRUE";
+    bool_ = @"TRUE";
     else
-        bool_ = @"FALSE";
+    bool_ = @"FALSE";
     
     NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('interstitialDidLoadAdisPrecache', { precache: '%@' })", bool_];
     
@@ -188,7 +250,7 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 
 - (void) disableNetworkType:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal disableNetworkForAdType:[[[command arguments] objectAtIndex:1] integerValue] name:[[command arguments] objectAtIndex:0]];
+    [Appodeal disableNetworkForAdType:nativeAdTypesForType([[[command arguments] objectAtIndex:1] integerValue]) name:[[command arguments] objectAtIndex:0]];
 }
 
 - (void) disableLocationPermissionCheck:(CDVInvokedUrlCommand*)command
@@ -198,24 +260,24 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 
 - (void) setAutoCache:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal setAutocache:[[[command arguments] objectAtIndex:1] boolValue] types:[[[command arguments] objectAtIndex:0] integerValue]];
+    [Appodeal setAutocache:[[[command arguments] objectAtIndex:1] boolValue] types:nativeAdTypesForType([[[command arguments] objectAtIndex:0] integerValue])];
 }
 
 - (void) isPrecache:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
     
-    if([Appodeal isAutocacheEnabled:[[[command arguments] objectAtIndex:0] integerValue]])
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    if([Appodeal isAutocacheEnabled:nativeAdTypesForType([[[command arguments] objectAtIndex:0] integerValue])])
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void) initialize:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:[[[command arguments] objectAtIndex:1] integerValue]];
+    [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType([[[command arguments] objectAtIndex:1] integerValue])];
 }
 
 - (void) isInitalized:(CDVInvokedUrlCommand*)command
@@ -223,9 +285,9 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     CDVPluginResult* pluginResult = nil;
     
     if([Appodeal isInitalized])
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -259,10 +321,10 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 {
     CDVPluginResult* pluginResult = nil;
     
-    if([Appodeal showAd:[[[command arguments] objectAtIndex:0] integerValue] rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    if([Appodeal showAd:nativeShowStyleForType([[[command arguments] objectAtIndex:0] integerValue]) rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -271,17 +333,17 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 {
     CDVPluginResult* pluginResult = nil;
     
-    if([Appodeal showAd:[[[command arguments] objectAtIndex:0] integerValue] forPlacement:[[command arguments] objectAtIndex:1] rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    if([Appodeal showAd:nativeShowStyleForType([[[command arguments] objectAtIndex:0] integerValue]) forPlacement:[[command arguments] objectAtIndex:1] rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void) cache:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal cacheAd:[[[command arguments] objectAtIndex:0] integerValue]];
+    [Appodeal cacheAd:nativeAdTypesForType([[[command arguments] objectAtIndex:0] integerValue])];
 }
 
 - (void) hide:(CDVInvokedUrlCommand*)command
@@ -315,10 +377,10 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 {
     CDVPluginResult* pluginResult = nil;
     
-    if([Appodeal isReadyForShowWithStyle:[[[command arguments] objectAtIndex:0] integerValue]])
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    if([Appodeal isReadyForShowWithStyle:nativeShowStyleForType([[[command arguments] objectAtIndex:0] integerValue])])
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -334,7 +396,7 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
 
 - (void) confirm:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal confirmUsage:[[[command arguments] objectAtIndex:0] integerValue]];
+    [Appodeal confirmUsage:nativeAdTypesForType([[[command arguments] objectAtIndex:0] integerValue])];
 }
 
 - (void) setSmartBanners:(CDVInvokedUrlCommand*)command
@@ -383,11 +445,11 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     NSString *AppodealUserGender = [[command arguments] objectAtIndex:0];
     
     if([AppodealUserGender isEqualToString:@"AppodealUserGenderOther"])
-        [Appodeal setUserGender:AppodealUserGenderOther];
+    [Appodeal setUserGender:AppodealUserGenderOther];
     if([AppodealUserGender isEqualToString:@"AppodealUserGenderMale"])
-        [Appodeal setUserGender:AppodealUserGenderMale];
+    [Appodeal setUserGender:AppodealUserGenderMale];
     if([AppodealUserGender isEqualToString:@"AppodealUserGenderFemale"])
-        [Appodeal setUserGender:AppodealUserGenderFemale];
+    [Appodeal setUserGender:AppodealUserGenderFemale];
 }
 
 - (void) setOccupation:(CDVInvokedUrlCommand*)command
@@ -395,13 +457,13 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     NSString *AppodealUserOccupation = [[command arguments] objectAtIndex:0];
     
     if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationOther"])
-        [Appodeal setUserOccupation:AppodealUserOccupationOther];
+    [Appodeal setUserOccupation:AppodealUserOccupationOther];
     if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationWork"])
-        [Appodeal setUserOccupation:AppodealUserOccupationWork];
+    [Appodeal setUserOccupation:AppodealUserOccupationWork];
     if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationSchool"])
-        [Appodeal setUserOccupation:AppodealUserOccupationSchool];
+    [Appodeal setUserOccupation:AppodealUserOccupationSchool];
     if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationUniversity"])
-        [Appodeal setUserOccupation:AppodealUserOccupationUniversity];
+    [Appodeal setUserOccupation:AppodealUserOccupationUniversity];
 }
 
 - (void) setRelation:(CDVInvokedUrlCommand*)command
@@ -409,17 +471,17 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     NSString *AppodealUserRelationship = [[command arguments] objectAtIndex:0];
     
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipOther"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipOther];
+    [Appodeal setUserRelationship:AppodealUserRelationshipOther];
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipSingle"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipSingle];
+    [Appodeal setUserRelationship:AppodealUserRelationshipSingle];
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipDating"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipDating];
+    [Appodeal setUserRelationship:AppodealUserRelationshipDating];
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipEngaged"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipEngaged];
+    [Appodeal setUserRelationship:AppodealUserRelationshipEngaged];
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipMarried"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipMarried];
+    [Appodeal setUserRelationship:AppodealUserRelationshipMarried];
     if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipSearching"])
-        [Appodeal setUserRelationship:AppodealUserRelationshipSearching];
+    [Appodeal setUserRelationship:AppodealUserRelationshipSearching];
 }
 
 - (void) setSmoking:(CDVInvokedUrlCommand*)command
@@ -427,11 +489,11 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     NSString *AppodealUserSmokingAttitude = [[command arguments] objectAtIndex:0];
     
     if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudeNegative"])
-        [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNegative];
+    [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNegative];
     if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudeNeutral"])
-        [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNeutral];
+    [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNeutral];
     if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudePositive"])
-        [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudePositive];
+    [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudePositive];
 }
 
 - (void) setAlcohol:(CDVInvokedUrlCommand*)command
@@ -439,11 +501,11 @@ const int SHOW_NON_SKIPPABLE_VIDEO = 7;
     NSString *AppodealUserAlcoholAttitude = [[command arguments] objectAtIndex:0];
     
     if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudeNegative"])
-        [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNegative];
+    [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNegative];
     if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudeNeutral"])
-        [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNeutral];
+    [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNeutral];
     if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudePositive"])
-        [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudePositive];
+    [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudePositive];
 }
 
 - (void) setInterests:(CDVInvokedUrlCommand*)command
