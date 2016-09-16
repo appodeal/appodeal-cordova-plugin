@@ -90,35 +90,40 @@ int nativeShowStyleForType(int adTypes) {
     else
     bool_ = @"FALSE";
     
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('bannerDidLoadAdisPrecache', { precache: '%@' })", bool_];
+    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onBannerLoadedAdisPrecache', { precache: '%@' })", bool_];
     
     [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
 }
 
+- (void)bannerDidLoadAd
+{
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerLoaded')" completionHandler:nil];
+}
+
 - (void)bannerDidRefresh
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('bannerDidRefresh')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerRefreshed')" completionHandler:nil];
 }
 
 - (void)bannerDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('bannerDidFailToLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerFailedToLoad')" completionHandler:nil];
 }
 
 - (void)bannerDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('bannerDidClick')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerClicked')" completionHandler:nil];
 }
 
 - (void)bannerDidShow
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('bannerDidShow')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerShown')" completionHandler:nil];
 }
 
 // interstitial
 - (void)interstitialDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('interstitialDidLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoaded')" completionHandler:nil];
 }
 
 - (void)interstitialDidLoadAdisPrecache:(BOOL)precache
@@ -129,123 +134,123 @@ int nativeShowStyleForType(int adTypes) {
     else
     bool_ = @"FALSE";
     
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('interstitialDidLoadAdisPrecache', { precache: '%@' })", bool_];
+    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecache', { precache: '%@' })", bool_];
     
     [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
 }
 
 - (void)interstitialDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('interstitialDidFailToLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialFailedToLoad')" completionHandler:nil];
 }
 
 - (void)interstitialWillPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('interstitialWillPresent')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialShown')" completionHandler:nil];
 }
 
 - (void)interstitialDidDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('interstitialDidDismiss')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialClosed')" completionHandler:nil];
 }
 
 - (void)interstitialDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('interstitialDidClick')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialClicked')" completionHandler:nil];
 }
 
 // rewarded video
 - (void)rewardedVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('rewardedVideoDidLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoLoaded')" completionHandler:nil];
 }
 
 - (void)rewardedVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('rewardedVideoDidFailToLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoFailedToLoad')" completionHandler:nil];
 }
 
 - (void)rewardedVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('rewardedVideoDidPresent')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoShown')" completionHandler:nil];
 }
 
 - (void)rewardedVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('rewardedVideoWillDismiss')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoClosed')" completionHandler:nil];
 }
 
 - (void)rewardedVideoDidFinish:(NSUInteger)rewardAmount name:(NSString *)rewardName
 {
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('rewardedVideoDidFinish', { amount: %lu, name: '%@' })", rewardAmount, rewardName];
+    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onRewardedVideoFinished', { amount: %lu, name: '%@' })", rewardAmount, rewardName];
     [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
 }
 
 - (void)rewardedVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('rewardedVideoDidClick')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoClicked')" completionHandler:nil];
 }
 
 // non skippable video
 - (void)nonSkippableVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoDidLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoLoaded')" completionHandler:nil];
 }
 
 - (void)nonSkippableVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoDidFailToLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoFailedToLoad')" completionHandler:nil];
 }
 
 - (void)nonSkippableVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoDidPresent')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoShown')" completionHandler:nil];
 }
 
 - (void)nonSkippableVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoWillDismiss')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoClosed')" completionHandler:nil];
 }
 
 - (void)nonSkippableVideoDidFinish
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoDidFinish')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoFinished')" completionHandler:nil];
 }
 
 - (void)nonSkippableVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('nonSkippableVideoDidClick')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoClicked')" completionHandler:nil];
 }
 
 // skippable video
 - (void)skippableVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoDidLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoLoaded')" completionHandler:nil];
 }
 
 - (void)skippableVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoDidFailToLoadAd')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoFailedToLoad')" completionHandler:nil];
 }
 
 - (void)skippableVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoDidPresent')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoShown')" completionHandler:nil];
 }
 
 - (void)skippableVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoWillDismiss')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoClosed')" completionHandler:nil];
 }
 
 - (void)skippableVideoDidFinish
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoDidFinish')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoFinished')" completionHandler:nil];
 }
 
 - (void)skippableVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('skippableVideoDidClick')" completionHandler:nil];
+    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoClicked')" completionHandler:nil];
 }
 
 - (void) disableNetworkType:(CDVInvokedUrlCommand*)command
