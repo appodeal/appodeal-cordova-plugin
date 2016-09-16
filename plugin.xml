@@ -197,25 +197,6 @@
       	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/FBAudienceNetwork.framework"/>
       	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/libAPDFacebookAudienceAdapter.a" framework="true"/>
 
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/libAPDFlurryAdapter.a" framework="true"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/Flurry/Flurry.h"/>
-	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/Flurry/FlurryEmpty.m"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/Flurry/libFlurry_7.6.6.a" framework="true"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/libFlurryAds_7.6.6.a" framework="true"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdBanner/FlurryAdBanner.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdBanner/FlurryAdBannerDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdInterstitial/FlurryAdInterstitial.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdInterstitial/FlurryAdInterstitialDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdNative/FlurryAdNative.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdNative/FlurryAdNativeAsset.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdNative/FlurryAdNativeDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdNative/FlurryAdNativeStyle.h"/>
-	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/FlurryAdsEmpty.m"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/Shared/FlurryAdError.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/Shared/FlurryAdTargeting.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/StaticAPI/FlurryAdDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFlurryAdapter.embeddedframework/FlurryAds/StaticAPI/FlurryAds.h"/>
-
       	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/GoogleMobileAds.framework"/>
       	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/libAPDGoogleAdMobAdapter.a" framework="true"/>
 
@@ -246,9 +227,9 @@
       	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/libAPDStartAppAdapter.a" framework="true"/>
       	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/StartApp.bundle"/>
 
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.framework"/>
+      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Tapjoy.framework"/>
       	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/libAPDTapjoyAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Resources/TapjoyResources.bundle"/>
+      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle"/>
 
       	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/libAPDTwitterMoPubAdapter.a" framework="true"/>
       	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn.png"/>
