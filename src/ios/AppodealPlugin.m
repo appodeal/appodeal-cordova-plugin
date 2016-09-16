@@ -84,15 +84,10 @@ int nativeShowStyleForType(int adTypes) {
 // banner
 - (void)bannerDidLoadAdisPrecache:(BOOL)precache
 {
-    NSString* bool_;
     if(precache)
-    bool_ = @"TRUE";
+        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerDidLoadAdisPrecacheTrue')" completionHandler:nil];
     else
-    bool_ = @"FALSE";
-    
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onBannerLoadedAdisPrecache', { precache: '%@' })", bool_];
-    
-    [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
+        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerDidLoadAdisPrecacheFalse')" completionHandler:nil];
 }
 
 - (void)bannerDidLoadAd
@@ -128,15 +123,10 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void)interstitialDidLoadAdisPrecache:(BOOL)precache
 {
-    NSString* bool_;
     if(precache)
-    bool_ = @"TRUE";
+        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecacheTrue')" completionHandler:nil];
     else
-    bool_ = @"FALSE";
-    
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecache', { precache: '%@' })", bool_];
-    
-    [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
+        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecacheFalse')" completionHandler:nil];
 }
 
 - (void)interstitialDidFailToLoadAd
