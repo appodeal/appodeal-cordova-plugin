@@ -1,1 +1,1 @@
-# Appodeal Cordova Plugin with SDK IOS 1.2.3
+# Appodeal Cordova Plugin with SDK IOS 1.2.4
