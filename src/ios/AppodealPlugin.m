@@ -411,7 +411,7 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) setUserId:(CDVInvokedUrlCommand*)command
 {
-    [Appodeal setUserEmail:[[command arguments] objectAtIndex:0]];
+    [Appodeal setUserId:[[command arguments] objectAtIndex:0]];
 }
 
 - (void) setEmail:(CDVInvokedUrlCommand*)command
