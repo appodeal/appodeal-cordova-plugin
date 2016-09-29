@@ -23,7 +23,10 @@
 - (void) resetUUID:(CDVInvokedUrlCommand*)command;
 - (void) getVersion:(CDVInvokedUrlCommand*)command;
 - (void) isLoaded:(CDVInvokedUrlCommand*)command;
-- (void) setCustomRule:(CDVInvokedUrlCommand*)command;
+- (void) setCustomDoubleRule:(CDVInvokedUrlCommand*)command;
+- (void) setCustomIntegerRule:(CDVInvokedUrlCommand*)command;
+- (void) setCustomStringRule:(CDVInvokedUrlCommand*)command;
+- (void) setCustomBooleanRule:(CDVInvokedUrlCommand*)command;
 - (void) confirm:(CDVInvokedUrlCommand*)command;
 - (void) setSmartBanners:(CDVInvokedUrlCommand*)command;
 - (void) setBannerBackgroundVisible:(CDVInvokedUrlCommand*)command;
