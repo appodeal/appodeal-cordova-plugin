@@ -8,8 +8,6 @@ const int BANNER_BOTTOM       = 8;
 const int BANNER_TOP          = 16;
 const int REWARDED_VIDEO      = 128;
 const int NON_SKIPPABLE_VIDEO = 256;
-const int NATIVE              = 512;
-const int MREC                = 1024;
 
 int nativeAdTypesForType(int adTypes) {
     int nativeAdTypes = 0;
@@ -36,15 +34,6 @@ int nativeAdTypesForType(int adTypes) {
     if ((adTypes & NON_SKIPPABLE_VIDEO) >0) {
         nativeAdTypes |= AppodealAdTypeNonSkippableVideo;
     }
-    
-    if ((adTypes & NATIVE) >0) {
-        nativeAdTypes |= AppodealAdTypeNativeAd;
-    }
-    
-    if ((adTypes & MREC) >0) {
-        nativeAdTypes |= AppodealAdTypeMREC;
-    }
-    
     return nativeAdTypes;
 }
 
@@ -81,23 +70,9 @@ int nativeShowStyleForType(int adTypes) {
 
 @implementation AppodealPlugin
 
-// banner
-- (void)bannerDidLoadAdisPrecache:(BOOL)precache
-{
-    if(precache)
-        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerDidLoadAdisPrecacheTrue')" completionHandler:nil];
-    else
-        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerDidLoadAdisPrecacheFalse')" completionHandler:nil];
-}
-
 - (void)bannerDidLoadAd
 {
     [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerLoaded')" completionHandler:nil];
-}
-
-- (void)bannerDidRefresh
-{
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerRefreshed')" completionHandler:nil];
 }
 
 - (void)bannerDidFailToLoadAd
@@ -119,14 +94,6 @@ int nativeShowStyleForType(int adTypes) {
 - (void)interstitialDidLoadAd
 {
     [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoaded')" completionHandler:nil];
-}
-
-- (void)interstitialDidLoadAdisPrecache:(BOOL)precache
-{
-    if(precache)
-        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecacheTrue')" completionHandler:nil];
-    else
-        [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoadedAdisPrecacheFalse')" completionHandler:nil];
 }
 
 - (void)interstitialDidFailToLoadAd
@@ -380,9 +347,32 @@ int nativeShowStyleForType(int adTypes) {
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) setCustomRule:(CDVInvokedUrlCommand*)command
+- (void) setCustomDoubleRule:(CDVInvokedUrlCommand*)command
 {
-    //@"{\"valueNumber\":0,\"valueText\":\"text\"}"
+    NSString *jsonString = [[command arguments] objectAtIndex:0];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [Appodeal setCustomRule:json];
+}
+
+- (void) setCustomIntegerRule:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonString = [[command arguments] objectAtIndex:0];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [Appodeal setCustomRule:json];
+}
+
+- (void) setCustomStringRule:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonString = [[command arguments] objectAtIndex:0];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [Appodeal setCustomRule:json];
+}
+
+- (void) setCustomBooleanRule:(CDVInvokedUrlCommand*)command
+{
     NSString *jsonString = [[command arguments] objectAtIndex:0];
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -399,12 +389,12 @@ int nativeShowStyleForType(int adTypes) {
     [Appodeal setSmartBannersEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
-- (void) setBannerBackgroundVisible:(CDVInvokedUrlCommand*)command
+- (void) setBannerBackground:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setBannerBackgroundVisible:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
-- (void) setBannerAnimationEnabled:(CDVInvokedUrlCommand*)command
+- (void) setBannerAnimation:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setBannerAnimationEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
@@ -439,11 +429,11 @@ int nativeShowStyleForType(int adTypes) {
 {
     NSString *AppodealUserGender = [[command arguments] objectAtIndex:0];
     
-    if([AppodealUserGender isEqualToString:@"AppodealUserGenderOther"])
+    if([AppodealUserGender isEqualToString:@"other"])
     [Appodeal setUserGender:AppodealUserGenderOther];
-    if([AppodealUserGender isEqualToString:@"AppodealUserGenderMale"])
+    if([AppodealUserGender isEqualToString:@"male"])
     [Appodeal setUserGender:AppodealUserGenderMale];
-    if([AppodealUserGender isEqualToString:@"AppodealUserGenderFemale"])
+    if([AppodealUserGender isEqualToString:@"female"])
     [Appodeal setUserGender:AppodealUserGenderFemale];
 }
 
@@ -451,13 +441,13 @@ int nativeShowStyleForType(int adTypes) {
 {
     NSString *AppodealUserOccupation = [[command arguments] objectAtIndex:0];
     
-    if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationOther"])
+    if([AppodealUserOccupation isEqualToString:@"other"])
     [Appodeal setUserOccupation:AppodealUserOccupationOther];
-    if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationWork"])
+    if([AppodealUserOccupation isEqualToString:@"work"])
     [Appodeal setUserOccupation:AppodealUserOccupationWork];
-    if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationSchool"])
+    if([AppodealUserOccupation isEqualToString:@"school"])
     [Appodeal setUserOccupation:AppodealUserOccupationSchool];
-    if([AppodealUserOccupation isEqualToString:@"AppodealUserOccupationUniversity"])
+    if([AppodealUserOccupation isEqualToString:@"university"])
     [Appodeal setUserOccupation:AppodealUserOccupationUniversity];
 }
 
@@ -465,17 +455,17 @@ int nativeShowStyleForType(int adTypes) {
 {
     NSString *AppodealUserRelationship = [[command arguments] objectAtIndex:0];
     
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipOther"])
+    if([AppodealUserRelationship isEqualToString:@"other"])
     [Appodeal setUserRelationship:AppodealUserRelationshipOther];
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipSingle"])
+    if([AppodealUserRelationship isEqualToString:@"single"])
     [Appodeal setUserRelationship:AppodealUserRelationshipSingle];
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipDating"])
+    if([AppodealUserRelationship isEqualToString:@"dating"])
     [Appodeal setUserRelationship:AppodealUserRelationshipDating];
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipEngaged"])
+    if([AppodealUserRelationship isEqualToString:@"engaged"])
     [Appodeal setUserRelationship:AppodealUserRelationshipEngaged];
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipMarried"])
+    if([AppodealUserRelationship isEqualToString:@"married"])
     [Appodeal setUserRelationship:AppodealUserRelationshipMarried];
-    if([AppodealUserRelationship isEqualToString:@"AppodealUserRelationshipSearching"])
+    if([AppodealUserRelationship isEqualToString:@"searching"])
     [Appodeal setUserRelationship:AppodealUserRelationshipSearching];
 }
 
@@ -483,11 +473,11 @@ int nativeShowStyleForType(int adTypes) {
 {
     NSString *AppodealUserSmokingAttitude = [[command arguments] objectAtIndex:0];
     
-    if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudeNegative"])
+    if([AppodealUserSmokingAttitude isEqualToString:@"negative"])
     [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNegative];
-    if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudeNeutral"])
+    if([AppodealUserSmokingAttitude isEqualToString:@"neutral"])
     [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudeNeutral];
-    if([AppodealUserSmokingAttitude isEqualToString:@"AppodealUserSmokingAttitudePositive"])
+    if([AppodealUserSmokingAttitude isEqualToString:@"positive"])
     [Appodeal setUserSmokingAttitude:AppodealUserSmokingAttitudePositive];
 }
 
@@ -495,11 +485,11 @@ int nativeShowStyleForType(int adTypes) {
 {
     NSString *AppodealUserAlcoholAttitude = [[command arguments] objectAtIndex:0];
     
-    if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudeNegative"])
+    if([AppodealUserAlcoholAttitude isEqualToString:@"negative"])
     [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNegative];
-    if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudeNeutral"])
+    if([AppodealUserAlcoholAttitude isEqualToString:@"neutral"])
     [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudeNeutral];
-    if([AppodealUserAlcoholAttitude isEqualToString:@"AppodealUserAlcoholAttitudePositive"])
+    if([AppodealUserAlcoholAttitude isEqualToString:@"positive"])
     [Appodeal setUserAlcoholAttitude:AppodealUserAlcoholAttitudePositive];
 }
 

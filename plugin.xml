@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="com.appodeal.plugin" version="2.0.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+<plugin id="com.appodeal.plugin" version="2.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
   <name>Appodeal Plugin</name>
   <description>Appodeal Plugin</description>
   <author>Appodeal</author>
@@ -11,6 +11,144 @@
     <js-module name="AppodealPlugin" src="www/appodeal.js">
       <clobbers target="Appodeal"/>
     </js-module>
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="AppodealPlugin">
+                <param name="android-package" value="com.appodeal.plugin.AppodealPlugin"/>
+            </feature>
+        </config-file>
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        </config-file>
+        <framework src="com.google.android.gms:play-services-ads:9+" />
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <meta-data android:name="com.appodeal.framework" android:value="phonegap" />
+            <receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            </receiver>
+            <activity android:name="com.appodeal.ads.InterstitialActivity"
+                  android:configChanges="orientation|screenSize"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            <activity android:name="com.appodeal.ads.VideoActivity"
+                  android:configChanges="orientation|screenSize"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            <activity android:name="com.appodeal.ads.LoaderActivity"
+                  android:configChanges="orientation|screenSize"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+            <activity android:name="com.google.android.gms.ads.AdActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                  android:theme="@android:style/Theme.Translucent" />
+            <activity android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true"
+                  android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
+            <activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
+                  android:theme="@android:style/Theme.Translucent" />
+            <activity android:name="com.mopub.mobileads.MoPubActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:theme="@android:style/Theme.Translucent" />
+            <activity android:name="com.mopub.common.MoPubBrowser"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
+            <activity android:name="com.mopub.mobileads.MraidActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
+            <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
+            <activity android:name="org.nexage.sourcekit.mraid.MRAIDBrowser"
+                  android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+                  android:theme="@android:style/Theme.Translucent" />
+            <activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+            <activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+            <activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            <activity android:name="org.nexage.sourcekit.vast.activity.VPAIDActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            <activity android:name="com.appodeal.ads.networks.vpaid.VPAIDActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            <activity android:name="com.appodeal.ads.networks.SpotXActivity"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            <activity android:name="com.facebook.ads.InterstitialAdActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
+            <activity android:name="com.unity3d.ads.adunit.AdUnitActivity"
+			    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+			    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true" />
+			<activity android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
+			    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+			    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" />
+			<activity android:name="com.unity3d.ads2.adunit.AdUnitActivity"
+			    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+			    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true" />
+			<activity android:name="com.unity3d.ads2.adunit.AdUnitSoftwareActivity"
+			    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+			    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" />
+            <activity android:name="com.jirbo.adcolony.AdColonyOverlay"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+            <activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            <activity android:name="com.jirbo.adcolony.AdColonyBrowser"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            <activity android:name="com.vungle.publisher.FullScreenAdActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            <activity android:name="com.startapp.android.publish.list3d.List3DActivity"
+                  android:theme="@android:style/Theme" />
+            <activity android:name="com.startapp.android.publish.OverlayActivity"
+                  android:theme="@android:style/Theme.Translucent"
+                  android:configChanges="orientation|keyboardHidden|screenSize" />
+            <activity android:name="com.startapp.android.publish.FullScreenActivity"
+                  android:theme="@android:style/Theme"
+                  android:configChanges="orientation|keyboardHidden|screenSize" />
+            <service android:name="com.yandex.metrica.MetricaService" android:enabled="true"
+                 android:exported="true" android:process=":Metrica">
+                <intent-filter>
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <action android:name="com.yandex.metrica.IMetricaService" />
+                    <data android:scheme="metrica" />
+                </intent-filter>
+                <meta-data android:name="metrica:api:level" android:value="44" />
+            </service>
+            <receiver android:name="com.yandex.metrica.MetricaEventHandler"
+                  android:enabled="true" android:exported="true">
+                <intent-filter>
+                    <action android:name="com.android.vending.INSTALL_REFERRER" />
+                </intent-filter>
+            </receiver>
+            <activity android:name="com.yandex.mobile.ads.AdActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+            <activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+            <activity android:name="com.appodeal.ads.VideoPlayerActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>            
+            <activity android:name="com.cmcm.picks.PicksLoadingActivity" android:launchMode="singleTask" android:taskAffinity="com.cmcm.adsdk.nativead" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            <activity android:name="com.cmcm.adsdk.interstitial.PicksInterstitialActivity" android:launchMode="singleTask" android:theme="@style/cm_interstital" />
+            <activity android:name="com.cmcm.picks.webview.PicksBrowser" android:launchMode="singleTask" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            <service android:name="com.cmcm.picks.init.DownloadService" android:exported="false" android:process=":PickService" />
+            <activity android:name="com.cmcm.picks.vastvideo.FullScreenVideoActivity" android:excludeFromRecents="true" android:launchMode="singleInstance" android:screenOrientation="landscape"/>
+            <activity android:name="com.revmob.FullscreenActivity" android:theme="@android:style/Theme.Translucent" android:configChanges="keyboardHidden|orientation"/>
+			<activity android:name="com.tapjoy.TJAdUnitActivity" android:configChanges="orientation|keyboardHidden|screenSize"
+			          android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+			<activity android:name="com.tapjoy.mraid.view.ActionHandler" android:configChanges="orientation|keyboardHidden|screenSize" />
+			<activity android:name="com.tapjoy.mraid.view.Browser" android:configChanges="orientation|keyboardHidden|screenSize" />
+			<activity android:name="com.tapjoy.TJContentActivity" android:configChanges="orientation|keyboardHidden|screenSize"
+			          android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
+        </config-file>
+        <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
+        <source-file src="libs/android/appodeal-1.15.5.jar" target-dir="libs" />
+        <source-file src="libs/android/applovin-6.3.0.jar" target-dir="libs" />
+        <source-file src="libs/android/chartboost-6.5.1.jar" target-dir="libs" />
+        <source-file src="libs/android/flurry-analytics-6.5.0.jar" target-dir="libs" />
+        <source-file src="libs/android/my-target-4.5.10.jar" target-dir="libs" />
+        <source-file src="libs/android/yandex-metrica-2.41.jar" target-dir="libs" />
+        <source-file src="libs/android/unity-ads-2.0.4.jar" target-dir="libs" />
+        <framework src="libs/android/cheetah-mobile" custom="true" />
+    </platform>
 
     <platform name="ios">
       <config-file parent="/widget" target="config.xml">
@@ -55,158 +193,158 @@
       	<framework src="libxml2.2.dylib"/>
       	<framework src="libz.dylib"/>
 
-      	<framework custom="true" src="libs/Appodeal/Appodeal.framework"/>
-      	<resource-file src="libs/Appodeal/Appodeal.bundle"/>
+      	<!-- Appodeal -->
+      	<framework custom="true" src="libs/iOS/Appodeal/Appodeal.framework"/>
+      	<resource-file src="libs/iOS/Appodeal/Appodeal.bundle"/>
 
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDAdColonyAdapter.embeddedframework/AdColony.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAdColonyAdapter.embeddedframework/libAPDAdColonyAdapter.a" framework="true"/>
-
-  	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDAmazonAdsAdapter.embeddedframework/AmazonAd.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAmazonAdsAdapter.embeddedframework/libAPDAmazonAdsAdapter.a" framework="true"/>
-
-   	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/libAPDAppLovinAdapter.a" framework="true"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/libAppLovinSdk.a" framework="true"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdDisplayDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdLoadDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdRewardDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdService.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdSize.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdType.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdUpdateDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdVideoPlaybackDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdView.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAnnotations.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALErrorCodes.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALEventService.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALEventTypes.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALIncentivizedInterstitialAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALInterstitialAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdLoadDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdPrecacheDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdService.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALPostbackDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALPostbackService.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSdk.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSdkSettings.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSwiftHeaders.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALTargetingData.h"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDChartboostAdapter.embeddedframework/Chartboost.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDChartboostAdapter.embeddedframework/libAPDChartboostAdapter.a" framework="true"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/FBAudienceNetwork.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/libAPDFacebookAudienceAdapter.a" framework="true"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/GoogleMobileAds.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/libAPDGoogleAdMobAdapter.a" framework="true"/>
-
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libAPDInMobyAdapter.a" framework="true"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/libInMobi-5.3.1.a" framework="true"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMBanner.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMBannerDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMCommonConstants.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMCustomNative.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMInterstitial.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMInterstitialDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMNative.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMNativeDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMNativeStrands.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMNativeStrandsDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMRequestStatus.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMSdk.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMStrandPosition.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMStrandTableViewAdapter.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/Libs/Headers/IMStrandTableViewAdapterDelegate.h"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDMyTargetAdapter.embeddedframework/MyTargetSDK.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDMyTargetAdapter.embeddedframework/libAPDMyTargetAdapter.a" framework="true"/>
-
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDPubnativeAdapter.embeddedframework/libAPDPubnativeAdapter.a" framework="true"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/StartApp.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/libAPDStartAppAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/StartApp.bundle"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Tapjoy.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/libAPDTapjoyAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle"/>
-
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/libAPDTwitterMoPubAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@2x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@3x.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MRAID.bundle"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/UnityAds.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/libAPDUnityAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/UnityAds.bundle"/>
-
-      	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/VungleSDK.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/libAPDVungleAdapter.a" framework="true"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/__vungle.db"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_close.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_cta.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_off.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_on.png"/>
-      	<resource-file src="libs/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_privacy.png"/>
-
-	<framework custom="true" src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileMetrica.framework"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/libAPDYandexAdapter.a" framework="true"/>
-      	<source-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/libYandexMobileAds.a" framework="true"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileAds.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileNativeAds.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileVASTAds.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdRequest.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdSize.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdView.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMABlock.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMABlocksInfo.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMACreative.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAErrors.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAIcon.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAInterstitialController.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMALog.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAMediaFile.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAMobileAds.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdAssets.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdDelegate.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdErrors.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdImage.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdLoader.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdLoaderConfiguration.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdTypes.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAppInstallAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAppInstallAdView.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAssetsAppearance.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeBannerView.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeContentAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeContentAdView.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeGenericAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeImageLoadingObserver.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeTemplateAppearance.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMARating.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTAd.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTErrors.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTTracker.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVersion.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVideoAdsRequest.h"/>
-	<header-file src="libs/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAYandexVASTAds.h"/>
+		<!-- AdColony -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAdColonyAdapter.embeddedframework/AdColony.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAdColonyAdapter.embeddedframework/libAPDAdColonyAdapter.a" framework="true"/>
+      	<!-- Amazon -->
+  		<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAmazonAdsAdapter.embeddedframework/AmazonAd.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAmazonAdsAdapter.embeddedframework/libAPDAmazonAdsAdapter.a" framework="true"/>
+      	<!-- Aplovin -->
+   		<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/libAPDAppLovinAdapter.a" framework="true"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/libAppLovinSdk.a" framework="true"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdDisplayDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdLoadDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdRewardDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdService.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdSize.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdType.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdUpdateDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdVideoPlaybackDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAdView.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALAnnotations.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALErrorCodes.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALEventService.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALEventTypes.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALIncentivizedInterstitialAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALInterstitialAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdLoadDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdPrecacheDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALNativeAdService.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALPostbackDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALPostbackService.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSdk.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSdkSettings.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALSwiftHeaders.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDAppLovinAdapter.embeddedframework/headers/ALTargetingData.h"/>
+		<!-- Chartboost -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDChartboostAdapter.embeddedframework/Chartboost.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDChartboostAdapter.embeddedframework/libAPDChartboostAdapter.a" framework="true"/>
+      	<!-- Facebook Audience Network -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/FBAudienceNetwork.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDFacebookAudienceAdapter.embeddedframework/libAPDFacebookAudienceAdapter.a" framework="true"/>
+      	<!-- AdMob -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/GoogleMobileAds.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDGoogleAdMobAdapter.embeddedframework/libAPDGoogleAdMobAdapter.a" framework="true"/>
+      	<!-- InMobi -->
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libAPDInMobyAdapter.a" framework="true"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/libInMobi-5.3.1.a" framework="true"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMBanner.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMBannerDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMCommonConstants.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMCustomNative.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMInterstitial.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMInterstitialDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMNative.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMNativeDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMNativeStrands.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMNativeStrandsDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMRequestStatus.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMSdk.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMStrandPosition.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMStrandTableViewAdapter.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDInMobyAdapter.embeddedframework/libs/Headers/IMStrandTableViewAdapterDelegate.h"/>
+		<!-- MyTarget -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDMyTargetAdapter.embeddedframework/MyTargetSDK.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDMyTargetAdapter.embeddedframework/libAPDMyTargetAdapter.a" framework="true"/>
+      	<!-- StartApp -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/StartApp.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/libAPDStartAppAdapter.a" framework="true"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDStartAppAdapter.embeddedframework/StartApp.bundle"/>
+      	<!-- TapJoy -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Tapjoy.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/libAPDTapjoyAdapter.a" framework="true"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle"/>
+      	<!-- MoPub -->
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/libAPDTwitterMoPubAdapter.a" framework="true"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseButtonX@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPDAAIcon@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPMutedBtn@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPPlayBtn@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@2x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@3x.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MRAID.bundle"/>
+      	<!-- UnityAds -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/UnityAds.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/libAPDUnityAdapter.a" framework="true"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDUnityAdapter.embeddedframework/UnityAds.bundle"/>
+      	<!-- Vungle -->
+      	<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/VungleSDK.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/libAPDVungleAdapter.a" framework="true"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/__vungle.db"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_close.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_cta.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_off.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_on.png"/>
+      	<resource-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDVungleAdapter.embeddedframework/Resources/vg_privacy.png"/>
+      	<!-- Yandex -->
+		<framework custom="true" src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileMetrica.framework"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/libAPDYandexAdapter.a" framework="true"/>
+      	<source-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/libYandexMobileAds.a" framework="true"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileAds.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileNativeAds.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YandexMobileVASTAds.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdRequest.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdSize.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAAdView.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMABlock.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMABlocksInfo.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMACreative.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAErrors.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAIcon.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAInterstitialController.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMALog.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAMediaFile.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAMobileAds.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdAssets.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdDelegate.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdErrors.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdImage.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdLoader.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdLoaderConfiguration.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAdTypes.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAppInstallAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAppInstallAdView.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeAssetsAppearance.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeBannerView.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeContentAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeContentAdView.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeGenericAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeImageLoadingObserver.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMANativeTemplateAppearance.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMARating.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTAd.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTErrors.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVASTTracker.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVersion.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAVideoAdsRequest.h"/>
+		<header-file src="libs/iOS/appodeal-ios-sdk-mobile-adapters/APDYandexAdapter.embeddedframework/YandexMobileAds/YMAYandexVASTAds.h"/>
     </platform>
   </plugin>
