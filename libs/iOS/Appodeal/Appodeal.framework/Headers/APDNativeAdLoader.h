@@ -22,10 +22,20 @@
  *  Method called when loader recieve native ad.
  *  Count of array can be little than requested capacity
  *
+ *  @brief This API will be available in future release
+ *
  *  @param loader    Ready loader
  *  @param nativeAds Array of native ads of requested type
  */
-- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAds:(NSArray <__kindof APDNativeAd *> *)nativeAds;
+- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAds:(NSArray <__kindof APDNativeAd *> *)nativeAds NS_UNAVAILABLE;
+
+/*!
+ *  Method called when loaded recieve native ad.
+ *
+ *  @param loader   Ready loader
+ *  @param nativeAd Native ad to show
+ */
+- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAd:(APDNativeAd *)nativeAd;
 
 /*!
  *  Method called if loader mediation failed
@@ -73,9 +83,11 @@
  *  returned in -nativeAdLoader: didLoadNativeAds: will contain
  *  only one instance of native ad
  *
+ *  @brief This API will be available in future release
+ *
  *  @param type     Native ad type
  *  @param capacity Interger value from 1 to 11
  */
-- (void)loadAdWithType:(APDNativeAdType)type capacity:(NSInteger)capacity;
+- (void)loadAdWithType:(APDNativeAdType)type capacity:(NSInteger)capacity NS_UNAVAILABLE;
 
 @end

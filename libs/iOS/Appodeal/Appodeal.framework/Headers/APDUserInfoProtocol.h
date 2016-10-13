@@ -12,10 +12,10 @@
 
 @protocol APDUserInfo <NSObject>
 
-//@property (copy, nonatomic, readonly) NSString *vkId;
-//@property (copy, nonatomic, readonly) NSString *facebookId;
 @property (copy, nonatomic, readonly) NSString *email;
 @property (copy, nonatomic, readonly) NSArray *interests;
+@property (copy, nonatomic, readonly) NSString * userId;
+@property (copy, nonatomic, readonly) NSDictionary *ext;
 
 @property (strong, nonatomic, readonly) NSDate *birthday;
 @property (assign, nonatomic, readonly) NSUInteger age;

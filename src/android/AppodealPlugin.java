@@ -324,7 +324,7 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Appodeal.setLogging(logging);
+                    Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.verbose);
                 }
             });
             return true;
@@ -465,7 +465,7 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(relation.equals("single".toLowerCase())) {
+                    if(relation.equals("other".toLowerCase())) {
                         getUserSettings().setRelation(UserSettings.Relation.OTHER);
                     } else if(relation.equals("single".toLowerCase())) {
                         getUserSettings().setRelation(UserSettings.Relation.SINGLE);

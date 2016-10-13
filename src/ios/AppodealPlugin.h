@@ -29,8 +29,8 @@
 - (void) setCustomBooleanRule:(CDVInvokedUrlCommand*)command;
 - (void) confirm:(CDVInvokedUrlCommand*)command;
 - (void) setSmartBanners:(CDVInvokedUrlCommand*)command;
-- (void) setBannerBackgroundVisible:(CDVInvokedUrlCommand*)command;
-- (void) setBannerAnimationEnabled:(CDVInvokedUrlCommand*)command;
+- (void) setBannerBackground:(CDVInvokedUrlCommand*)command;
+- (void) setBannerAnimation:(CDVInvokedUrlCommand*)command;
 - (void) setUserId:(CDVInvokedUrlCommand*)command;
 - (void) setEmail:(CDVInvokedUrlCommand*)command;
 - (void) setBirthday:(CDVInvokedUrlCommand*)command;

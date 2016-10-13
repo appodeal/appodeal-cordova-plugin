@@ -80,7 +80,6 @@
  */
 - (instancetype)initWithSize:(CGSize)size rootViewController:(UIViewController *)rootViewController;
 
-
 /**
  *  Start banner mediaition
  */

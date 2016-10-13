@@ -371,9 +371,14 @@ typedef NS_ENUM(NSUInteger, AppodealUserAlcoholAttitude) {
 + (void)disableNetworkForAdType:(AppodealAdType)adType name:(NSString *)networkName __attribute__((deprecated("Now you can simple delete unused adapter from project")));
 
 /*!
+ *  To disable location check use this method deprecated
+ */
++ (void)disableLocationPermissionCheck __attribute__((deprecated("use method setLocationTracking:")));
+
+/*!
  *  To disable location check use this method
  */
-+ (void)disableLocationPermissionCheck;
++ (void)setLocationTracking:(BOOL)enabled;
 
 /*!
  *  Enable/disable autocache
