@@ -72,142 +72,142 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void)bannerDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerLoaded')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onBannerLoaded')"];
 }
 
 - (void)bannerDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerFailedToLoad')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onBannerFailedToLoad')"];
 }
 
 - (void)bannerDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerClicked')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onBannerClicked')"];
 }
 
 - (void)bannerDidShow
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onBannerShown')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onBannerShown')"];
 }
 
 // interstitial
 - (void)interstitialDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialLoaded')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onInterstitialLoaded')"];
 }
 
 - (void)interstitialDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialFailedToLoad')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onInterstitialFailedToLoad')"];
 }
 
 - (void)interstitialWillPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialShown')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onInterstitialShown')"];
 }
 
 - (void)interstitialDidDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialClosed')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onInterstitialClosed')"];
 }
 
 - (void)interstitialDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onInterstitialClicked')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onInterstitialClicked')"];
 }
 
 // rewarded video
 - (void)rewardedVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoLoaded')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onRewardedVideoLoaded')"];
 }
 
 - (void)rewardedVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoFailedToLoad')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onRewardedVideoFailedToLoad')"];
 }
 
 - (void)rewardedVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoShown')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onRewardedVideoShown')"];
 }
 
 - (void)rewardedVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoClosed')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onRewardedVideoClosed')"];
 }
 
 - (void)rewardedVideoDidFinish:(NSUInteger)rewardAmount name:(NSString *)rewardName
 {
     NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onRewardedVideoFinished', { amount: %lu, name: '%@' })", rewardAmount, rewardName];
-    [self.webViewEngine evaluateJavaScript:script completionHandler:nil];
+    [self.commandDelegate evalJs:script];
 }
 
 - (void)rewardedVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onRewardedVideoClicked')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onRewardedVideoClicked')"];
 }
 
 // non skippable video
 - (void)nonSkippableVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoLoaded')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoLoaded')"];
 }
 
 - (void)nonSkippableVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoFailedToLoad')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoFailedToLoad')"];
 }
 
 - (void)nonSkippableVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoShown')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoShown')"];
 }
 
 - (void)nonSkippableVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoClosed')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoClosed')"];
 }
 
 - (void)nonSkippableVideoDidFinish
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoFinished')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoFinished')"];
 }
 
 - (void)nonSkippableVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onNonSkippableVideoClicked')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onNonSkippableVideoClicked')"];
 }
 
 // skippable video
 - (void)skippableVideoDidLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoLoaded')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoLoaded')"];
 }
 
 - (void)skippableVideoDidFailToLoadAd
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoFailedToLoad')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoFailedToLoad')"];
 }
 
 - (void)skippableVideoDidPresent
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoShown')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoShown')"];
 }
 
 - (void)skippableVideoWillDismiss
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoClosed')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoClosed')"];
 }
 
 - (void)skippableVideoDidFinish
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoFinished')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoFinished')"];
 }
 
 - (void)skippableVideoDidClick
 {
-    [self.webViewEngine evaluateJavaScript:@"cordova.fireDocumentEvent('onSkippableVideoClicked')" completionHandler:nil];
+    [self.commandDelegate evalJs:@"cordova.fireDocumentEvent('onSkippableVideoClicked')"];
 }
 
 - (void) disableNetworkType:(CDVInvokedUrlCommand*)command
