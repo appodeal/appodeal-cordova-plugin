@@ -220,13 +220,13 @@ typedef NS_ENUM(NSUInteger, APDUserGender) {
      */
     APDUserGenderOther = 0,
     /*!
-     *  Male
-     */
-    APDUserGenderMale,
-    /*!
      *  Female
      */
-    APDUserGenderFemale
+    APDUserGenderFemale,
+    /*!
+     *  Male
+     */
+    APDUserGenderMale
 };
 
 /*!
@@ -317,6 +317,26 @@ typedef NS_ENUM(NSUInteger, APDUserAlcoholAttitude) {
     APDUserAlcoholAttitudePositive
 };
 
-
+typedef NS_ENUM(NSUInteger, APDFramework) {
+    APDFrameworkNative = 1,
+    APDFrameworkUnity,
+    APDFrameworkCocos2d,
+    APDFrameworkMarmalade,
+    APDFrameworkPhoneGap,
+    APDFrameworkGiderosMobile,
+    APDFrameworkAdobeAir,
+    APDFrameworkCordova,
+    APDFrameworkXamarin,
+    APDFrameworkGameMaker,
+    APDFrameworkMonkeyX,
+    APDFrameworkSC2,
+    APDFrameworkLibGDX,
+    APDFrameworkQt,
+    APDFrameworkUE4,
+    APDFrameworkReactNative,
+    APDFrameworkCorona,
+    APDFrameworkStencyl,
+    APDFrameworkSDKBox
+};
 
 

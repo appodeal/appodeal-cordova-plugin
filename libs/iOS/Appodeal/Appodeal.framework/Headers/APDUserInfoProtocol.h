@@ -2,7 +2,6 @@
 //  APDUserInfoProtocol.h
 //  Appodeal
 //
-//  Created by Ivan Doroshenko on 2/10/16.
 //  Copyright © 2016 Appodeal, Inc. All rights reserved.
 //
 

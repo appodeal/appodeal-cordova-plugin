@@ -2,7 +2,6 @@
 //  AppodealBannerView.h
 //  Appodeal
 //
-//  Created by Stas Kochkin on 22/08/16.
 //  Copyright © 2016 Appodeal, Inc. All rights reserved.
 //
 
@@ -42,6 +41,13 @@
  */
 - (void)bannerViewDidInteract:(APDBannerView *)bannerView;
 
+/**
+ *  Method called after banner view reload content automatically
+ *
+ *  @param bannerView Nonnul banner view
+ */
+- (void)bannerViewDidRefresh:(APDBannerView *)bannerView;
+
 @end
 
 /*!
@@ -71,7 +77,14 @@
 - (id<AppodealBannerViewDelegate>)delegate;
 
 /**
- *  Initializer
+ *  @brief Initializer
+ *
+ *  @brief Objective-C
+ *  @code [[AppodealBannerView alloc] initWithSize:kAPDAdSize320x50 rootViewController:self]; @endcode
+ *
+ *  @brief Swift
+ *  @code AppodealBannerView.init(size: kAPDAdSize320x50, rootViewController: self) @endcode
+ *
  *
  *  @param size               Appodeal valid size
  *  @param rootViewController Nonnul view controller
@@ -106,6 +119,13 @@
 
 /**
  *  Initializer
+ *
+ *
+ *  @brief Objective-C
+ *  @code [[AppodealMRECView alloc] initWithRootViewController:self]; @endcode
+ *
+ *  @brief Swift
+ *  @code AppodealMRECView.init(rootViewController: self) @endcode
  *
  *  @param rootViewController Nonnul view controller
  *
