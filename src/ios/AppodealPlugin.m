@@ -239,6 +239,7 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) initialize:(CDVInvokedUrlCommand*)command
 {
+    [Appodeal setFramework:APDFrameworkCordova];  
     [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType([[[command arguments] objectAtIndex:1] integerValue])];
 }
 
