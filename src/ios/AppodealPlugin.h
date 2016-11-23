@@ -20,7 +20,6 @@
 - (void) hide:(CDVInvokedUrlCommand*)command;
 - (void) setLogging:(CDVInvokedUrlCommand*)command;
 - (void) setTesting:(CDVInvokedUrlCommand*)command;
-- (void) resetUUID:(CDVInvokedUrlCommand*)command;
 - (void) getVersion:(CDVInvokedUrlCommand*)command;
 - (void) isLoaded:(CDVInvokedUrlCommand*)command;
 - (void) setCustomDoubleRule:(CDVInvokedUrlCommand*)command;

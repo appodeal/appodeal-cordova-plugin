@@ -324,11 +324,6 @@ int nativeShowStyleForType(int adTypes) {
     [Appodeal setTestingEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
-- (void) resetUUID:(CDVInvokedUrlCommand*)command
-{
-    [Appodeal resetUUID];
-}
-
 - (void) getVersion:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
