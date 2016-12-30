@@ -140,12 +140,12 @@
 			          android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
-        <source-file src="libs/android/appodeal-1.15.7.jar" target-dir="libs" />
+        <source-file src="libs/android/appodeal-1.15.8.jar" target-dir="libs" />
         <source-file src="libs/android/applovin-6.3.0.jar" target-dir="libs" />
         <source-file src="libs/android/chartboost-6.5.1.jar" target-dir="libs" />
         <source-file src="libs/android/flurry-analytics-6.5.0.jar" target-dir="libs" />
         <source-file src="libs/android/my-target-4.5.10.jar" target-dir="libs" />
-        <source-file src="libs/android/yandex-metrica-2.41.jar" target-dir="libs" />
+        <source-file src="libs/android/yandex-metrica-2.51.jar" target-dir="libs" />
         <source-file src="libs/android/unity-ads-2.0.4.jar" target-dir="libs" />
         <framework src="libs/android/cheetah-mobile" custom="true" />
     </platform>
