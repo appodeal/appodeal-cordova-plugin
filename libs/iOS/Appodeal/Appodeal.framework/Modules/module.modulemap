@@ -1,10 +1,8 @@
 
 framework module Appodeal {
   umbrella header "Appodeal.h"
-
   export *
   module * { export * }
-  
   header "APDBannerView.h"
   header "APDDefines.h"
   header "APDImage.h"
