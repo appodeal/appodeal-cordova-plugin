@@ -572,6 +572,7 @@ typedef NS_ENUM(NSUInteger, AppodealUserAlcoholAttitude) {
 
 /*!
  *  @brief Start cache ad for type if autocache disabled
+ *  It start cache ad with default placement
  *  @brief Ad will not be show after load
  *
  *  @brief Objective-C
@@ -584,6 +585,21 @@ typedef NS_ENUM(NSUInteger, AppodealUserAlcoholAttitude) {
  */
 + (void)cacheAd:(AppodealAdType)type;
 
+/*!
+ *  @brief Start cache ad for type if autocache disabled
+ *  It start cache ad with you placement configured in Appodeal dashboard
+ *  @brief Ad will not be show after load
+ *
+ *  @brief Objective-C
+ *  @code [Appodeal cacheAd:AppodealAdTypeInterstitial forPlacement: @"YOUR_PLACEMENT"]; @endcode
+ *
+ *  @brief Swift
+ *  @code Appodeal.cacheAd(AppodealAdType.Interstitial, for: "YOUR_PLACEMENT") @endcode
+ *
+ *  @param type AppodealAdTypeInterstitial, AppodealAdTypeSkippableVideo, AppodealAdTypeBanner, AppodealAdTypeNativeAd, AppodealAdTypeRewardedVideo, AppodealAdTypeMREC, AppodealAdTypeNonSkippableVideo
+ *  @param placement String parameter configured in Appodeal dashboard for customize ad mediation
+ */
++ (void)cacheAd:(AppodealAdType)type forPlacement:(NSString *)placement;
 /*!
  *  @brief Hide banner if it on screen
  *
