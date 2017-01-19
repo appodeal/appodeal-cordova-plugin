@@ -113,7 +113,7 @@
                     <action android:name="com.yandex.metrica.IMetricaService" />
                     <data android:scheme="metrica" />
                 </intent-filter>
-                <meta-data android:name="metrica:api:level" android:value="44" />
+                <meta-data android:name="metrica:api:level" android:value="48" />
             </service>
             <receiver android:name="com.yandex.metrica.MetricaEventHandler"
                   android:enabled="true" android:exported="true">
