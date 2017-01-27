@@ -8,6 +8,9 @@ import org.json.JSONException;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.view.View;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerCallbacks;
@@ -16,6 +19,7 @@ import com.appodeal.ads.RewardedVideoCallbacks;
 import com.appodeal.ads.SkippableVideoCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 import com.appodeal.ads.UserSettings;
+import com.appodeal.ads.BannerView;
 
 public class AppodealPlugin extends CordovaPlugin {
 
@@ -37,6 +41,7 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_BANNER_BACKGROUND = "setBannerBackground";
     private static final String ACTION_BANNER_ANIMATION = "setBannerAnimation";
     private static final String ACTION_768X90_BANNERS = "set728x90Banners";
+	private static final String ACTION_BANNERS_OVERLAP = "setBannerOverLap";
 
     private static final String ACTION_SET_CUSTOM_INTEGER_RULE = "setCustomIntegerRule";
     private static final String ACTION_SET_CUSTOM_BOOLEAN_RULE = "setCustomBooleanRule";
@@ -71,6 +76,9 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_SET_INTERESTS = "setInterests";
 
     private boolean isInitialized = false;
+	private boolean bannerOverlap = false;
+	private ViewGroup parentView;
+	private BannerView bannerView;
     private UserSettings userSettings;
 
     @Override
@@ -105,11 +113,14 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(Appodeal.show(cordova.getActivity(), getAdType(adType))) {
-                       callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
-                    } else {
-                        callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
-                    }
+					int rAdType = getAdType(adType);
+					if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
+						showBanner(callback, adType, null);
+					}
+					else{
+						boolean res = Appodeal.show(cordova.getActivity(), getAdType(adType));
+						sendPluginResult(callback, res);
+					}
                 }
             });
             return true;
@@ -119,11 +130,14 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(Appodeal.show(cordova.getActivity(), getAdType(adType), placement)) {
-                        callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
-                    } else {
-                        callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
-                    }
+					int rAdType = getAdType(adType);
+					if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
+						showBanner(callback, adType, placement);
+					}
+					else{
+						boolean res = Appodeal.show(cordova.getActivity(), getAdType(adType), placement);
+						sendPluginResult(callback, res);
+					}
                 }
             });
             return true;
@@ -236,7 +250,16 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        } else if (action.equals(ACTION_SET_CUSTOM_INTEGER_RULE)) {
+        } else if(action.equals(ACTION_BANNERS_OVERLAP)) {
+			final boolean value = args.getBoolean(0);
+			cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    bannerOverlap = value;
+                }
+            });
+            return true;
+		} else if (action.equals(ACTION_SET_CUSTOM_INTEGER_RULE)) {
             final String name = args.getString(0);
             final int value = args.getInt(1);
             cordova.getActivity().runOnUiThread(new Runnable() {
@@ -817,4 +840,67 @@ public class AppodealPlugin extends CordovaPlugin {
         }
 
     };
+	
+	private void sendPluginResult(CallbackContext callback, boolean b){
+		if(b) {
+            callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
+        } else {
+            callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
+        }
+	}
+	
+	private View getWebView() {
+        try {
+            return (View) webView.getClass().getMethod("getView").invoke(webView);
+        } catch (Exception e) {
+            return (View) webView;
+        }
+    }
+	
+	private void showBanner(CallbackContext callback, int adType, String placement){
+		if (bannerView != null && bannerView.getParent() != null) {
+			((ViewGroup)bannerView.getParent()).removeView(bannerView);
+        }
+		if(bannerOverlap){
+			boolean res = false;
+			if(placement == null)
+				res = Appodeal.show(cordova.getActivity(), adType);
+			else
+				res = Appodeal.show(cordova.getActivity(), adType, placement);
+			sendPluginResult(callback, res);
+		}
+		else{
+			if(bannerView == null)
+				bannerView = Appodeal.getBannerView(cordova.getActivity());
+
+			ViewGroup wvParentView = (ViewGroup)getWebView().getParent();
+			if (parentView == null) {
+                parentView = new LinearLayout(webView.getContext());
+            }
+			if (wvParentView != null && wvParentView != parentView) {
+                wvParentView.removeView(getWebView());
+                ((LinearLayout) parentView).setOrientation(LinearLayout.VERTICAL);
+                 parentView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.0F));
+                getWebView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0F));
+                parentView.addView(getWebView());
+                cordova.getActivity().setContentView(parentView);
+            }
+			
+			if(adType == Appodeal.BANNER_TOP)
+				parentView.addView(bannerView, 0);
+			else
+				parentView.addView(bannerView);
+			
+			boolean res = false;
+			if(placement == null)
+				res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW);
+			else
+				res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW, placement);
+			
+			parentView.bringToFront();
+            parentView.requestLayout();
+			
+			sendPluginResult(callback, res);
+		}
+	}
 }
