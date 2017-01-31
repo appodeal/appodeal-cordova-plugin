@@ -602,7 +602,8 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) statusBarDidChangeFrame:(NSNotification *)note
 {
-    [self changeWebViewWithOverlappedBanner];
+    if (bannerOverlap)
+        [self changeWebViewWithOverlappedBanner];
 }
 
 - (void) setDelegateOnOverlap:(AppodealAdType) types {
