@@ -178,3 +178,7 @@ Appodeal.setAlcohol = function(alcohol) {
 Appodeal.setInterests = function(interests) {
     exec(null, null, "AppodealPlugin", "setInterests", [interests]);
 };
+
+Appodeal.setBannerOverLap= function(value) {
+    exec(null, null, "AppodealPlugin", "setBannerOverLap", [value]);
+};
