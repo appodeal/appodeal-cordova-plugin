@@ -1,0 +1,11 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:rim="http://www.blackberry.com/ns/widgets"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="com.appodeal.plugin-tests"
+	version="2.1.0-dev">
+		<name>Appodeal Plugin Tests</name>
+		<js-module src="tests.js" name="tests">
+		</js-module>
+		<dependency id="cordova-plugin-test-framework"/>
+		<dependency id="com.appodeal.plugin"/>
+</plugin>

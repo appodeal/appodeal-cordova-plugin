@@ -14,6 +14,18 @@ Simply go to the project folder over console/terminal and run there following co
 
 For Android You don't need to make something additional.
 
+## Testing
+In the Tests folder of this plugin you can find some tests. To run these tests you need:
+1. Use your existing cordova app, or create a new one.
+2. Add the following plugin:
+   ```
+   cordova plugin add http://git-wip-us.apache.org/repos/asf/cordova-plugin-test-framework.git
+   ```
+3. Change the start page in config.xml with `<content src="cdvtests/index.html" />` or navigate to cdvtests/index.html from within your app.
+4. Add appodeal cordova plugin.
+5. Add tests folder to your app as a plugin.
+6. Run your app.
+
 
 ##Changelog
 
