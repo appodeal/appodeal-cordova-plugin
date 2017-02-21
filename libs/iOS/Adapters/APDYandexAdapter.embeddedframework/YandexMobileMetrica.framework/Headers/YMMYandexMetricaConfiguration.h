@@ -27,14 +27,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable instancetype)initWithApiKey:(NSString *)apiKey;
 
-- (nullable instancetype)init __attribute__((unavailable("initWithApiKey: must be used instead.")));
+- (instancetype)init __attribute__((unavailable("initWithApiKey: must be used instead.")));
 
 /** Get Application key used to initialize the configuration.
  */
 @property (nonatomic, copy, readonly) NSString *apiKey;
 
-/**
- Enable/disable location reporting to AppMetrica.
+/** Whether first activation of AppMetrica should be considered as app update or new app install.
+ If this option is enabled the first call of +[YMMYandexMetrica activateWithApiKey:] or
+ +[YMMYandexMetrica activateWithConfiguration:] will be considered as an application update.
+
+ By default this option is disabled.
+ */
+@property (nonatomic, assign) BOOL handleFirstActivationAsUpdateEnabled;
+
+/** Enable/disable location reporting to AppMetrica.
  If enabled and location set via setLocation: method - that location would be used.
  If enabled and location is not set via setLocation,
  but application has appropriate permission - CLLocationManager would be used to acquire location data.

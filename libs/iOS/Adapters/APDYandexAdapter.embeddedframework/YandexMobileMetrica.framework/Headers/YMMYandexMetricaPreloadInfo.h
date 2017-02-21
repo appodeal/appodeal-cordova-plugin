@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YMMYandexMetricaPreloadInfo : NSObject <NSCopying>
 
-- (nullable instancetype)init NS_UNAVAILABLE;
+- (instancetype)init __attribute__((unavailable("initWithTrackingIdentifier: must be used instead.")));
 
 /** Initialize Preload info with specific publisher and tracking identifiers.
  If case of invalid identifiers constructor returns nil in release and raises an exception in debug

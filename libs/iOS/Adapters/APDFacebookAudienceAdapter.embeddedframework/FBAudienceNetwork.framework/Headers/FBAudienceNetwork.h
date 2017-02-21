@@ -36,4 +36,4 @@
 #import <FBAudienceNetwork/FBNativeAdView.h>
 #import <FBAudienceNetwork/FBNativeAdsManager.h>
 
-#define FB_AD_SDK_VERSION @"4.16.0"
+#define FB_AD_SDK_VERSION @"4.16.1"

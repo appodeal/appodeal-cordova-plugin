@@ -127,7 +127,7 @@
 /*!
  *  Start loading precache banner, after that automatically usual load start
  */
-- (void)loadAdWhithPrecache;
+- (void)loadAdWhithPrecache __attribute__((deprecated("Has been deprecated, precache start load after call -loadAd")));
 
 /*!
  *  Call this method when orientation change
