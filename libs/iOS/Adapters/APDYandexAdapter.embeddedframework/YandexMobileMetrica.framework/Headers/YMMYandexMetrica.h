@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  @param onFailure Block to be executed if an error occurres while reporting, the error is passed as block argument.
  */
 + (void)reportEvent:(NSString *)message
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
 /** Reporting custom event with additional parameters.
 
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (void)reportEvent:(NSString *)message
          parameters:(nullable NSDictionary *)params
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
 /** Reporting custom error messages.
 
@@ -69,10 +69,9 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (void)reportError:(NSString *)message
           exception:(nullable NSException *)exception
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
-/**
- Enable/disable location reporting to AppMetrica.
+/** Enable/disable location reporting to AppMetrica.
  If enabled and location set via setLocation: method - that location would be used.
  If enabled and location is not set via setLocation,
  but application has appropriate permission - CLLocationManager would be used to acquire location data.
@@ -136,11 +135,13 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (BOOL)enableTrackingWithURLScheme:(NSURL *)urlScheme NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
 
-/** Reads the URL that has opened the application to search for an AppMetrica deep link.
+/** Handles the URL that has opened the application.
+ Reports the URL for deep links tracking.
+ URL scheme should be registered beforehand via `enableTrackingWithUrlScheme:` method for tracking to work correctly.
 
- @param url URL that has opened the application. URL scheme should be registered beforehand via `enableTrackingWithUrlScheme` method.
+ @param url URL that has opened the application.
  */
-+ (BOOL)handleOpenURL:(NSURL *)url NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
++ (BOOL)handleOpenURL:(NSURL *)url;
 
 @end
 
