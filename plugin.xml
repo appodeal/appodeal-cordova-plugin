@@ -286,7 +286,6 @@
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileMetrica.framework"/>
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/libAPDYandexAdapter.a" framework="true"/>
-        <source-file src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/libYandexMobileAds.a" framework="true"/>
         
       </platform>
 </plugin>
