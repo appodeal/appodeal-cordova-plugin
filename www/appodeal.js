@@ -71,6 +71,10 @@ Appodeal.set728x90Banners = function(value) {
     exec(null, null, "AppodealPlugin", "set728x90Banners", [value]);
 };
 
+Appodeal.setBannerOverLap= function(value) {
+    exec(null, null, "AppodealPlugin", "setBannerOverLap", [value]);
+};
+
 Appodeal.setLogging = function(logging) {
     exec(null, null, "AppodealPlugin", "setLogging", [logging]);
 };
