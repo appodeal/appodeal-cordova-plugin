@@ -602,7 +602,7 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) statusBarDidChangeFrame:(NSNotification *)note
 {
-    if (bannerOverlap)
+    if (bannerOverlap && bannerIsShowing)
         [self changeWebViewWithOverlappedBanner];
 }
 
