@@ -40,5 +40,6 @@
 - (void) setSmoking:(CDVInvokedUrlCommand*)command;
 - (void) setAlcohol:(CDVInvokedUrlCommand*)command;
 - (void) setInterests:(CDVInvokedUrlCommand*)command;
+- (void) setBannerOverLap:(CDVInvokedUrlCommand*)command;
 
 @end
