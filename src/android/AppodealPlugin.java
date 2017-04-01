@@ -76,7 +76,7 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_SET_INTERESTS = "setInterests";
 
     private boolean isInitialized = false;
-	private boolean bannerOverlap = false;
+	private boolean bannerOverlap = true;
 	private ViewGroup parentView;
 	private BannerView bannerView;
     private UserSettings userSettings;
