@@ -24,7 +24,7 @@
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
         </config-file>
-        <framework src="com.google.android.gms:play-services-ads:9+" />
+        <framework src="com.google.android.gms:play-services-ads:9.0.2" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <meta-data android:name="com.appodeal.framework" android:value="phonegap" />
 			<receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
