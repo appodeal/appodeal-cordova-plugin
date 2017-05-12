@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "name": "com.appodeal.plugin",
+  "cordova_name": "Appodeal Cordova Plugin",
+  "platforms": [
+    "android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=5.0.0"
+    }
+  ],
+  "description": "Appodeal's supply-side platform is designed and built by veteran publishers, for publishers. Appodeal is not an ad network, it is a new approach to monetizing for publishers.",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/appodeal/appodeal-cordova-plugin.git"
+  },
+  "keywords": [
+    "appodeal",
+    "cordova",
+    "phonegap",
+    "npm",
+    "ads",
+	  "monetisation",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "dependencies": {
+    "command-exists": "^1.0.1",
+    "semver": "^5.3.0",
+    "xml2js": "^0.4.16"
+  },
+  "bundledDependencies": [
+    "command-exists",
+    "xml2js",
+    "sax",
+    "xmlbuilder",
+    "lodash"
+  ],
+  "author": "Appodeal",
+  "license": "APPODEAL, Inc",
+  "homepage": "appodeal.com"
+}
