@@ -107,24 +107,25 @@ Appodeal.disableWriteExternalStoragePermissionCheck = function() {
     exec(null, null, "AppodealPlugin", "disableWriteExternalStoragePermissionCheck", []);
 };
 
-Appodeal.enableInterstitialCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableInterstitialCallbacks", [listener]);
+Appodeal.setInterstitialCallbacks = function(callback) {
+  exec(callback, null, "AppodealPlugin", "setInterstitialCallbacks", [])
+}
+
+
+Appodeal.setSkippableVideoCallbacks = function(callback) {
+    exec(callback, null, "AppodealPlugin", "setSkippableVideoCallbacks", []);
 };
 
-Appodeal.enableSkippableVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableSkippableVideoCallbacks", [listener]);
+Appodeal.setNonSkippableVideoCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setNonSkippableVideoCallbacks", []);
 };
 
-Appodeal.enableNonSkippableVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableNonSkippableVideoCallbacks", [listener]);
+Appodeal.setBannerCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setBannerCallbacks", []);
 };
 
-Appodeal.enableBannerCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableBannerCallbacks", [listener]);
-};
-
-Appodeal.enableRewardedVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableRewardedVideoCallbacks", [listener]);
+Appodeal.setRewardedVideoCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setRewardedVideoCallbacks", []);
 };
 
 Appodeal.setCustomBooleanRule = function(name, rule) {

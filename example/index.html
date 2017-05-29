@@ -19,11 +19,6 @@
 
             Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.SKIPPABLE_VIDEO | Appodeal.BANNER | Appodeal.REWARDED_VIDEO);
 
-            Appodeal.enableInterstitialCallbacks(true);
-            Appodeal.enableSkippableVideoCallbacks(true);
-            Appodeal.enableBannerCallbacks(true);
-            Appodeal.enableRewardedVideoCallbacks(true);
-
             Appodeal.setCustomIntegerRule("rule_name", 1);
             Appodeal.setCustomDoubleRule("rule_name", 1.0);
             Appodeal.setCustomBooleanRule("rule_name", true);
@@ -82,66 +77,31 @@
         }
 
         function registerAdEvents() {
-            document.addEventListener('onInterstitialShown', function() {
-                console.log('Cordova onInterstitialShown');
-            });
-            document.addEventListener('onInterstitialLoaded', function() {
-                console.log('Cordova onInterstitialLoaded');
-            });
-            document.addEventListener('onInterstitialFailedToLoad', function() {
-                console.log('Cordova onInterstitialFailedToLoad');
-            });
-            document.addEventListener('onInterstitialClosed', function() {
-                console.log('Cordova onInterstitialClosed');
-            });
-            document.addEventListener('onInterstitialClicked', function() {
-                console.log('Cordova onInterstitialClicked');
-            });
-
-            document.addEventListener('onSkippableVideoClosed', function() {
-                console.log('Cordova onSkippableVideoClosed');
-            });
-            document.addEventListener('onSkippableVideoFailedToLoad', function() {
-                console.log('Cordova onSkippableVideoFailedToLoad');
-            });
-            document.addEventListener('onSkippableVideoFinished', function() {
-                console.log('Cordova onSkippableVideoFinished');
-            });
-            document.addEventListener('onSkippableVideoLoaded', function() {
-                console.log('Cordova onSkippableVideoLoaded');
-            });
-            document.addEventListener('onSkippableVideoShown', function() {
-                console.log('Cordova onSkippableVideoShown');
-            });
-
-            document.addEventListener('onRewardedVideoClosed', function() {
-                console.log('Cordova onRewardedVideoClosed');
-            });
-            document.addEventListener('onRewardedVideoFailedToLoad', function() {
-                console.log('Cordova onRewardedVideoFailedToLoad');
-            });
-            document.addEventListener('onRewardedVideoFinished', function(data) {
-                console.log('Cordova reward:' + data.amount + ' ' + data.name);
-            });
-            document.addEventListener('onRewardedVideoLoaded', function() {
-                console.log('Cordova onRewardedVideoLoaded');
-            });
-            document.addEventListener('onRewardedVideoShown', function() {
-                console.log('Cordova onRewardedVideoShown');
-            });
-
-            document.addEventListener('onBannerClicked', function() {
-                console.log('Cordova onBannerClicked');
-            });
-            document.addEventListener('onBannerFailedToLoad', function() {
-                console.log('Cordova onBannerFailedToLoad');
-            });
-            document.addEventListener('onBannerLoaded', function() {
-                console.log('Cordova onBannerLoaded');
-            });
-            document.addEventListener('onBannerShown', function() {
-                console.log('Cordova onBannerShown');
-            });
+            Appodeal.setInterstitialCallbacks(function(container){
+			if(container.event == 'onLoaded')
+				console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache	);
+			else
+				console.log("Appodeal. Interstitial. " + container.event);
+		  });
+		  Appodeal.setSkippableVideoCallbacks(function(container){
+			if(container.event == 'onClosed')
+				console.log("Appodeal. Skippable. " + container.event + ", finished: " + container.finished);
+			else
+				console.log("Appodeal. Skippable. " + container.event);
+		  });
+		  Appodeal.setBannerCallbacks(function(container){
+			if(container.event == 'onLoaded')
+				console.log("Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache);
+			console.log("Appodeal. Banner. " + container.event);
+		  });
+		  Appodeal.setRewardedVideoCallbacks(function(container){
+			if(container.event == 'onClosed')
+				console.log("Appodeal. Rewarded. " + container.event + ", finished: " + container.finished);
+			else if(container.event == 'onFinished')
+				console.log("Appodeal. Rewarded. " + container.event + ", amount: " + container.amount + ", name: " + container.name);
+			else
+				console.log("Appodeal. Rewarded. " + container.event);
+		  });
         }
     </script>
     <p style="font-size:25px;color:white;">Appodeal Cordova Demo</p>
