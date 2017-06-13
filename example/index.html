@@ -9,159 +9,103 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-        function initialize() {
-            var appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
-            
-            Appodeal.confirm(Appodeal.SKIPPABLE_VIDEO);
-            Appodeal.setLogging(true);
+    function initialize() {
+        var appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
+        //var appKey = "722fb56678445f72fe2ec58b2fa436688b920835405d3ca6";
 
-            setUserSettings();
-
-            Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.SKIPPABLE_VIDEO | Appodeal.BANNER | Appodeal.REWARDED_VIDEO);
-
-            Appodeal.enableInterstitialCallbacks(true);
-            Appodeal.enableSkippableVideoCallbacks(true);
-            Appodeal.enableBannerCallbacks(true);
-            Appodeal.enableRewardedVideoCallbacks(true);
-
-            Appodeal.setCustomIntegerRule("rule_name", 1);
-            Appodeal.setCustomDoubleRule("rule_name", 1.0);
-            Appodeal.setCustomBooleanRule("rule_name", true);
-            Appodeal.setCustomStringRule("rule_name", "rule_value");
-
-            registerAdEvents();
-        }
-
-        function setUserSettings() {
-            Appodeal.setUserId("your custom user id");
-            Appodeal.setEmail("mail@company.com");
-            Appodeal.setBirthday("dd/mm/yyyy");
-            Appodeal.setAge(25);
-            Appodeal.setGender("female");
-            Appodeal.setOccupation("work");
-            Appodeal.setRelation("dating");
-            Appodeal.setSmoking("negative");
-            Appodeal.setAlcohol("neutral");
-            Appodeal.setInterests("work, cinema, cars");
-        }
-
-        function showInterstitial() {
-            Appodeal.show(Appodeal.INTERSTITIAL, function(result) {
-                console.log(result);
-                if (result) {
-                    console.log("Appodeal Ads Shown");
-                } else {
-                    console.log("Appodeal Ads Not Shown");
-                }
-            });
-        }
-
-        function showSkippableVideo() {
-            Appodeal.isLoaded(Appodeal.SKIPPABLE_VIDEO, function(result) {
-                console.log(result);
-                if (result) {
-                    Appodeal.show(Appodeal.SKIPPABLE_VIDEO);
-                }
-            });
-        }
-
-        function showRewardedVideo() {
-            Appodeal.showWithPlacement(Appodeal.REWARDED_VIDEO, "rewarded_vide-Button_click");
-        }
-
-        function showBanner() {
-            Appodeal.show(Appodeal.BANNER_BOTTOM);
-        }
-
-        function showInterstitialOrVideo() {
-            Appodeal.show(Appodeal.INTERSTITIAL | Appodeal.VIDEO);
-        }
-
-        function hideBanner() {
-            Appodeal.hide(Appodeal.BANNER);
-        }
-
-        function registerAdEvents() {
-            document.addEventListener('onInterstitialShown', function() {
-                console.log('Cordova onInterstitialShown');
-            });
-            document.addEventListener('onInterstitialLoaded', function() {
-                console.log('Cordova onInterstitialLoaded');
-            });
-            document.addEventListener('onInterstitialFailedToLoad', function() {
-                console.log('Cordova onInterstitialFailedToLoad');
-            });
-            document.addEventListener('onInterstitialClosed', function() {
-                console.log('Cordova onInterstitialClosed');
-            });
-            document.addEventListener('onInterstitialClicked', function() {
-                console.log('Cordova onInterstitialClicked');
-            });
-
-            document.addEventListener('onSkippableVideoClosed', function() {
-                console.log('Cordova onSkippableVideoClosed');
-            });
-            document.addEventListener('onSkippableVideoFailedToLoad', function() {
-                console.log('Cordova onSkippableVideoFailedToLoad');
-            });
-            document.addEventListener('onSkippableVideoFinished', function() {
-                console.log('Cordova onSkippableVideoFinished');
-            });
-            document.addEventListener('onSkippableVideoLoaded', function() {
-                console.log('Cordova onSkippableVideoLoaded');
-            });
-            document.addEventListener('onSkippableVideoShown', function() {
-                console.log('Cordova onSkippableVideoShown');
-            });
-
-            document.addEventListener('onRewardedVideoClosed', function() {
-                console.log('Cordova onRewardedVideoClosed');
-            });
-            document.addEventListener('onRewardedVideoFailedToLoad', function() {
-                console.log('Cordova onRewardedVideoFailedToLoad');
-            });
-            document.addEventListener('onRewardedVideoFinished', function(data) {
-                console.log('Cordova reward:' + data.amount + ' ' + data.name);
-            });
-            document.addEventListener('onRewardedVideoLoaded', function() {
-                console.log('Cordova onRewardedVideoLoaded');
-            });
-            document.addEventListener('onRewardedVideoShown', function() {
-                console.log('Cordova onRewardedVideoShown');
-            });
-
-            document.addEventListener('onBannerClicked', function() {
-                console.log('Cordova onBannerClicked');
-            });
-            document.addEventListener('onBannerFailedToLoad', function() {
-                console.log('Cordova onBannerFailedToLoad');
-            });
-            document.addEventListener('onBannerLoaded', function() {
-                console.log('Cordova onBannerLoaded');
-            });
-            document.addEventListener('onBannerShown', function() {
-                console.log('Cordova onBannerShown');
-            });
-        }
+        Appodeal.setLogging(true);
+        
+        setUserSettings();
+        
+        Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.SKIPPABLE_VIDEO | Appodeal.BANNER | Appodeal.REWARDED_VIDEO);
+        
+        Appodeal.setCustomIntegerRule("rule_name", 1);
+        Appodeal.setCustomDoubleRule("rule_name", 1.0);
+        Appodeal.setCustomBooleanRule("rule_name", true);
+        Appodeal.setCustomStringRule("rule_name", "rule_value");
+        
+        registerAdEvents();
+    }
+    function setUserSettings() {
+        Appodeal.setAge(25);
+        Appodeal.setGender("female");
+    }
+    function showInterstitial() {
+        Appodeal.show(Appodeal.INTERSTITIAL, function(result) {
+            console.log(result);
+            if (result) {
+                console.log("Appodeal Ads Shown");
+            } else {
+                console.log("Appodeal Ads Not Shown");
+            }
+        });
+    }
+    function showSkippableVideo() {
+        Appodeal.isLoaded(Appodeal.SKIPPABLE_VIDEO, function(result) {
+            console.log(result);
+            if (result) {
+                Appodeal.show(Appodeal.SKIPPABLE_VIDEO);
+            }
+        });
+    }
+    function showRewardedVideo() {
+        Appodeal.showWithPlacement(Appodeal.REWARDED_VIDEO, "rewarded_video_button");
+    }
+    function showBanner() {
+        Appodeal.show(Appodeal.BANNER_BOTTOM);
+    }
+    function showInterstitialOrVideo() {
+        Appodeal.show(Appodeal.INTERSTITIAL | Appodeal.VIDEO);
+    }
+    function hideBanner() {
+        Appodeal.hide(Appodeal.BANNER);
+    }
+    function registerAdEvents() {
+        Appodeal.setInterstitialCallbacks(function(container){
+            if(container.event == 'onLoaded')
+                console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
+            else
+                console.log("Appodeal. Interstitial. " + container.event);
+        });
+        Appodeal.setSkippableVideoCallbacks(function(container){
+            if(container.event == 'onClosed')
+                console.log("Appodeal. Skippable. " + container.event + ", finished: " + container.finished);
+            else
+                console.log("Appodeal. Skippable. " + container.event);
+        });
+        Appodeal.setBannerCallbacks(function(container){
+            if(container.event == 'onLoaded')
+                console.log("Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache);
+            console.log("Appodeal. Banner. " + container.event);
+        });
+        Appodeal.setRewardedVideoCallbacks(function(container){
+            if(container.event == 'onClosed')
+                console.log("Appodeal. Rewarded. " + container.event + ", finished: " + container.finished);
+            else if(container.event == 'onFinished')
+                console.log("Appodeal. Rewarded. " + container.event + ", amount: " + container.amount + ", name: " + container.name);
+            else
+                console.log("Appodeal. Rewarded. " + container.event);
+        });
+    }
     </script>
     <p style="font-size:25px;color:white;">Appodeal Cordova Demo</p>
     <button id="initialize" onclick="initialize();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Initialize
-  </button>
+    </button>
     <button id="interstitial" onclick="showInterstitial();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Interstitial
-  </button>
+    </button>
     <button id="video" onclick="showSkippableVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-    Video
-  </button>
+        Video
+    </button>
     <button id="rewarded" onclick="showRewardedVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-    Rewarded Video
-  </button>
+        Rewarded Video
+    </button>
     <button id="interstitialVideo" onclick="showInterstitialOrVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-    Interstitial or Video
-  </button>
+        Interstitial or Video
+    </button>
     <button id="showBanner" onclick="showBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Show Banner
-  </button>
+    </button>
     <button id="hideBanner" onclick="hideBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Hide Banner
-  </button>
+    </button>
 </body>
 
 </html>

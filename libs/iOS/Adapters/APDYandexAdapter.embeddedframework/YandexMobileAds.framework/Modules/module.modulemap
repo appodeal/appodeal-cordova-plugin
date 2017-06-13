@@ -32,6 +32,8 @@ framework module YandexMobileAds {
   header "YMANativeContentAd.h"
   header "YMANativeContentAdView.h"
   header "YMANativeGenericAd.h"
+  header "YMANativeImageAd.h"
+  header "YMANativeImageAdView.h"
   header "YMANativeImageLoadingObserver.h"
   header "YMANativeTemplateAppearance.h"
   header "YMARating.h"

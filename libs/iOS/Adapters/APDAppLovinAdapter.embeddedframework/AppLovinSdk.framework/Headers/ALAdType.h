@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 /**
  *  This class represents the behavior of an ad.
@@ -33,7 +33,7 @@
  *
  *  @return ALAdType representing a standard advertisement.
  */
-+ (alnonnull ALAdType *) typeRegular;
++ (alnonnull ALAdType *)typeRegular;
 
 /**
  *  Represents a rewarded video.
@@ -42,13 +42,13 @@
  *
  *  @return ALAdType representing a rewarded video.
  */
-+ (alnonnull ALAdType *) typeIncentivized;
++ (alnonnull ALAdType *)typeIncentivized;
 
 /**
  *  Retrieve an <code>NSArray</code> of all available ad size singleton instances.
  *
  *  @return <code>[NSArray arrayWithObjects: [ALAdType typeRegular], [ALAdType typeIncentivized], nil];</code>
  */
-+ (alnonnull NSArray *) allTypes;
++ (alnonnull NSArray *)allTypes;
 
 @end

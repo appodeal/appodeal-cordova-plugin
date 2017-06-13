@@ -2,7 +2,9 @@
 //  APDNativeAdLoader.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -27,7 +29,7 @@
  *  @param loader    Ready loader
  *  @param nativeAds Array of native ads of requested type
  */
-- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAds:(NSArray <__kindof APDNativeAd *> *)nativeAds NS_UNAVAILABLE;
+- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAds:(NSArray <__kindof APDNativeAd *> *)nativeAds;
 
 /*!
  *  Method called when loaded recieve native ad.
@@ -35,7 +37,7 @@
  *  @param loader   Ready loader
  *  @param nativeAd Native ad to show
  */
-- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAd:(APDNativeAd *)nativeAd;
+- (void)nativeAdLoader:(APDNativeAdLoader *)loader didLoadNativeAd:(APDNativeAd *)nativeAd NS_UNAVAILABLE;
 
 /*!
  *  Method called if loader mediation failed
@@ -83,11 +85,12 @@
  *  returned in -nativeAdLoader: didLoadNativeAds: will contain
  *  only one instance of native ad
  *
- *  @brief This API will be available in future release
+ *
  *
  *  @param type     Native ad type
  *  @param capacity Interger value from 1 to 11
  */
-- (void)loadAdWithType:(APDNativeAdType)type capacity:(NSInteger)capacity NS_UNAVAILABLE;
+- (void)loadAdWithType:(APDNativeAdType)type capacity:(NSInteger)capacity;
+
 
 @end

@@ -1,9 +1,9 @@
 //
 //  VungleSDK.h
 //  Vungle iOS SDK
+//  SDK Version: 4.1.0
 //
-//  Created by Rolando Abarca on 11/19/13.
-//  Copyright (c) 2013 Vungle Inc. All rights reserved.
+//  Copyright (c) 2013-present Vungle Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,31 +11,32 @@
 
 @protocol VungleAssetLoader;
 
-extern NSString* VungleSDKVersion;
-extern NSString* VunglePlayAdOptionKeyIncentivized;
-extern NSString* VunglePlayAdOptionKeyIncentivizedAlertTitleText;
-extern NSString* VunglePlayAdOptionKeyIncentivizedAlertBodyText;
-extern NSString* VunglePlayAdOptionKeyIncentivizedAlertCloseButtonText;
-extern NSString* VunglePlayAdOptionKeyIncentivizedAlertContinueButtonText;
-extern NSString * VunglePlayAdOptionKeyShowClose __deprecated_msg("Set this option on the Vungle dashboard instead.");
-extern NSString* VunglePlayAdOptionKeyOrientations;
-extern NSString* VunglePlayAdOptionKeyUser;
-extern NSString* VunglePlayAdOptionKeyPlacement;
-extern NSString* VunglePlayAdOptionKeyExtraInfoDictionary;
-extern NSString* VunglePlayAdOptionKeyExtra1;
-extern NSString* VunglePlayAdOptionKeyExtra2;
-extern NSString* VunglePlayAdOptionKeyExtra3;
-extern NSString* VunglePlayAdOptionKeyExtra4;
-extern NSString* VunglePlayAdOptionKeyExtra5;
-extern NSString* VunglePlayAdOptionKeyExtra6;
-extern NSString* VunglePlayAdOptionKeyExtra7;
-extern NSString* VunglePlayAdOptionKeyExtra8;
-extern NSString* VunglePlayAdOptionKeyLargeButtons;
+extern NSString *VungleSDKVersion;
+extern NSString *VunglePlayAdOptionKeyIncentivized;
+extern NSString *VunglePlayAdOptionKeyIncentivizedAlertTitleText;
+extern NSString *VunglePlayAdOptionKeyIncentivizedAlertBodyText;
+extern NSString *VunglePlayAdOptionKeyIncentivizedAlertCloseButtonText;
+extern NSString *VunglePlayAdOptionKeyIncentivizedAlertContinueButtonText;
+extern NSString *VunglePlayAdOptionKeyOrientations;
+extern NSString *VunglePlayAdOptionKeyUser;
+extern NSString *VunglePlayAdOptionKeyPlacement;
+extern NSString *VunglePlayAdOptionKeyExtraInfoDictionary;
+extern NSString *VunglePlayAdOptionKeyExtra1;
+extern NSString *VunglePlayAdOptionKeyExtra2;
+extern NSString *VunglePlayAdOptionKeyExtra3;
+extern NSString *VunglePlayAdOptionKeyExtra4;
+extern NSString *VunglePlayAdOptionKeyExtra5;
+extern NSString *VunglePlayAdOptionKeyExtra6;
+extern NSString *VunglePlayAdOptionKeyExtra7;
+extern NSString *VunglePlayAdOptionKeyExtra8;
+extern NSString *VunglePlayAdOptionKeyLargeButtons;
 
 typedef enum {
-	VungleSDKErrorInvalidPlayAdOption = 1,
-	VungleSDKErrorInvalidPlayAdExtraKey,
-	VungleSDKErrorCannotPlayAd
+    VungleSDKErrorInvalidPlayAdOption = 1,
+    VungleSDKErrorInvalidPlayAdExtraKey,
+    VungleSDKErrorCannotPlayAd,
+    VungleSDKErrorNoAppID,
+    VungleSDKErrorTopMostViewControllerMismatch
 } VungleSDKErrorCode;
 
 @protocol VungleSDKLogger <NSObject>
@@ -53,27 +54,47 @@ typedef enum {
 - (void)vungleSDKwillShowAd;
 
 /**
- * if implemented, this will get called when the SDK closes the ad view, but there might be
- * a product sheet that will be presented. This point might be a good place to resume your game
- * if there's no product sheet being presented. The viewInfo dictionary will contain the
- * following keys:
+ * If implemented, this method gets called when a Vungle Ad Unit is completely dismissed.
+ * At this point, it's recommended to resume your Game or App.
+ *
+ * The `viewInfo` NSDictionary parameter will contain the following keys:
  * - "completedView": NSNumber representing a BOOL whether or not the video can be considered a
- *               full view.
+ *                    full view.
  * - "playTime": NSNumber representing the time in seconds that the user watched the video.
- * - "didDownlaod": NSNumber representing a BOOL whether or not the user clicked the download
+ * - "didDownload": NSNumber representing a BOOL whether or not the user clicked the download
  *                  button.
+ * - "videoLength": **Deprecated** This will no longer be returned
+ *
+ * NOTE: the `willPresentProductSheet` parameter is *always* `NO`. Because
+ * `vungleSDKWillCloseAdWithViewInfo:willPresentProductSheet:` is now called
+ * after Product Sheet dismissal, this method should no longer be necessary. It will be
+ * removed in a future version. Use `vungleSDKWillCloseAdWithViewInfo:` instead.
  */
-- (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary *)viewInfo willPresentProductSheet:(BOOL)willPresentProductSheet;
+- (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary *)viewInfo
+                 willPresentProductSheet:(BOOL)willPresentProductSheet __attribute__((deprecated("Use vungleSDKWillCloseAdWithViewInfo: instead.")));
 
 /**
- * if implemented, this will get called when the product sheet is about to be closed.
+ * If implemented, this will get called when the product sheet is about to be closed.
+ *
+ * @note Because `vungleSDKWillCloseAdWithViewInfo:willPresentProductSheet:` is now called
+ * after Product Sheet dismissal, this method should no longer be necessary. It will be
+ * removed in a future version.
  */
-- (void)vungleSDKwillCloseProductSheet:(id)productSheet;
+- (void)vungleSDKwillCloseProductSheet:(id)productSheet __attribute__((deprecated("Use vungleSDKWillCloseAdWithViewInfo: instead.")));
 
 /**
- * if implemented, this will get called when there is an ad cached and ready to be shown.
+ * If implemented, this method gets called when a Vungle Ad Unit is completely dismissed.
+ * At this point, it's recommended to resume your Game or App.
+ *
+ * The `viewInfo` NSDictionary parameter will contain the following keys:
+ * - "completedView": NSNumber representing a BOOL whether or not the video can be considered a
+ *                    full view.
+ * - "playTime": NSNumber representing the time in seconds that the user watched the video.
+ * - "didDownload": NSNumber representing a BOOL whether or not the user clicked the download
+ *                  button.
+ * - "videoLength": **Deprecated** This will no longer be returned
  */
-- (void)vungleSDKhasCachedAdAvailable __attribute__((deprecated));
+- (void)vungleSDKWillCloseAdWithViewInfo:(NSDictionary *)viewInfo;
 
 /**
  * if implemented, this will get called when the SDK has an ad ready to be displayed. Also it will
@@ -87,11 +108,10 @@ typedef enum {
 @end
 
 @interface VungleSDK : NSObject
-@property (strong) NSDictionary* userData;
+@property (strong) NSDictionary *userData;
 @property (strong) id<VungleSDKDelegate> delegate;
 @property (strong) id<VungleAssetLoader> assetLoader;
 @property (assign) BOOL muted;
-@property (readonly) NSMutableDictionary* globalOptions;
 
 /**
  * Returns the singleton instance.
@@ -110,38 +130,23 @@ typedef enum {
 - (void)startWithAppId:(NSString *)appId;
 
 /**
- * Will play an ad, presenting the view over the passed viewController as a modal.
- * @deprecated This method is deprecated starting in version 3.0.11
- * @note Please use instead:
- * @code playAd:error:
- */
-- (void)playAd:(UIViewController *)viewController __attribute__((deprecated));
-
-/**
- * Will play an ad, presenting the view over the passed viewController as a modal.
- * Pass options to decide what type of ad to show.
- * @deprecated This method is deprecated starting in version 3.0.11
- * @note Please use instead:
- * @code playAd:withOptions:error:
- */
-- (void)playAd:(UIViewController *)viewController withOptions:(id)options __attribute__((deprecated));
-
-/**
- * Will play an ad, presenting the view over the passed viewController as a modal.
- * Return an error if there is one.
+ * Will play Ad Unit presenting it over the `viewController` parameter
+ * @param viewController A subclass of UIViewController. Should correspond to the ViewControler at the top of the ViewController hierarchy
+ * @param error An optional reference to an NSError. In case this method returns `NO` it will be non-nil
+ * @return YES/NO in case of success/error while presenting an AdUnit
+ * @warning Should be called from the main-thread.
  */
 - (BOOL)playAd:(UIViewController *)viewController error:(NSError **)error;
 
 /**
- * Will play an ad, presenting the view over the passed viewController as a modal.
- * Pass options to decide what type of ad to show. Return an error if there is one.
+ * Will play Ad Unit presenting it over the `viewController` parameter and applying playback options.
+ * @param viewController A subclass of UIViewController. Should correspond to the ViewControler at the top of the ViewController hierarchy
+ * @param options A reference to an instance of NSDictionary with customized ad playback options
+ * @param error An optional reference to a nil NSError reference. In case this method returns `NO` it will be non-nil
+ * @return YES/NO in case of success/error while presenting an AdUnit
+ * @warning Should be called from the main-thread.
  */
 - (BOOL)playAd:(UIViewController *)viewController withOptions:(id)options error:(NSError **)error;
-
-/**
- * returns YES if there's a valid ad ready to play.
- */
-- (BOOL)isCachedAdAvailable __attribute__((deprecated));
 
 /**
  * returns `YES` when there is certainty that an add will be able to play. Returning `NO`, you can
@@ -162,7 +167,7 @@ typedef enum {
 /**
  * Log a new message. The message will be sent to all loggers.
  */
-- (void)log:(NSString *)message, ...NS_FORMAT_FUNCTION(1,2);
+- (void)log:(NSString *)message, ...NS_FORMAT_FUNCTION(1, 2);
 
 /**
  * Attach a new logger. It will get called on every log generated by Vungle (internally and externally).
@@ -175,9 +180,9 @@ typedef enum {
 - (void)detachLogger:(id<VungleSDKLogger>)logger;
 
 /**
- * this only works on the simulator
+ * This method is no-op and has been deprecated. Will be removed in a future version.
  */
-- (void)clearCache;
+- (void)clearCache __attribute__((deprecated));
 
 /**
  * this also only works on the simulator

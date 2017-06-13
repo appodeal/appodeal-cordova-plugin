@@ -6,10 +6,10 @@
 
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
-#import <AppLovinSdk/ALAdSize.h>
-#import <AppLovinSdk/ALAdType.h>
+#import "ALAdSize.h"
+#import "ALAdType.h"
 
 /**
  * This class represents an ad that has been served from the AppLovin server and

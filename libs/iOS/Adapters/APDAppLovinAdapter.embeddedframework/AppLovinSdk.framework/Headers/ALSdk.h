@@ -8,15 +8,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import <AppLovinSdk/ALSdkSettings.h>
-#import <AppLovinSdk/ALAdService.h>
-#import <AppLovinSdk/ALNativeAdService.h>
-#import <AppLovinSdk/ALTargetingData.h>
-#import <AppLovinSdk/ALPostbackService.h>
-#import <AppLovinSdk/ALEventService.h>
+#import "ALSdkSettings.h"
+#import "ALAdService.h"
+#import "ALNativeAdService.h"
+#import "ALTargetingData.h"
+#import "ALPostbackService.h"
+#import "ALEventService.h"
 
-#import <AppLovinSdk/ALAnnotations.h>
-#import <AppLovinSdk/ALErrorCodes.h>
+#import "ALAnnotations.h"
+#import "ALErrorCodes.h"
 
 /**
  * This is a base class for the AppLovin iOS SDK.
@@ -46,7 +46,7 @@
  *
  * @param version Some descriptive string which identifies the plugin.
  */
-- (void) setPluginVersion: (alnonnull NSString *) version;
+- (void)setPluginVersion:(alnonnull NSString *)version;
 
 /**
  * @name SDK Information
@@ -57,7 +57,7 @@
  *
  *  @return The current SDK version.
  */
-+ (alnonnull NSString *) version;
++ (alnonnull NSString *)version;
 
 /**
  * @name SDK Services
@@ -114,17 +114,15 @@
  * Initialize current version of the SDK.
  *
  */
-- (void) initializeSdk;
+- (void)initializeSdk;
 
 /**
  * Initialize the default instance of AppLovin SDK.
  *
  * Please make sure that application's
  * <code>Info.plist</code> includes a property 'AppLovinSdkKey' that is set to provided SDK key.
- *
- * @return An instance of AppLovinSDK
  */
-+ (void) initializeSdk;
++ (void)initializeSdk;
 
 /**
  * @name Getting SDK Instances
@@ -138,7 +136,7 @@
  *
  * @return An instance of AppLovinSDK
  */
-+ (alnullable ALSdk *) shared;
++ (alnullable ALSdk *)shared;
 
 /**
  * Get an instance of AppLovin SDK using default SDK settings.
@@ -147,7 +145,7 @@
  *
  * @return An instance of AppLovinSDK
  */
-+ (alnullable ALSdk *) sharedWithKey: (alnonnull NSString *) sdkKey;
++ (alnullable ALSdk *)sharedWithKey:(alnonnull NSString *)sdkKey;
 
 /**
  * Get an instance of AppLovin SDK.
@@ -157,7 +155,7 @@
  * 
  * @return An instance of AppLovinSDK
  */
-+ (alnullable ALSdk *) sharedWithKey: (alnonnull NSString *) sdkKey settings: (alnonnull ALSdkSettings *) settings;
++ (alnullable ALSdk *)sharedWithKey:(alnonnull NSString *)sdkKey settings:(alnonnull ALSdkSettings *)settings;
 
 - (alnullable id) init __attribute__((unavailable("Use [ALSdk shared] instead of alloc-init pattern.")));
 

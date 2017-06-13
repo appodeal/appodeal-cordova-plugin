@@ -49,7 +49,7 @@
 // Indicates that a reward validation requested timed out (usually due to poor connectivity).
 #define kALErrorCodeIncentivizedValidationNetworkTimeout -500
 
-// Indicates that the user exited out of the video early.
+// Indicates that the user exited out of the rewarded ad early
 // You may or may not wish to grant a reward depending on your preference.
 #define kALErrorCodeIncentivizedUserClosedVideo -600
 

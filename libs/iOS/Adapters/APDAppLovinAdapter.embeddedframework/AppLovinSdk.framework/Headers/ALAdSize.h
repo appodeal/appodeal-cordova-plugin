@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 /*
  * @author Basil Shikin, Matt Szaro
@@ -40,7 +40,7 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>BANNER</code>.
  */
-+ (alnonnull ALAdSize *) sizeBanner __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (alnonnull ALAdSize *)sizeBanner __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
 
 /**
  *  Retrieve a singleton instance of the <code>INTERSTITIAL</code> ad size object.
@@ -49,7 +49,7 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>INTERSTITIAL</code>.
  */
-+ (alnonnull ALAdSize *) sizeInterstitial;
++ (alnonnull ALAdSize *)sizeInterstitial;
 
 /**
  *  Retrieve a singleton instance of the <code>MREC</code> ad size object.
@@ -58,7 +58,7 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>MREC</code>.
  */
-+ (alnonnull ALAdSize *) sizeMRec __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (alnonnull ALAdSize *)sizeMRec __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
 
 /**
  *  Retrieve a singleton instance of the <code>LEADER</code> ad size object.
@@ -67,14 +67,14 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>LEADER</code>.
  */
-+ (alnonnull ALAdSize *) sizeLeader __deprecated_msg("Leaderboards are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (alnonnull ALAdSize *)sizeLeader __deprecated_msg("Leaderboards are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
 
 /**
  *  Retrieve an <code>NSArray</code> of all available ad size singleton instances.
  *
  *  @return [NSArray arrayWithObjects: [ALAdSize sizeBanner], [ALAdSize sizeInterstitial], ..., nil];
  */
-+ (alnonnull NSArray *) allSizes;
++ (alnonnull NSArray *)allSizes;
 
 // ----------------------------------------------------
 
@@ -83,7 +83,8 @@
 @property (assign, nonatomic) NSUInteger width __deprecated;
 @property (assign, nonatomic) NSUInteger height __deprecated;
 
-+ (alnonnull ALAdSize *) sizeWithLabel: (alnonnull NSString *) label orDefault: (alnonnull ALAdSize *) defaultSize __deprecated_msg("Custom ad sizes are no longer supported; use an existing singleton size like [ALAdSize sizeBanner]");
++ (alnonnull ALAdSize *)sizeWithLabel:(alnonnull NSString *)label orDefault:(alnonnull ALAdSize *)defaultSize __deprecated_msg("Custom ad sizes are no longer supported; use an existing singleton size like [ALAdSize sizeBanner]");
 
 - (alnullable id) init __attribute__((unavailable("Do not alloc-init your own instances; use an existing singleton size like [ALAdSize sizeBanner]")));
+
 @end

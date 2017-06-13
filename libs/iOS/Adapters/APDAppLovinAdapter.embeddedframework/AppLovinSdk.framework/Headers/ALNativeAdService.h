@@ -2,14 +2,14 @@
 //  ALNativeAdService.h
 //  sdk
 //
-//  Created by Matt Szaro on 5/21/15.
+//  Created by Thomas So on 5/21/15.
 //
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
-#import <AppLovinSdk/ALNativeAdLoadDelegate.h>
-#import <AppLovinSdk/ALNativeAdPrecacheDelegate.h>
+#import "ALAnnotations.h"
+#import "ALNativeAdLoadDelegate.h"
+#import "ALNativeAdPrecacheDelegate.h"
 
 @class ALSdk;
 @class ALNativeAd;
@@ -21,7 +21,7 @@
  *
  *  @param  delegate    The native ad load delegate to notify upon completion.
  */
-- (void) loadNativeAdGroupOfCount: (NSUInteger) numberOfAdsToLoad andNotify: (alnullable id <ALNativeAdLoadDelegate>) delegate;
+- (void)loadNativeAdGroupOfCount:(NSUInteger)numberOfAdsToLoad andNotify:(alnullable id <ALNativeAdLoadDelegate>)delegate;
 
 /**
  *  Pre-cache image and video resources of a native ad.
@@ -30,7 +30,7 @@
  *  @param  delegate    The delegate to be notified upon completion.
  */
 
-- (void) precacheResourcesForNativeAd: (alnonnull ALNativeAd *) ad andNotify: (alnullable id <ALNativeAdPrecacheDelegate>) delegate;
+- (void)precacheResourcesForNativeAd:(alnonnull ALNativeAd *)ad andNotify:(alnullable id <ALNativeAdPrecacheDelegate>)delegate;
 
 - (alnullable id) init __attribute__((unavailable("Don't instantiate ALNativeAdService, access one via [sdk nativeAdService] instead.")));
 

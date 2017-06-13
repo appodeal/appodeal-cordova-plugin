@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
-#import <AppLovinSdk/ALNativeAd.h>
+#import "ALAnnotations.h"
+#import "ALNativeAd.h"
 
 @class ALNativeAdService;
 
@@ -21,7 +21,7 @@
  *  @param ad           Ad in which resources finished precaching.
  */
 
-- (void) nativeAdService: (alnonnull ALNativeAdService *) service didPrecacheImagesForAd: (alnonnull ALNativeAd *) ad;
+- (void)nativeAdService:(alnonnull ALNativeAdService *)service didPrecacheImagesForAd:(alnonnull ALNativeAd *)ad;
 
 /**
  *  This method is invoked when the video of a native ad finishes precaching.
@@ -32,7 +32,7 @@
  *  @param ad           Ad in which video resource finished precaching.
  */
 
-- (void) nativeAdService: (alnonnull ALNativeAdService *) service didPrecacheVideoForAd: (alnonnull ALNativeAd *) ad;
+- (void)nativeAdService:(alnonnull ALNativeAdService *)service didPrecacheVideoForAd:(alnonnull ALNativeAd *)ad;
 
 /**
  *  This method is invoked when precaching image resources fails.
@@ -42,7 +42,7 @@
  *  @param errorCode    An error code corresponding with a constant defined in <code>ALErrorCodes.h</code>.
  */
 
-- (void) nativeAdService: (alnonnull ALNativeAdService *) service didFailToPrecacheImagesForAd: (alnonnull ALNativeAd *) ad withError: (NSInteger) errorCode;
+- (void)nativeAdService:(alnonnull ALNativeAdService *)service didFailToPrecacheImagesForAd:(alnonnull ALNativeAd *)ad withError:(NSInteger)errorCode;
 
 /**
  *  This method is invoked when precaching a video fails.
@@ -54,6 +54,6 @@
  *  @param errorCode    An error code corresponding with a constant defined in <code>ALErrorCodes.h</code>.
  */
 
-- (void) nativeAdService: (alnonnull ALNativeAdService *) service didFailToPrecacheVideoForAd: (alnonnull ALNativeAd *) ad withError: (NSInteger) errorCode;
+- (void)nativeAdService:(alnonnull ALNativeAdService *)service didFailToPrecacheVideoForAd:(alnonnull ALNativeAd *)ad withError:(NSInteger)errorCode;
 
 @end

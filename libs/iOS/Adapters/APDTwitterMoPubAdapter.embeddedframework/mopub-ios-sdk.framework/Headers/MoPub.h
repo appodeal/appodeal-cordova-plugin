@@ -59,8 +59,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <EventKit/EventKit.h>
-#import <EventKitUI/EventKitUI.h>
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MessageUI.h>

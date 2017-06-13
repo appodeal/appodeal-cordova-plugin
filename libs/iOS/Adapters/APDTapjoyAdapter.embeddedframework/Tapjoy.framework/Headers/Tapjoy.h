@@ -92,6 +92,8 @@ typedef void (^networkCompletion)(BOOL success, NSError *error);
  * TJC_OPTION_USER_ID : NSString user id that must be set if your currency is not managed by Tapjoy. If you don’t have a user id on launch you can call setUserID later
  *
  * TJC_OPTION_DISABLE_GENERIC_ERROR_ALERT : BOOL to disable our default error dialogs
+ * 
+ * TJC_OPTION_MEDIATION_TIMEOUT: int used to set custom timeout interval for mediated requests (seconds)
  *
  * @return n/a
  */
@@ -155,6 +157,13 @@ typedef void (^networkCompletion)(BOOL success, NSError *error);
  * @return n/a
  */
 + (void)setDeviceToken:(NSData *)deviceToken;
+
+/**
+ * Sets the default UIViewController to show a content of the placement having no specific view controller given.
+ *
+ * @warning This is **experimental** and only applicable to contents of "Push to Earn" or the default placements so far.
+ */
++ (void)setDefaultViewController:(UIViewController*)viewController;
 
 /**
  * This method is called to set the level of the user.

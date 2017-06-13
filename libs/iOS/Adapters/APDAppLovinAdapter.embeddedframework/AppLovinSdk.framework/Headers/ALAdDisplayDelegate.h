@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIView.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
-#import <AppLovinSdk/ALAd.h>
+#import "ALAd.h"
 
 /**
  * This protocol defines a listener for ad display events. 
@@ -27,7 +27,7 @@
  * @param ad     Ad that was just displayed. Will not be nil.
  * @param view   Ad view in which the ad was displayed. Will not be nil.
  */
-- (void) ad: (alnonnull ALAd *) ad wasDisplayedIn: (alnonnull UIView *) view;
+- (void)ad:(alnonnull ALAd *)ad wasDisplayedIn:(alnonnull UIView *)view;
 
 /**
  * This method is invoked when the ad is hidden from in the view.
@@ -38,7 +38,7 @@
  * @param ad     Ad that was just hidden. Will not be nil.
  * @param view   Ad view in which the ad was hidden. Will not be nil.
  */
-- (void) ad: (alnonnull ALAd *) ad wasHiddenIn: (alnonnull UIView *) view;
+- (void)ad:(alnonnull ALAd *)ad wasHiddenIn:(alnonnull UIView *)view;
 
 /**
  * This method is invoked when the ad is clicked from in the view.
@@ -48,6 +48,6 @@
  * @param ad     Ad that was just clicked. Will not be nil.
  * @param view   Ad view in which the ad was hidden. Will not be nil.
  */
-- (void) ad: (alnonnull ALAd *) ad wasClickedIn: (alnonnull UIView *) view;
+- (void)ad:(alnonnull ALAd *)ad wasClickedIn:(alnonnull UIView *)view;
 
 @end

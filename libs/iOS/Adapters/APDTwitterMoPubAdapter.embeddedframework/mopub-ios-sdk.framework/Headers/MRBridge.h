@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MRConstants.h"
+#import "MPWebView.h"
 
 @class MRProperty;
 @protocol MRBridgeDelegate;
@@ -23,7 +24,7 @@
 @property (nonatomic, assign) BOOL shouldHandleRequests;
 @property (nonatomic, weak) id<MRBridgeDelegate> delegate;
 
-- (instancetype)initWithWebView:(UIWebView *)webView;
+- (instancetype)initWithWebView:(MPWebView *)webView;
 
 - (void)loadHTMLString:(NSString *)HTML baseURL:(NSURL *)baseURL;
 
@@ -63,8 +64,8 @@
 - (void)nativeCommandWillPresentModalView;
 - (void)nativeCommandDidDismissModalView;
 
-- (void)bridge:(MRBridge *)bridge didFinishLoadingWebView:(UIWebView *)webView;
-- (void)bridge:(MRBridge *)bridge didFailLoadingWebView:(UIWebView *)webView error:(NSError *)error;
+- (void)bridge:(MRBridge *)bridge didFinishLoadingWebView:(MPWebView *)webView;
+- (void)bridge:(MRBridge *)bridge didFailLoadingWebView:(MPWebView *)webView error:(NSError *)error;
 
 - (void)handleNativeCommandCloseWithBridge:(MRBridge *)bridge;
 - (void)bridge:(MRBridge *)bridge performActionForMoPubSpecificURL:(NSURL *)url;

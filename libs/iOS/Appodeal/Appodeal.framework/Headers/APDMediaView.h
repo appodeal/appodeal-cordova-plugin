@@ -2,7 +2,9 @@
 //  APDMediaView.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -101,7 +103,7 @@ typedef NS_ENUM(NSInteger, APDMediaViewType) {
  *  Current media view type. Default set to APDMediaViewTypeMainImage.
  *  @warning Set type before calling - setNativeAd:rootViewController:
  */
-@property (nonatomic, assign) APDMediaViewType type;
+@property (nonatomic, assign) APDMediaViewType type __attribute__((deprecated("Media View has APDMediaViewTypeMainImage type only!")));
 
 /*!
  *  If set to YES, after 5 seconds after video start playing skipp button appear.
@@ -109,7 +111,7 @@ typedef NS_ENUM(NSInteger, APDMediaViewType) {
  * -mediaViewFinishPlaying:videoWasSkipped: return wasSkipped = YES.
  * By default set to YES.
  */
-@property (nonatomic, assign) BOOL skippable;
+@property (nonatomic, assign) BOOL skippable __attribute__((deprecated("All native videos can be skipped by user")));
 
 
 /*!
@@ -117,14 +119,14 @@ typedef NS_ENUM(NSInteger, APDMediaViewType) {
  *  Call this for example in - mediaViewStartPlaying:
  *  Default set to NO
  */
-@property (nonatomic, assign) BOOL muted;
+@property (nonatomic, assign) BOOL muted __attribute__((deprecated("Contolled by user")));
 
 /*!
  *  Video sound contorol
  *  Call this for example in - mediaViewStartPlaying:
  *  Default set to YES
  */
-@property (nonatomic, assign) BOOL useDefaultMuteButton;
+@property (nonatomic, assign) BOOL useDefaultMuteButton __attribute__((deprecated("Always YES")));
 
 /*!
  *  Set native ad to media view. If native ad contains video it start cache video and present this when become visible and video be ready

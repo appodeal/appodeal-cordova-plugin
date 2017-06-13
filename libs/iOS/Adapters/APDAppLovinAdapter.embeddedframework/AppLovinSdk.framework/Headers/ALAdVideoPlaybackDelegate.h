@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
-#import <AppLovinSdk/ALAd.h>
+#import "ALAd.h"
 
 /**
  * This protocol defines a listener for ad video playback events.
@@ -26,7 +26,7 @@
  *
  * @param ad Ad in which video playback began.
  */
-- (void) videoPlaybackBeganInAd: (alnonnull ALAd *) ad;
+- (void)videoPlaybackBeganInAd:(alnonnull ALAd *)ad;
 
 /**
  * This method is invoked when a video stops playing in an ad.
@@ -37,6 +37,6 @@
  * @param percentPlayed     How much of the video was watched, as a percent.
  * @param wasFullyWatched   Whether or not the video was watched to, or very near to, completion.
  */
-- (void) videoPlaybackEndedInAd: (alnonnull ALAd *) ad atPlaybackPercent: (alnonnull NSNumber *) percentPlayed fullyWatched: (BOOL) wasFullyWatched;
+- (void)videoPlaybackEndedInAd:(alnonnull ALAd *)ad atPlaybackPercent:(alnonnull NSNumber *)percentPlayed fullyWatched:(BOOL)wasFullyWatched;
 
 @end

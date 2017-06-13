@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import <AppLovinSdk/ALSdk.h>
-#import <AppLovinSdk/ALAdService.h>
+#import "ALSdk.h"
+#import "ALAdService.h"
 
 /**
  * This protocol describes a UIView which is capable of loading and showing ads. ALAdView is its sole public concrete implementation.
@@ -73,7 +73,7 @@
  * advertisement will be rendered by this view asynchonously when available.
  * @deprecated Banners and MRecs are deprecated and will be removed in a future SDK version.
  */
-- (void) loadNextAd __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
+- (void)loadNextAd __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
 
 /**
  * Check if the next ad is currently ready to display.
@@ -87,7 +87,7 @@
  *
  * @param ad Ad to render. Must not be nil.
  */
-- (void) render: (alnullable ALAd *) ad;
+- (void)render:(alnullable ALAd *)ad;
 
 /**
  * Render a specific ad that was loaded via ALAdService.
@@ -95,7 +95,7 @@
  * @param ad          Ad to render. Must not be nil.
  * @param placement   Name of the placement over which the ad is rendered. May be null
  */
-- (void) render: (alnullable ALAd *) ad overPlacement: (alnullable NSString *)placement;
+- (void)render:(alnullable ALAd *)ad overPlacement:(alnullable NSString *)placement;
 
 /**
  * @name Initialization
@@ -109,7 +109,7 @@
  *
  *  @return A new instance of ALAdView.
  */
-- (alnonnull instancetype) initWithSize: (alnonnull ALAdSize *) aSize __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
+- (alnonnull instancetype)initWithSize:(alnonnull ALAdSize *)aSize __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
 
 /**
  *  Initialize the ad view with a given size.
@@ -120,7 +120,7 @@
  *
  *  @return A new instance of ALAdView.
  */
-- (alnonnull instancetype) initWithSdk: (alnonnull ALSdk *) anSdk size: (alnonnull ALAdSize *) aSize __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
+- (alnonnull instancetype)initWithSdk:(alnonnull ALSdk *)anSdk size:(alnonnull ALAdSize *)aSize __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
 
 /**
  * Initialize ad view with a given frame, ad size, and ALSdk instance.
@@ -132,7 +132,7 @@
  *
  * @return A new instance of ALAdView.
  */
-- (alnonnull id) initWithFrame: (CGRect) aFrame size: (alnonnull ALAdSize *) aSize sdk: (alnonnull ALSdk *) anSdk __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
+- (alnonnull id) initWithFrame:(CGRect) aFrame size:(alnonnull ALAdSize *)aSize sdk:(alnonnull ALSdk *)anSdk __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.");
 
 - (alnullable id) init __attribute__((unavailable("Use initWithSize:")));
 @end
@@ -143,4 +143,5 @@
  * It should be used for all ad related tasks.
  */
 @interface ALAdView : UIView <ALAdViewProtocol>
+
 @end

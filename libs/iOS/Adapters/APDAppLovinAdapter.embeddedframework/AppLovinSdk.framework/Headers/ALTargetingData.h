@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 /**
  *  This class is used to set more specific targeting data.
@@ -64,7 +64,7 @@
  * Set the location of current user. The location represented as
  * longiture and latitude.
  */
-- (void) setLocationWithLatitude: (double) latitude longitude: (double) longitude __deprecated;
+- (void)setLocationWithLatitude:(double) latitude longitude:(double) longitude __deprecated;
 
 /**
  * Put an extra targeting parameter
@@ -72,7 +72,7 @@
  * @param key Key of the parameter. Must not be nil.
  * @param value Parameter value.
  */
-- (void) setExtraValue: (alnullable NSString *) value forKey: (alnullable NSString *) key __deprecated;
+- (void)setExtraValue:(alnullable NSString *)value forKey:(alnullable NSString *)key __deprecated;
 
 /**
  * @name Clearing/Resetting User Data
@@ -81,6 +81,6 @@
 /**
  * Clear all saved targeting data
  */
-- (void) clearAll;
+- (void)clearAll;
 
 @end

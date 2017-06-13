@@ -2,7 +2,9 @@
 //  APDSkippableVideo.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -111,13 +113,13 @@
 /*!
  *  Start skippable video loading
  */
-- (void)loadAd;
+- (void)loadAd __attribute__((deprecated("As of version 1.4.0 skippable video contains in interstitial ad")));
 
 /*!
  *  Show ready skippable video from view controller
  *
  *  @param viewController Current presented view controller
  */
-- (void)presentFromViewController:(UIViewController *)viewController;
+- (void)presentFromViewController:(UIViewController *)viewController __attribute__((deprecated("As of version 1.4.0 skippable video contains in interstitial ad")));
 
 @end

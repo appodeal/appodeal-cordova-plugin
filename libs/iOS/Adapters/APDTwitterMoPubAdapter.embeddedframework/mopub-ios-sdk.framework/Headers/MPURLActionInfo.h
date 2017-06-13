@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, MPURLActionType) {
     MPURLActionTypeGenericDeeplink,
     MPURLActionTypeEnhancedDeeplink,
     MPURLActionTypeOpenInSafari,
+    MPURLActionTypeOpenURLInWebView,
     MPURLActionTypeOpenInWebView,
     MPURLActionTypeShare
 };
@@ -38,6 +39,7 @@ typedef NS_ENUM(NSUInteger, MPURLActionType) {
 + (instancetype)infoWithURL:(NSURL *)URL iTunesItemIdentifier:(NSString *)identifier iTunesStoreFallbackURL:(NSURL *)URL;
 + (instancetype)infoWithURL:(NSURL *)URL safariDestinationURL:(NSURL *)safariDestinationURL;
 + (instancetype)infoWithURL:(NSURL *)URL HTTPResponseString:(NSString *)responseString webViewBaseURL:(NSURL *)baseURL;
++ (instancetype)infoWithURL:(NSURL *)URL webViewBaseURL:(NSURL *)baseURL;
 + (instancetype)infoWithURL:(NSURL *)URL deeplinkURL:(NSURL *)deeplinkURL;
 + (instancetype)infoWithURL:(NSURL *)URL enhancedDeeplinkRequest:(MPEnhancedDeeplinkRequest *)request;
 + (instancetype)infoWithURL:(NSURL *)URL shareURL:(NSURL *)shareURL;

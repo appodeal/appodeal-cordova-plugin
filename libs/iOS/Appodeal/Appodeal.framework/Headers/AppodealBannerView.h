@@ -2,7 +2,9 @@
 //  AppodealBannerView.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -41,12 +43,19 @@
  */
 - (void)bannerViewDidInteract:(APDBannerView *)bannerView;
 
+/*!
+ *  Method called after any banner was show
+ *
+ *  @param bannerView On screen banner view
+ */
+- (void)bannerViewDidShow:(APDBannerView *)bannerView;
+
 /**
  *  Method called after banner view reload content automatically
  *
  *  @param bannerView Nonnul banner view
  */
-- (void)bannerViewDidRefresh:(APDBannerView *)bannerView;
+- (void)bannerViewDidRefresh:(APDBannerView *)bannerView __attribute__((deprecated("Use -bannerViewDidShow: instead")));
 
 @end
 

@@ -6,7 +6,7 @@
 //
 //
 
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 #ifndef ALEventTypes_h
 #define ALEventTypes_h

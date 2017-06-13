@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 @interface ALNativeAd : NSObject
 
@@ -83,7 +83,7 @@
  * @param percentViewed The percentage of the video (0 - 100) that was viewed by the user.
  * @param firstPlay Whether or not this postback represents initial playback of the video. The first time you begin playback, you should pass true. If the video is paused for any reason and then later resumed mid-playback, you should fire this postback a second time, passing false to firstPlay.
  */
-- (alnullable NSURL *) videoEndTrackingURL: (NSUInteger) percentViewed firstPlay: (BOOL) firstPlay;
+- (alnullable NSURL *)videoEndTrackingURL:(NSUInteger)percentViewed firstPlay:(BOOL)firstPlay;
 
 /**
  *  Represents the precaching states of the slot's images.
@@ -103,6 +103,6 @@
  * You should call this method anytime the user taps anywhere on your native ad.
  * Calling this method launches Safari or the App Store and will result in your app being paused.
  */
-- (void) launchClickTarget;
+- (void)launchClickTarget;
 
 @end

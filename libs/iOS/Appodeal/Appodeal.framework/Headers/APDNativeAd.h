@@ -2,17 +2,41 @@
 //  APDNativeAd.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <Appodeal/APDImage.h>
 #import <UIKit/UIKit.h>
 
+@class APDNativeAd;
+
+
+typedef NS_ENUM(NSUInteger, APDNativeComplainPosition) {
+    APDComplainNone = 0,
+    APDComplainTop,
+    APDComplainCenter,
+    APDComplainBottom
+};
+
+@protocol APDNativeAdPresentationDelegate <NSObject>
+
+@optional
+
+- (void)nativeAdWillLogImpression:(APDNativeAd *)nativeAd;
+
+- (void)nativeAdWillLogUserInteraction:(APDNativeAd *)nativeAd;
+
+@end
+
 /*!
  *  Instance of this class contain ad data
  */
 @interface APDNativeAd : NSObject
+
+@property (nonatomic, weak) id <APDNativeAdPresentationDelegate> delegate;
 
 /*!
  *  Ad title, required field to display. Length less than or equal to about 120 characters
@@ -64,7 +88,6 @@
  */
 @property (nonatomic, readonly, getter=isContainsVideo) BOOL containsVideo;
 
-
 /*!
  *  Call this method before displying native ad! 
  *  Need to track impressions/tap actions!
@@ -80,5 +103,7 @@
  *  Disable native ad tracking mechanism for current native ad view
  */
 - (void)detachFromView;
+
+- (void)complainButtonPositon:(APDNativeComplainPosition)position;
 
 @end

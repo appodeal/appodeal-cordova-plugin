@@ -2,7 +2,9 @@
 //  APDDefines.h
 //  Appodeal
 //
-//  Copyright © 2015 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -94,7 +96,11 @@ typedef NS_ENUM(NSInteger, APDError) {
     /*!
      *  Error while unarchiving cached data
      */
-    APDUnarchiveError
+    APDUnarchiveError,
+    /*!
+     *  Insufficiently device's current memory
+     */
+    APDLowMemoryError
 };
 
 
@@ -165,31 +171,31 @@ typedef NS_ENUM(NSUInteger, APDLogLevel) {
  *  several ad types, by usage binary operand |
  *  For example: APDAdTypeInterstitialAd | APDAdTypeSkippableVideo
  */
-typedef NS_OPTIONS(NSUInteger, APDAdType) {
+typedef NS_OPTIONS(NSUInteger, APDType) {
     /*!
      *  Interstital ad
      */
-    APDAdTypeInterstitialAd = 1 << 0,
+    APDTypeInterstitialAd = 1 << 0,
     /*!
-     *  Skippavle video ad
+     *  Skippable video ad
      */
-    APDAdTypeSkippableVideo = 1 << 1,
+    APDTypeSkippableVideo __attribute__((deprecated("Use APDAdTypeInterstitialAd instead"))) = 1 << 1,
     /*!
      *  Banner ad
      */
-    APDAdTypeBanner         = 1 << 2,
+    APDTypeBanner         = 1 << 2,
     /*!
      *  Native ad
      */
-    APDAdTypeNativeAd       = 1 << 3,
+    APDTypeNativeAd       = 1 << 3,
     /*!
      *  Rewarded ad
      */
-    APDAdTypeRewardedVideo  = 1 << 4,
+    APDTypeRewardedVideo  = 1 << 4,
     /*!
      *  Rectangle banner (banner of size 300x250)
      */
-    APDAdTypeMREC           = 1 << 5
+    APDTypeMREC           = 1 << 5
 };
 
 /*!
@@ -336,7 +342,8 @@ typedef NS_ENUM(NSUInteger, APDFramework) {
     APDFrameworkReactNative,
     APDFrameworkCorona,
     APDFrameworkStencyl,
-    APDFrameworkSDKBox
+    APDFrameworkSDKBox,
+    APDFrameworkDefold
 };
 
 

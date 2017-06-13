@@ -9,17 +9,20 @@ import org.json.JSONException;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.Gravity;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerCallbacks;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.RewardedVideoCallbacks;
-import com.appodeal.ads.SkippableVideoCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 import com.appodeal.ads.UserSettings;
 import com.appodeal.ads.BannerView;
+
+import org.json.JSONObject;
 
 public class AppodealPlugin extends CordovaPlugin {
 
@@ -29,19 +32,21 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_SHOW = "show";
     private static final String ACTION_SHOW_WITH_PLACEMENT = "showWithPlacement";
     private static final String ACTION_HIDE = "hide";
-    private static final String ACTION_CONFIRM = "confirm";
-
+   
     private static final String ACTION_IS_LOADED = "isLoaded";
     private static final String ACTION_IS_PRECACHE = "isPrecache";
+    private static final String ACTION_CAN_SHOW = "canShow";
 
     private static final String ACTION_SET_AUTO_CACHE = "setAutoCache";
     private static final String ACTION_CACHE = "cache";
-    private static final String ACTION_SET_ON_LOADED_TRIGGER_BOTH = "setOnLoadedTriggerBoth";
+    private static final String ACTION_SET_ON_LOADED_TRIGGER_BOTH = "setTriggerOnLoadedOnPrecache";
     private static final String ACTION_SMART_BANNERS = "setSmartBanners";
     private static final String ACTION_BANNER_BACKGROUND = "setBannerBackground";
     private static final String ACTION_BANNER_ANIMATION = "setBannerAnimation";
     private static final String ACTION_768X90_BANNERS = "set728x90Banners";
-	private static final String ACTION_BANNERS_OVERLAP = "setBannerOverLap";
+    private static final String ACTION_BANNERS_OVERLAP = "setBannerOverLap";
+    private static final String ACTION_MUTE_VIDEOS_IF_CALLS_MUTED = "muteVideosIfCallsMuted";
+    private static final String ACTION_START_TEST_ACTIVITY = "startTestActivity";
 
     private static final String ACTION_SET_CUSTOM_INTEGER_RULE = "setCustomIntegerRule";
     private static final String ACTION_SET_CUSTOM_BOOLEAN_RULE = "setCustomBooleanRule";
@@ -58,28 +63,32 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_DISABLE_LOCATION_PERMISSION_CHECK = "disableLocationPermissionCheck";
     private static final String ACTION_DISABLE_WRITE_EXTERNAL_STORAGE_CHECK = "disableWriteExternalStoragePermissionCheck";
 
-    private static final String ACTION_ENABLE_INTERSTITIAL_CALLBACKS = "enableInterstitialCallbacks";
-    private static final String ACTION_ENABLE_SKIPPABLE_VIDEO_CALLBACKS = "enableSkippableVideoCallbacks";
-    private static final String ACTION_ENABLE_NON_SKIPPABLE_VIDEO_CALLBACKS = "enableNonSkippableVideoCallbacks";
-    private static final String ACTION_ENABLE_REWARDED_CALLBACKS = "enableRewardedVideoCallbacks";
-    private static final String ACTION_ENABLE_BANNER_CALLBACKS = "enableBannerCallbacks";
+    private static final String ACTION_SET_INTERSTITIAL_CALLBACKS = "setInterstitialCallbacks";
+    private static final String ACTION_SET_NON_SKIPPABLE_VIDEO_CALLBACKS = "setNonSkippableVideoCallbacks";
+    private static final String ACTION_SET_REWARDED_CALLBACKS = "setRewardedVideoCallbacks";
+    private static final String ACTION_SET_BANNER_CALLBACKS = "setBannerCallbacks";
 
-    private static final String ACTION_SET_USER_ID = "setUserId";
-    private static final String ACTION_SET_EMAIL = "setEmail";
-    private static final String ACTION_SET_BIRTHDAY = "setBirthday";
     private static final String ACTION_SET_AGE = "setAge";
     private static final String ACTION_SET_GENDER = "setGender";
-    private static final String ACTION_SET_OCCUPATION = "setOccupation";
-    private static final String ACTION_SET_RELATION = "setRelation";
-    private static final String ACTION_SET_SMOKING = "setSmoking";
-    private static final String ACTION_SET_ALKOHOL = "setAlcohol";
-    private static final String ACTION_SET_INTERESTS = "setInterests";
 
     private boolean isInitialized = false;
-	private boolean bannerOverlap = true;
-	private ViewGroup parentView;
-	private BannerView bannerView;
+    private boolean bannerOverlap = true;
+    private ViewGroup parentView;
+    private BannerView bannerView;
     private UserSettings userSettings;
+
+    private static final String CALLBACK_INIT = "onInit";
+    private static final String CALLBACK_LOADED = "onLoaded";
+    private static final String CALLBACK_FAILED = "onFailedToLoad";
+    private static final String CALLBACK_CLICKED = "onClick";
+    private static final String CALLBACK_SHOWN = "onShown";
+    private static final String CALLBACK_CLOSED = "onClosed";
+    private static final String CALLBACK_FINISHED = "onFinished";
+    private CallbackContext interstitialCallbacks;
+    private CallbackContext bannerCallbacks;
+    private CallbackContext skippableCallbacks;
+    private CallbackContext nonSkippableCallbacks;
+    private CallbackContext rewardedCallbacks;
 
     @Override
     public boolean execute(String action, JSONArray args,
@@ -113,14 +122,15 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-					int rAdType = getAdType(adType);
-					if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
-						showBanner(callback, adType, null);
-					}
-					else{
-						boolean res = Appodeal.show(cordova.getActivity(), getAdType(adType));
-						sendPluginResult(callback, res);
-					}
+                    int rAdType = getAdType(adType);
+                    boolean res =  false;
+                    if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
+                        res = showBanner(adType, null);
+                    }
+                    else{
+                        res = Appodeal.show(cordova.getActivity(), getAdType(adType));
+                    }
+                    callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, res));
                 }
             });
             return true;
@@ -130,14 +140,15 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-					int rAdType = getAdType(adType);
-					if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
-						showBanner(callback, adType, placement);
-					}
-					else{
-						boolean res = Appodeal.show(cordova.getActivity(), getAdType(adType), placement);
-						sendPluginResult(callback, res);
-					}
+                    int rAdType = getAdType(adType);
+                    boolean res =  false;
+                    if(rAdType == Appodeal.BANNER || rAdType == Appodeal.BANNER_BOTTOM || rAdType == Appodeal.BANNER_TOP){
+                        res = showBanner(adType, placement);
+                    }
+                    else{
+                        res = Appodeal.show(cordova.getActivity(), getAdType(adType), placement);
+                    }
+                    callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, res));
                 }
             });
             return true;
@@ -150,21 +161,26 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        } else if (action.equals(ACTION_CONFIRM)) {
-            final int adType = args.getInt(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Appodeal.confirm(getAdType(adType));
-                }
-            });
-            return true;
         } else if (action.equals(ACTION_IS_LOADED)) {
             final int adType = args.getInt(0);
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     if(Appodeal.isLoaded(getAdType(adType))) {
+                       callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
+                    } else {
+                       callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
+                    }
+                }
+            });
+            return true;
+        } else if (action.equals(ACTION_CAN_SHOW)) {
+            final int adType = args.getInt(0);
+            final String placement = args.getString(1);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(Appodeal.canShow(getAdType(adType), placement)) {
                        callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
                     } else {
                        callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
@@ -210,7 +226,24 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Appodeal.setOnLoadedTriggerBoth(getAdType(adType), setOnTriggerBoth);
+                    Appodeal.setTriggerOnLoadedOnPrecache(getAdType(adType), setOnTriggerBoth);
+                }
+            });
+            return true;
+        } else if (action.equals(ACTION_START_TEST_ACTIVITY)) {
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Appodeal.startTestActivity(cordova.getActivity());
+                }
+            });
+            return true;
+        } else if (action.equals(ACTION_MUTE_VIDEOS_IF_CALLS_MUTED)) {
+            final boolean value = args.getBoolean(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Appodeal.muteVideosIfCallsMuted(value);
                 }
             });
             return true;
@@ -251,15 +284,15 @@ public class AppodealPlugin extends CordovaPlugin {
             });
             return true;
         } else if(action.equals(ACTION_BANNERS_OVERLAP)) {
-			final boolean value = args.getBoolean(0);
-			cordova.getActivity().runOnUiThread(new Runnable() {
+            final boolean value = args.getBoolean(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     bannerOverlap = value;
                 }
             });
             return true;
-		} else if (action.equals(ACTION_SET_CUSTOM_INTEGER_RULE)) {
+        } else if (action.equals(ACTION_SET_CUSTOM_INTEGER_RULE)) {
             final String name = args.getString(0);
             final int value = args.getInt(1);
             cordova.getActivity().runOnUiThread(new Runnable() {
@@ -360,85 +393,67 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        } else if (action.equals(ACTION_ENABLE_INTERSTITIAL_CALLBACKS)) {
-            final boolean setInterstitialCallbacks = args.getBoolean(0);
+        } else if (action.equals(ACTION_SET_INTERSTITIAL_CALLBACKS)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(setInterstitialCallbacks) {
-                        Appodeal.setInterstitialCallbacks(interstitialListener);
-                    }
+                    try{
+                      interstitialCallbacks = callback;
+                      Appodeal.setInterstitialCallbacks(interstitialListener);
+                      JSONObject vals = new JSONObject();
+                      vals.put("event", CALLBACK_INIT);
+                      PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                      result.setKeepCallback(true);
+                      callback.sendPluginResult(result);
+                    } catch(JSONException e){}
                 }
             });
             return true;
-        } else if (action.equals(ACTION_ENABLE_NON_SKIPPABLE_VIDEO_CALLBACKS)) {
-            final boolean setNonSkippableVideoCallbacks = args.getBoolean(0);
+        } else if (action.equals(ACTION_SET_NON_SKIPPABLE_VIDEO_CALLBACKS)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(setNonSkippableVideoCallbacks) {
-                        Appodeal.setNonSkippableVideoCallbacks(nonSkippableVideoListener);
-                    }
+                  try{
+                    nonSkippableCallbacks = callback;
+                    Appodeal.setNonSkippableVideoCallbacks(nonSkippableVideoListener);
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_INIT);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    callback.sendPluginResult(result);
+                  } catch(JSONException e){}
                 }
             });
             return true;
-        } else if (action.equals(ACTION_ENABLE_SKIPPABLE_VIDEO_CALLBACKS)) {
-            final boolean setSkippableVideoCallbacks = args.getBoolean(0);
+        } else if (action.equals(ACTION_SET_REWARDED_CALLBACKS)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(setSkippableVideoCallbacks) {
-                        Appodeal.setSkippableVideoCallbacks(skippableVideoListener);
-                    }
+                  try{
+                    rewardedCallbacks = callback;
+                    Appodeal.setRewardedVideoCallbacks(rewardedVideoListener);
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_INIT);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    callback.sendPluginResult(result);
+                  } catch(JSONException e){}
                 }
             });
             return true;
-        } else if (action.equals(ACTION_ENABLE_REWARDED_CALLBACKS)) {
-            final boolean setRewardedVideoCallbacks = args.getBoolean(0);
+        } else if (action.equals(ACTION_SET_BANNER_CALLBACKS)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(setRewardedVideoCallbacks) {
-                        Appodeal.setRewardedVideoCallbacks(rewardedVideoListener);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_ENABLE_BANNER_CALLBACKS)) {
-            final boolean setBannerCallbacks = args.getBoolean(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(setBannerCallbacks) {
-                        Appodeal.setBannerCallbacks(bannerListener);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_USER_ID)) {
-            final String id = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getUserSettings().setUserId(id);
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_EMAIL)) {
-            final String email = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getUserSettings().setEmail(email);
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_BIRTHDAY)) {
-            final String birthday = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getUserSettings().setBirthday(birthday);
+                  try{
+                    bannerCallbacks = callback;
+                    Appodeal.setBannerCallbacks(bannerListener);
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_INIT);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    callback.sendPluginResult(result);
+                  } catch(JSONException e){}
                 }
             });
             return true;
@@ -466,83 +481,6 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        } else if (action.equals(ACTION_SET_OCCUPATION)) {
-            final String occupation = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(occupation.equals("other".toLowerCase())) {
-                        getUserSettings().setOccupation(UserSettings.Occupation.OTHER);
-                    } else if(occupation.equals("work".toLowerCase())) {
-                        getUserSettings().setOccupation(UserSettings.Occupation.WORK);
-                    } else if(occupation.equals("school".toLowerCase())) {
-                        getUserSettings().setOccupation(UserSettings.Occupation.SCHOOL);
-                    } else if(occupation.equals("university".toLowerCase())) {
-                        getUserSettings().setOccupation(UserSettings.Occupation.UNIVERSITY);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_RELATION)) {
-            final String relation = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(relation.equals("other".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.OTHER);
-                    } else if(relation.equals("single".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.SINGLE);
-                    } else if(relation.equals("dating".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.DATING);
-                    } else if(relation.equals("engaged".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.ENGAGED);
-                    } else if(relation.equals("married".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.MARRIED);
-                    } else if(relation.equals("searching".toLowerCase())) {
-                        getUserSettings().setRelation(UserSettings.Relation.SEARCHING);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_SMOKING)) {
-            final String smoking = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(smoking.equals("negative".toLowerCase())) {
-                        getUserSettings().setSmoking(UserSettings.Smoking.NEGATIVE);
-                    } else if(smoking.equals("neutral".toLowerCase())) {
-                        getUserSettings().setSmoking(UserSettings.Smoking.NEUTRAL);
-                    } else if(smoking.equals("positive".toLowerCase())) {
-                        getUserSettings().setSmoking(UserSettings.Smoking.POSITIVE);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_ALKOHOL)) {
-            final String alcohol = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(alcohol.equals("negative".toLowerCase())) {
-                        getUserSettings().setAlcohol(UserSettings.Alcohol.NEGATIVE);
-                    } else if(alcohol.equals("neutral".toLowerCase())) {
-                        getUserSettings().setAlcohol(UserSettings.Alcohol.NEUTRAL);
-                    } else if(alcohol.equals("positive".toLowerCase())) {
-                        getUserSettings().setAlcohol(UserSettings.Alcohol.POSITIVE);
-                    }
-                }
-            });
-            return true;
-        } else if (action.equals(ACTION_SET_INTERESTS)) {
-            final String interests = args.getString(0);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getUserSettings().setInterests(interests);
-                }
-            });
-            return true;
         }
         return false;
     }
@@ -556,11 +494,8 @@ public class AppodealPlugin extends CordovaPlugin {
 
     private int getAdType(int adtype) {
         int type = 0;
-        if((adtype & 1) > 0) {
+        if((adtype & 3) > 0) {
             type |= Appodeal.INTERSTITIAL;
-        }
-        if((adtype & 2) > 0) {
-            type |= Appodeal.SKIPPABLE_VIDEO;
         }
         if((adtype & 4) > 0) {
             type |= Appodeal.BANNER;
@@ -579,164 +514,172 @@ public class AppodealPlugin extends CordovaPlugin {
         }
         return type;
     }
-    
+
     private InterstitialCallbacks interstitialListener = new InterstitialCallbacks() {
 
         @Override
         public void onInterstitialShown() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onInterstitialShown');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_SHOWN);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    interstitialCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
-        public void onInterstitialLoaded(boolean arg0) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onInterstitialLoaded');");
-                }
-            });
+        public void onInterstitialLoaded(final boolean arg0) {
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_LOADED);
+                    vals.put("isPrecache", arg0);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    interstitialCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onInterstitialFailedToLoad() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onInterstitialFailedToLoad');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FAILED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    interstitialCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onInterstitialClosed() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onInterstitialClosed');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_CLOSED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    interstitialCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onInterstitialClicked() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onInterstitialClicked');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_CLICKED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    interstitialCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
-    };
-
-    private SkippableVideoCallbacks skippableVideoListener = new SkippableVideoCallbacks() {
-
-        @Override
-        public void onSkippableVideoClosed(boolean finished) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onSkippableVideoClosed');");
-                }
-            });
-        }
-
-        @Override
-        public void onSkippableVideoFailedToLoad() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onSkippableVideoFailedToLoad');");
-                }
-            });
-        }
-
-        @Override
-        public void onSkippableVideoFinished() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onSkippableVideoFinished');");
-                }
-            });
-        }
-
-        @Override
-        public void onSkippableVideoLoaded() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onSkippableVideoLoaded');");
-                }
-            });
-        }
-
-        @Override
-        public void onSkippableVideoShown() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onSkippableVideoShown');");
-                }
-            });
-        }
-
     };
 
     private NonSkippableVideoCallbacks nonSkippableVideoListener = new NonSkippableVideoCallbacks() {
 
         @Override
-        public void onNonSkippableVideoClosed(boolean finished) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onNonSkippableVideoClosed');");
-                }
-            });
+        public void onNonSkippableVideoClosed(final boolean finished) {
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_CLOSED);
+                    vals.put("finished", finished);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    nonSkippableCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onNonSkippableVideoFailedToLoad() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onNonSkippableVideoFailedToLoad');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FAILED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    nonSkippableCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onNonSkippableVideoFinished() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onNonSkippableVideoFinished');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FINISHED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    nonSkippableCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onNonSkippableVideoLoaded() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onNonSkippableVideoLoaded');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_LOADED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    nonSkippableCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onNonSkippableVideoShown() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onNonSkippableVideoShown');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_SHOWN);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    nonSkippableCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
     };
@@ -744,55 +687,86 @@ public class AppodealPlugin extends CordovaPlugin {
     private RewardedVideoCallbacks rewardedVideoListener = new RewardedVideoCallbacks() {
 
         @Override
-        public void onRewardedVideoClosed(boolean finished) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onRewardedVideoClosed');");
-                }
-            });
+        public void onRewardedVideoClosed(final boolean finished) {
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_CLOSED);
+                    vals.put("finished", finished);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    rewardedCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onRewardedVideoFailedToLoad() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onRewardedVideoFailedToLoad');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FAILED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    rewardedCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onRewardedVideoFinished(final int amount, final String name) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl(String.format(
-                            "javascript:cordova.fireDocumentEvent('onRewardedVideoFinished', { 'amount': %d, 'name':'%s' });",
-                            amount, name));
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FINISHED);
+                    vals.put("amount", amount);
+                    vals.put("name", name);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    rewardedCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onRewardedVideoLoaded() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onRewardedVideoLoaded');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_LOADED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    rewardedCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onRewardedVideoShown() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onRewardedVideoShown');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_SHOWN);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    rewardedCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
     };
@@ -801,106 +775,119 @@ public class AppodealPlugin extends CordovaPlugin {
 
         @Override
         public void onBannerClicked() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onBannerClicked');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_CLICKED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    bannerCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onBannerFailedToLoad() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onBannerFailedToLoad');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_FAILED);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    bannerCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
-        public void onBannerLoaded(int height, boolean isPrecache) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onBannerLoaded');");
-                }
-            });
+        public void onBannerLoaded(final int height, final boolean isPrecache) {
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_LOADED);
+                    vals.put("height", height);
+                    vals.put("isPrecache", isPrecache);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    bannerCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
         @Override
         public void onBannerShown() {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl ("javascript:cordova.fireDocumentEvent('onBannerShown');");
-                }
-            });
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  try{
+                    JSONObject vals = new JSONObject();
+                    vals.put("event", CALLBACK_SHOWN);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, vals);
+                    result.setKeepCallback(true);
+                    bannerCallbacks.sendPluginResult(result);
+                  } catch(JSONException e){}
+              }
+          });
         }
 
     };
-	
-	private void sendPluginResult(CallbackContext callback, boolean b){
-		if(b) {
-            callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
-        } else {
-            callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, false));
-        }
-	}
-	
-	private View getWebView() {
-        try {
-            return (View) webView.getClass().getMethod("getView").invoke(webView);
-        } catch (Exception e) {
-            return (View) webView;
-        }
+    
+    private ViewGroup getViewGroup(int child){
+        ViewGroup vg = (ViewGroup)this.cordova.getActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        if(child != -1) vg = (ViewGroup)vg.getChildAt(child); //child == 0 is view from setContentView
+        return vg; 
     }
-	
-	private void showBanner(CallbackContext callback, int adType, String placement){
-		if (bannerView != null && bannerView.getParent() != null) {
-			((ViewGroup)bannerView.getParent()).removeView(bannerView);
+    
+    private boolean showBanner(int adType, String placement){
+        if (bannerView != null && bannerView.getParent() != null) {
+            ((ViewGroup)bannerView.getParent()).removeView(bannerView);
         }
-		if(bannerOverlap){
-			boolean res = false;
-			if(placement == null)
-				res = Appodeal.show(cordova.getActivity(), adType);
-			else
-				res = Appodeal.show(cordova.getActivity(), adType, placement);
-			sendPluginResult(callback, res);
-		}
-		else{
-			if(bannerView == null)
-				bannerView = Appodeal.getBannerView(cordova.getActivity());
-
-			ViewGroup wvParentView = (ViewGroup)getWebView().getParent();
-			if (parentView == null) {
-                parentView = new LinearLayout(webView.getContext());
+        if (bannerView == null) bannerView = Appodeal.getBannerView(cordova.getActivity());
+        
+        if (bannerOverlap){
+            ViewGroup rootView = getViewGroup(-1);
+            if(rootView == null) return false;
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            if(adType == Appodeal.BANNER_TOP) params.gravity = Gravity.TOP  | Gravity.CENTER_HORIZONTAL;
+            else params.gravity = Gravity.BOTTOM  | Gravity.CENTER_HORIZONTAL;
+            rootView.addView(bannerView, params);
+            rootView.requestLayout();
+        } else {
+            ViewGroup rootView = getViewGroup(0);
+            if(rootView == null) return false;
+            if (parentView == null) {
+                parentView = new LinearLayout(cordova.getActivity());
             }
-			if (wvParentView != null && wvParentView != parentView) {
-                wvParentView.removeView(getWebView());
+            if (rootView != parentView) {
+                ((ViewGroup)rootView.getParent()).removeView(rootView);
                 ((LinearLayout) parentView).setOrientation(LinearLayout.VERTICAL);
                  parentView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.0F));
-                getWebView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0F));
-                parentView.addView(getWebView());
+                rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0F));
+                parentView.addView(rootView);
                 cordova.getActivity().setContentView(parentView);
             }
-			
-			if(adType == Appodeal.BANNER_TOP)
-				parentView.addView(bannerView, 0);
-			else
-				parentView.addView(bannerView);
-			
-			boolean res = false;
-			if(placement == null)
-				res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW);
-			else
-				res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW, placement);
-			
-			parentView.bringToFront();
+            
+            if(adType == Appodeal.BANNER_TOP)
+                parentView.addView(bannerView, 0);
+            else
+                parentView.addView(bannerView);
+            
+            parentView.bringToFront();
             parentView.requestLayout();
-			
-			sendPluginResult(callback, res);
-		}
-	}
+        }
+        boolean res = false;
+        if(placement == null) res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW);
+        else res = Appodeal.show(cordova.getActivity(), Appodeal.BANNER_VIEW, placement);
+        
+        return res;
+    }
 }

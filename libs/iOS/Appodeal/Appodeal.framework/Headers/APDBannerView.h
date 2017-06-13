@@ -2,7 +2,9 @@
 //  APDBannerView.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -29,14 +31,22 @@
  *  After refresh will be show usual banner if loaded
  *  @param precacheBannerView Ready precache
  */
-- (void)precacheBannerViewDidLoadAd:(APDBannerView *)precacheBannerView;
+- (void)precacheBannerViewDidLoadAd:(APDBannerView *)precacheBannerView __attribute__((deprecated("Use -bannerViewDidLoadAd: instead")));
+
+/*!
+ *  Method called after any banner was show
+ *
+ *  @param bannerView On screen banner view
+ */
+- (void)bannerViewDidShow:(APDBannerView *)bannerView;
+
 
 /*!
  *  Method called after any banner refresh
  *
  *  @param bannerView On screen banner view
  */
-- (void)bannerViewDidRefresh:(APDBannerView *)bannerView;
+- (void)bannerViewDidRefresh:(APDBannerView *)bannerView __attribute__((deprecated("Use -bannerViewDidShow: instead")));
 
 /*!
  *  Method called if banner view if banner mediation failed
@@ -123,11 +133,6 @@
  *  Start loading
  */
 - (void)loadAd;
-
-/*!
- *  Start loading precache banner, after that automatically usual load start
- */
-- (void)loadAdWhithPrecache __attribute__((deprecated("Has been deprecated, precache start load after call -loadAd")));
 
 /*!
  *  Call this method when orientation change

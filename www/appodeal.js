@@ -3,8 +3,7 @@ var Appodeal = exports;
 var exec = require('cordova/exec');
 var cordova = require('cordova');
 
-Appodeal.INTERSTITIAL = 1;
-Appodeal.SKIPPABLE_VIDEO = 2;
+Appodeal.INTERSTITIAL = 3;
 Appodeal.BANNER = 4;
 Appodeal.BANNER_BOTTOM = 8;
 Appodeal.BANNER_TOP = 16;
@@ -27,12 +26,12 @@ Appodeal.showWithPlacement = function(adType, placement, callback) {
     exec(callback, null, "AppodealPlugin", "showWithPlacement", [adType, placement]);
 };
 
-Appodeal.hide = function(adType) {
-    exec(null, null, "AppodealPlugin", "hide", [adType]);
+Appodeal.canShow = function(adType, placement, callback) {
+    exec(callback, null, "AppodealPlugin", "canShow", [adType, placement]);
 };
 
-Appodeal.confirm = function(adType) {
-    exec(null, null, "AppodealPlugin", "confirm", [adType]);
+Appodeal.hide = function(adType) {
+    exec(null, null, "AppodealPlugin", "hide", [adType]);
 };
 
 Appodeal.isLoaded = function(adType, callback) {
@@ -51,7 +50,7 @@ Appodeal.cache = function(adType) {
     exec(null, null, "AppodealPlugin", "cache", [adType]);
 };
 
-Appodeal.setOnLoadedTriggerBoth = function(set) {
+Appodeal.setTriggerOnLoadedOnPrecache = function(set) {
     exec(null, null, "AppodealPlugin", "setOnLoadedTriggerBoth", [set]);
 };
 
@@ -83,8 +82,12 @@ Appodeal.setTesting = function(testing) {
     exec(null, null, "AppodealPlugin", "setTesting", [testing]);
 };
 
-Appodeal.resetUUID = function() {
-    exec(null, null, "AppodealPlugin", "resetUUID", []);
+Appodeal.startTestActivity = function() {
+    exec(null, null, "AppodealPlugin", "startTestActivity", []);
+};
+
+Appodeal.muteVideosIfCallsMuted = function(mute) {
+    exec(null, null, "AppodealPlugin", "muteVideosIfCallsMuted", [mute]);
 };
 
 Appodeal.getVersion = function(callback) {
@@ -107,24 +110,20 @@ Appodeal.disableWriteExternalStoragePermissionCheck = function() {
     exec(null, null, "AppodealPlugin", "disableWriteExternalStoragePermissionCheck", []);
 };
 
-Appodeal.enableInterstitialCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableInterstitialCallbacks", [listener]);
+Appodeal.setInterstitialCallbacks = function(callback) {
+    exec(callback, null, "AppodealPlugin", "setInterstitialCallbacks", [])
 };
 
-Appodeal.enableSkippableVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableSkippableVideoCallbacks", [listener]);
+Appodeal.setNonSkippableVideoCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setNonSkippableVideoCallbacks", []);
 };
 
-Appodeal.enableNonSkippableVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableNonSkippableVideoCallbacks", [listener]);
+Appodeal.setRewardedVideoCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setRewardedVideoCallbacks", []);
 };
 
-Appodeal.enableBannerCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableBannerCallbacks", [listener]);
-};
-
-Appodeal.enableRewardedVideoCallbacks = function(listener) {
-    exec(null, null, "AppodealPlugin", "enableRewardedVideoCallbacks", [listener]);
+Appodeal.setBannerCallbacks = function(callbacks) {
+    exec(callbacks, null, "AppodealPlugin", "setBannerCallbacks", []);
 };
 
 Appodeal.setCustomBooleanRule = function(name, rule) {
@@ -143,46 +142,10 @@ Appodeal.setCustomStringRule = function(name, rule) {
     exec(null, null, "AppodealPlugin", "setCustomStringRule", [name, rule]);
 };
 
-Appodeal.setUserId = function(id) {
-    exec(null, null, "AppodealPlugin", "setUserId", [id]);
-};
-
-Appodeal.setEmail = function(email) {
-    exec(null, null, "AppodealPlugin", "setEmail", [email]);
-};
-
-Appodeal.setBirthday = function(birthday) {
-    exec(null, null, "AppodealPlugin", "setBirthday", [birthday]);
-};
-
 Appodeal.setAge = function(age) {
     exec(null, null, "AppodealPlugin", "setAge", [age]);
 };
 
 Appodeal.setGender = function(gender) {
     exec(null, null, "AppodealPlugin", "setGender", [gender]);
-};
-
-Appodeal.setOccupation = function(occupation) {
-    exec(null, null, "AppodealPlugin", "setOccupation", [occupation]);
-};
-
-Appodeal.setRelation = function(relation) {
-    exec(null, null, "AppodealPlugin", "setRelation", [relation]);
-};
-
-Appodeal.setSmoking = function(smoking) {
-    exec(null, null, "AppodealPlugin", "setSmoking", [smoking]);
-};
-
-Appodeal.setAlcohol = function(alcohol) {
-    exec(null, null, "AppodealPlugin", "setAlcohol", [alcohol]);
-};
-
-Appodeal.setInterests = function(interests) {
-    exec(null, null, "AppodealPlugin", "setInterests", [interests]);
-};
-
-Appodeal.setBannerOverLap= function(value) {
-    exec(null, null, "AppodealPlugin", "setBannerOverLap", [value]);
 };

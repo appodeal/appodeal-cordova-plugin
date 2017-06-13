@@ -2,7 +2,9 @@
 //  APDSdk.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -86,6 +88,13 @@
 - (void)setFramework:(APDFramework)framework;
 
 /*!
+ *  @brief Call this method to specify framework before initialization
+ *  
+ *  @param pluginVersion - NSString version plugin
+ */
+- (void)setPluginVersion:(NSString *)pluginVersion;
+
+/*!
  *  @brief Initializtion of sdk for types
  *
  *  @brief Objective-C
@@ -98,7 +107,7 @@
  *
  *  @param adTypes APDAdTypeInterstitialAd, APDAdTypeSkippableVideo, APDAdTypeBanner, APDAdTypeNativeAd, APDAdTypeRewardedVideo, APDAdTypeMREC
  */
-- (void)initializeForAdTypes:(APDAdType)adTypes;
+- (void)initializeForAdTypes:(APDType)adTypes;
 
 /*!
  *  @brief Check that sdk is initialized for ad type
@@ -113,7 +122,7 @@
  *
  *  @return YES if sdk initialized for this type, or NO if not
  */
-- (BOOL)isInitializedForAdType:(APDAdType)adType;
+- (BOOL)isInitializedForAdType:(APDType)adType;
 
 /*!
  *  @brief If you set YES to this method you get only
@@ -207,6 +216,18 @@
  *  @brief Reset UUID for tracking/targeting ad
  */
 - (void)resetUUID;
+
+/*!
+ *  Enable memory monitoring for ad type. If current memory consuming higher than requiered level all caching ad objects will be released
+ *  @warning loaded ad will return and could not be shown
+ *  
+ *  @param percentage Minimum percent of RAM is free from 1 to 100. If NSNotFound memory monitor is unactive
+ *  @param observeSystemWarnings enable system warnings observing
+ *  @param type Type of ad to use
+ */
+- (void)setMinimumFreeMemoryPercentage:(NSUInteger)percentage
+                 observeSystemWarnings:(BOOL)observeSystemWarnings
+                             forAdType:(APDType)type;
 
 @end
 

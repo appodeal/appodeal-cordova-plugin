@@ -2,7 +2,9 @@
 //  APDReviewVideo.h
 //  Appodeal
 //
-//  Copyright © 2016 Appodeal, Inc. All rights reserved.
+//  AppodealSDK version 2.0.0-All
+//
+//  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -94,6 +96,11 @@
  *  Set delegate to skippable video
  */
 @property (weak, nonatomic) id<APDRewardedVideoDelegate> delegate;
+
+/*!
+ *  Return rewars object currencyName as NSString, and amount as NSUInteger
+ */
+- (id<APDReward>)rewardForPlacement:(NSString *)placement;
 
 /*!
  *  Set custom placement name, that you create in Appodeal Dashbord

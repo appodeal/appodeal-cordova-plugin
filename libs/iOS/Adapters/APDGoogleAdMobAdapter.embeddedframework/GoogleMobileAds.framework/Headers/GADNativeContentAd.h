@@ -8,9 +8,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import <GoogleMobileAds/GADAdChoicesView.h>
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
+#import <GoogleMobileAds/GADMediaView.h>
 #import <GoogleMobileAds/GADNativeAd.h>
 #import <GoogleMobileAds/GADNativeAdImage.h>
+#import <GoogleMobileAds/GADVideoController.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 GAD_ASSUME_NONNULL_BEGIN
@@ -40,6 +43,17 @@ GAD_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *callToAction;
 /// Identifies the advertiser. For example, the advertiser’s name or visible URL.
 @property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *advertiser;
+/// Video controller for controlling video playback in GADNativeContentAdView's mediaView.
+@property(nonatomic, strong, readonly) GADVideoController *videoController;
+
+/// Registers ad view and asset views created from this native ad.
+/// @param assetViews Dictionary of asset views keyed by asset IDs.
+- (void)registerAdView:(UIView *)adView assetViews:(NSDictionary<NSString *, UIView *> *)assetViews;
+
+/// Unregisters ad view from this native ad. The corresponding asset views will also be
+/// unregistered.
+- (void)unregisterAdView;
+
 @end
 
 #pragma mark - Protocol and constants
@@ -72,6 +86,12 @@ GAD_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *callToActionView;
 /// Weak reference to your ad view's advertiser asset view.
 @property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *advertiserView;
+/// Weak reference to your ad view's media asset view.
+@property(nonatomic, weak, GAD_NULLABLE) IBOutlet GADMediaView *mediaView;
+/// Weak reference to your ad view's AdChoices view. Must set adChoicesView before setting
+/// nativeContentAd, otherwise AdChoices will be rendered in the publisher's
+/// preferredAdChoicesPosition as defined in GADNativeAdViewAdOptions.
+@property(nonatomic, weak, GAD_NULLABLE) IBOutlet GADAdChoicesView *adChoicesView;
 
 @end
 

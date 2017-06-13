@@ -32,6 +32,16 @@
 
 typedef id(^MPSingletonProviderBlock)();
 
+
+typedef NS_OPTIONS(NSUInteger, MPATSSetting) {
+    MPATSSettingEnabled = 0,
+    MPATSSettingAllowsArbitraryLoads = (1 << 0),
+    MPATSSettingAllowsArbitraryLoadsForMedia = (1 << 1),
+    MPATSSettingAllowsArbitraryLoadsInWebContent = (1 << 2),
+    MPATSSettingRequiresCertificateTransparency = (1 << 3),
+    MPATSSettingAllowsLocalNetworking = (1 << 4),
+};
+
 @interface MPCoreInstanceProvider : NSObject
 
 + (instancetype)sharedProvider;
@@ -58,6 +68,7 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPReachability *)sharedMPReachability;
 - (MPLogEventRecorder *)sharedLogEventRecorder;
 - (MPNetworkManager *)sharedNetworkManager;
+- (MPATSSetting)appTransportSecuritySettings;
 
 // This call may return nil and may not update if the user hot-swaps the device's sim card.
 - (NSDictionary *)sharedCarrierInfo;
