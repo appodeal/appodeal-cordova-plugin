@@ -504,11 +504,6 @@ int nativeShowStyleForType(int adTypes) {
     [Appodeal setBannerAnimationEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
-- (void) logMessage:(CDVInvokedUrlCommand*)command
-{
-    NSLog(@"Appodeal Cordova Log: %@", [[command arguments] objectAtIndex:0]);
-}
-
 - (void) setAge:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setUserAge:[[[command arguments] objectAtIndex:0] integerValue]];

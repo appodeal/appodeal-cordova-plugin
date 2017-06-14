@@ -38,6 +38,5 @@
 - (void) setAge:(CDVInvokedUrlCommand*)command;
 - (void) setGender:(CDVInvokedUrlCommand*)command;
 - (void) setBannerOverLap:(CDVInvokedUrlCommand*)command;
-- (void) logMessage:(CDVInvokedUrlCommand*)command;
     
 @end

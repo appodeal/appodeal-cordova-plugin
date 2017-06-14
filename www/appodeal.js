@@ -19,10 +19,6 @@ cordova.define("com.appodeal.plugin.AppodealPlugin", function(require, exports, 
     Appodeal.isInitialized = function(callback) {
         exec(callback, null, "AppodealPlugin", "isInitalized", []);
     };
-                   
-    Appodeal.logMessage = function(message) {
-        exec(callback, null, "AppodealPlugin", "logMessage", [message]);
-    };
 
     Appodeal.show = function(adType, callback) {
         exec(callback, null, "AppodealPlugin", "show", [adType]);

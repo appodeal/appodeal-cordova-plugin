@@ -25,14 +25,6 @@
         Appodeal.setCustomStringRule("rule_name", "rule_value");
         
         registerAdEvents();
-        
-        Appodeal.setInterstitialCallbacks(function(container){
-        if(container.event == 'onLoaded')
-            //Appodeal.logMessage("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache);
-            console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
-        else
-            console.log("Appodeal. Interstitial. " + container.event);
-        });
     }
     function setUserSettings() {
         Appodeal.setAge(25);
@@ -66,6 +58,12 @@
         Appodeal.hide(Appodeal.BANNER);
     }
     function registerAdEvents() {
+        Appodeal.setInterstitialCallbacks(function(container){
+            if(container.event == 'onLoaded')
+                console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
+            else
+                console.log("Appodeal. Interstitial. " + container.event);
+            });
         Appodeal.setBannerCallbacks(function(container){
             if(container.event == 'onLoaded')
                 console.log("Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache);
