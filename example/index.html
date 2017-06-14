@@ -25,6 +25,14 @@
         Appodeal.setCustomStringRule("rule_name", "rule_value");
         
         registerAdEvents();
+        
+        Appodeal.setInterstitialCallbacks(function(container){
+        if(container.event == 'onLoaded')
+            //Appodeal.logMessage("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache);
+            console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
+        else
+            console.log("Appodeal. Interstitial. " + container.event);
+        });
     }
     function setUserSettings() {
         Appodeal.setAge(25);
@@ -40,39 +48,24 @@
             }
         });
     }
-    function showSkippableVideo() {
-        Appodeal.isLoaded(Appodeal.SKIPPABLE_VIDEO, function(result) {
+    function showRewardedVideo() {
+        Appodeal.isLoaded(Appodeal.REWARDED_VIDEO, function(result) {
             console.log(result);
             if (result) {
-                Appodeal.show(Appodeal.SKIPPABLE_VIDEO);
+                console.log("Appodeal Ads Shown");
+                Appodeal.showWithPlacement(Appodeal.REWARDED_VIDEO, "rewarded_video_button");
+            } else {
+                console.log("Appodeal Ads Not Shown");
             }
         });
     }
-    function showRewardedVideo() {
-        Appodeal.showWithPlacement(Appodeal.REWARDED_VIDEO, "rewarded_video_button");
-    }
     function showBanner() {
         Appodeal.show(Appodeal.BANNER_BOTTOM);
-    }
-    function showInterstitialOrVideo() {
-        Appodeal.show(Appodeal.INTERSTITIAL | Appodeal.VIDEO);
     }
     function hideBanner() {
         Appodeal.hide(Appodeal.BANNER);
     }
     function registerAdEvents() {
-        Appodeal.setInterstitialCallbacks(function(container){
-            if(container.event == 'onLoaded')
-                console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
-            else
-                console.log("Appodeal. Interstitial. " + container.event);
-        });
-        Appodeal.setSkippableVideoCallbacks(function(container){
-            if(container.event == 'onClosed')
-                console.log("Appodeal. Skippable. " + container.event + ", finished: " + container.finished);
-            else
-                console.log("Appodeal. Skippable. " + container.event);
-        });
         Appodeal.setBannerCallbacks(function(container){
             if(container.event == 'onLoaded')
                 console.log("Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache);
@@ -93,14 +86,8 @@
     </button>
     <button id="interstitial" onclick="showInterstitial();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Interstitial
     </button>
-    <button id="video" onclick="showSkippableVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-        Video
-    </button>
     <button id="rewarded" onclick="showRewardedVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
         Rewarded Video
-    </button>
-    <button id="interstitialVideo" onclick="showInterstitialOrVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-        Interstitial or Video
     </button>
     <button id="showBanner" onclick="showBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Show Banner
     </button>

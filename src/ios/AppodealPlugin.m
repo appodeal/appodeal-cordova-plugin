@@ -19,12 +19,6 @@ bool bannerIsShowing;
 bool hasStatusBarPlugin = false;
 bool isIphone;
 
-
-NSString *interstitialCallbackID;
-NSString *bannerCallbackID;
-NSString *nonSkippbaleCallbackID;
-NSString *rewardedCallbackID;
-
 NSString *CALLBACK_EVENT = @"event";
 NSString *CALLBACK_INIT = @"onInit";
 NSString *CALLBACK_LOADED = @"onLoaded";
@@ -93,7 +87,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED, @"isPrecache": [NSNumber numberWithBool:precache]};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:bannerCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
 }
 
 - (void)bannerDidFailToLoadAd
@@ -101,7 +95,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FAILED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:bannerCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
 }
 
 - (void)bannerDidClick
@@ -109,7 +103,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_CLICKED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:bannerCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
 }
 
 
@@ -122,7 +116,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:bannerCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
 }
 
 // interstitial
@@ -131,7 +125,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED, @"isPrecache": [NSNumber numberWithBool:precache]};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 - (void)interstitialDidFailToLoadAd
@@ -139,7 +133,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FAILED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 - (void)interstitialWillPresent
@@ -147,7 +141,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 - (void)interstitialDidDismiss
@@ -155,7 +149,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_CLOSED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 - (void)interstitialDidClick
@@ -163,7 +157,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_CLICKED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 // rewarded video
@@ -172,7 +166,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)rewardedVideoDidFailToLoadAd
@@ -180,7 +174,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FAILED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)rewardedVideoDidPresent
@@ -190,7 +184,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)rewardedVideoWillDismiss
@@ -198,7 +192,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_CLOSED, @"finished": [NSNumber numberWithBool:isRewardedFinished]};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)rewardedVideoDidFinish:(NSUInteger)rewardAmount name:(NSString *)rewardName
@@ -211,7 +205,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FINISHED, @"amount": @(rewardAmount), @"name": rewardName};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 
@@ -221,7 +215,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)nonSkippableVideoDidFailToLoadAd
@@ -229,7 +223,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FAILED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)nonSkippableVideoDidPresent
@@ -239,7 +233,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)nonSkippableVideoWillDismiss
@@ -247,7 +241,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_CLOSED, @"finished": [NSNumber numberWithBool:isNonSkippableFinished]};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void)nonSkippableVideoDidFinish
@@ -257,7 +251,7 @@ int nativeShowStyleForType(int adTypes) {
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FINISHED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 
@@ -320,41 +314,41 @@ int nativeShowStyleForType(int adTypes) {
 - (void) setInterstitialCallbacks:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setInterstitialDelegate:self];
-    interstitialCallbackID = command.callbackId;
+    self.interstitialCallbackID = command.callbackId;
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_INIT};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:interstitialCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.interstitialCallbackID];
 }
 
 - (void) setBannerCallbacks:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setBannerDelegate:self];
-    bannerCallbackID = command.callbackId;
+    self.bannerCallbackID = command.callbackId;
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_INIT};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:bannerCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
 }
 
 - (void) setRewardedVideoCallbacks:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setRewardedVideoDelegate:self];
-    rewardedCallbackID = command.callbackId;
+    self.rewardedCallbackID = command.callbackId;
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_INIT};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:rewardedCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }
 
 - (void) setNonSkippableVideoCallbacks:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setNonSkippableVideoDelegate:self];
-    nonSkippbaleCallbackID = command.callbackId;
+    self.nonSkippbaleCallbackID = command.callbackId;
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_INIT};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:nonSkippbaleCallbackID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.nonSkippbaleCallbackID];
 }
 
 - (void) show:(CDVInvokedUrlCommand*)command
@@ -374,8 +368,11 @@ int nativeShowStyleForType(int adTypes) {
         }
     }
     CDVPluginResult* pluginResult = nil;
-    [Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] integerValue]) rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    if([Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] integerValue]) rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController]) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
+    }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -505,6 +502,11 @@ int nativeShowStyleForType(int adTypes) {
 - (void) setBannerAnimation:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setBannerAnimationEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
+}
+
+- (void) logMessage:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"Appodeal Cordova Log: %@", [[command arguments] objectAtIndex:0]);
 }
 
 - (void) setAge:(CDVInvokedUrlCommand*)command

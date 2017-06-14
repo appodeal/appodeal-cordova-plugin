@@ -1,7 +1,13 @@
 #import <Cordova/CDV.h>
 #import <Appodeal/Appodeal.h>
 
-@interface AppodealPlugin : CDVPlugin <AppodealBannerDelegate, AppodealInterstitialDelegate, AppodealBannerDelegate, AppodealRewardedVideoDelegate, AppodealNonSkippableVideoDelegate>
+@interface AppodealPlugin : CDVPlugin <AppodealBannerDelegate, AppodealInterstitialDelegate, AppodealRewardedVideoDelegate, AppodealNonSkippableVideoDelegate>
+
+@property (nonatomic, copy) NSString* interstitialCallbackID;
+@property (nonatomic, copy) NSString* bannerCallbackID;
+@property (nonatomic, copy) NSString* nonSkippbaleCallbackID;
+@property (nonatomic, copy) NSString* rewardedCallbackID;
+
     
 - (void) disableNetworkType:(CDVInvokedUrlCommand*)command;
 - (void) disableLocationPermissionCheck:(CDVInvokedUrlCommand*)command;
@@ -32,5 +38,6 @@
 - (void) setAge:(CDVInvokedUrlCommand*)command;
 - (void) setGender:(CDVInvokedUrlCommand*)command;
 - (void) setBannerOverLap:(CDVInvokedUrlCommand*)command;
+- (void) logMessage:(CDVInvokedUrlCommand*)command;
     
 @end
