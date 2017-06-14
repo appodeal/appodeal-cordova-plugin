@@ -84,7 +84,7 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void)bannerDidLoadAdIsPrecache:(BOOL)precache
 {
-    NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED, @"isPrecache": [NSNumber numberWithBool:precache]};
+    NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_LOADED, @"isPrecache": [NSNumber numberWithBool:precache], @"height": @"0"};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.bannerCallbackID];
@@ -199,11 +199,12 @@ int nativeShowStyleForType(int adTypes) {
 {
     isRewardedFinished = YES;
     
-    NSString* script = [NSString stringWithFormat:@"cordova.fireDocumentEvent('onRewardedVideoFinished', { amount: %lu, name: '%@' })", rewardAmount, rewardName];
-    [self.commandDelegate evalJs:script];
+    NSMutableDictionary * rewardDict = [NSMutableDictionary new];
+    rewardDict[CALLBACK_EVENT] = CALLBACK_FINISHED;
+    rewardDict[@"rewardName"] = rewardName;
+    rewardDict[@"rewardCount"] = @(rewardAmount);
     
-    NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FINISHED, @"amount": @(rewardAmount), @"name": rewardName};
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:rewardDict];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
 }

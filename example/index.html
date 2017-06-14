@@ -10,9 +10,8 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
     function initialize() {
-        var appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
-        //var appKey = "722fb56678445f72fe2ec58b2fa436688b920835405d3ca6";
-
+        //var appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
+        var appKey = "722fb56678445f72fe2ec58b2fa436688b920835405d3ca6";
         Appodeal.setLogging(true);
         
         setUserSettings();
@@ -26,71 +25,66 @@
         
         registerAdEvents();
     }
+    
     function setUserSettings() {
         Appodeal.setAge(25);
         Appodeal.setGender("female");
     }
+    
     function showInterstitial() {
         Appodeal.show(Appodeal.INTERSTITIAL, function(result) {
-            console.log(result);
             if (result) {
                 console.log("Appodeal Ads Shown");
-            } else {
-                console.log("Appodeal Ads Not Shown");
             }
         });
     }
+    
     function showRewardedVideo() {
         Appodeal.isLoaded(Appodeal.REWARDED_VIDEO, function(result) {
             console.log(result);
             if (result) {
-                console.log("Appodeal Ads Shown");
                 Appodeal.showWithPlacement(Appodeal.REWARDED_VIDEO, "rewarded_video_button");
-            } else {
-                console.log("Appodeal Ads Not Shown");
             }
         });
     }
+    
     function showBanner() {
         Appodeal.show(Appodeal.BANNER_BOTTOM);
     }
+    
     function hideBanner() {
         Appodeal.hide(Appodeal.BANNER);
     }
+    
     function registerAdEvents() {
         Appodeal.setInterstitialCallbacks(function(container){
             if(container.event == 'onLoaded')
-                console.log("Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache  );
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache;
             else
-                console.log("Appodeal. Interstitial. " + container.event);
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Interstitial. " + container.event + ", isPrecache: " + container.isPrecache;
             });
         Appodeal.setBannerCallbacks(function(container){
             if(container.event == 'onLoaded')
-                console.log("Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache);
-            console.log("Appodeal. Banner. " + container.event);
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Banner. " + container.event + ", height: " + container.height + ", isPrecache: " + container.isPrecache;
+            document.getElementById("callbackContainer").innerHTML = "Appodeal. Banner. " + container.event;
         });
         Appodeal.setRewardedVideoCallbacks(function(container){
             if(container.event == 'onClosed')
-                console.log("Appodeal. Rewarded. " + container.event + ", finished: " + container.finished);
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Rewarded. " + container.event + ", finished: " + container.finished;
             else if(container.event == 'onFinished')
-                console.log("Appodeal. Rewarded. " + container.event + ", amount: " + container.amount + ", name: " + container.name);
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Rewarded. " + container.event + ", amount: " + container.amount + ", name: " + container.name;
             else
-                console.log("Appodeal. Rewarded. " + container.event);
+                document.getElementById("callbackContainer").innerHTML = "Appodeal. Rewarded. " + container.event;
         });
     }
     </script>
     <p style="font-size:25px;color:white;">Appodeal Cordova Demo</p>
-    <button id="initialize" onclick="initialize();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Initialize
-    </button>
-    <button id="interstitial" onclick="showInterstitial();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Interstitial
-    </button>
-    <button id="rewarded" onclick="showRewardedVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">
-        Rewarded Video
-    </button>
-    <button id="showBanner" onclick="showBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Show Banner
-    </button>
-    <button id="hideBanner" onclick="hideBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Hide Banner
-    </button>
+    <button id="initialize" onclick="initialize();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Initialize</button>
+    <button id="interstitial" onclick="showInterstitial();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Interstitial</button>
+    <button id="rewarded" onclick="showRewardedVideo();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Rewarded Video</button>
+    <button id="showBanner" onclick="showBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Show Banner</button>
+    <button id="hideBanner" onclick="hideBanner();" style="width:100%;height:50px; margin-top:10px;background-color:white;color:red;">Hide Banner</button>
+    <p id="callbackContainer">Callback events data</p>
 </body>
 
 </html>
