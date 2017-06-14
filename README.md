@@ -32,4 +32,4 @@ iOS Appodeal SDK version 2.0.0
 + Appodeal.canShow added
 + SetOnLoadedTriggerBoth renamed to setTriggerOnLoadedOnPrecache
 + callbacks reworked, follow docs on appodeal.com/sdk/cordova2
-+ oprional permissions to AndroidManifest added
++ optional permissions to AndroidManifest added
