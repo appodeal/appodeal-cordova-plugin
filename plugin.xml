@@ -187,6 +187,7 @@
         <source-file src="libs/android/yandex-metrica-2.62.jar" target-dir="libs" />
         <source-file src="libs/android/unity-ads-2.0.4.jar" target-dir="libs" />
         <framework src="libs/android/cheetah-mobile" custom="true" />
+		<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
     </platform>
 
     <platform name="ios">
