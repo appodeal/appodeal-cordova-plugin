@@ -284,20 +284,16 @@ int nativeShowStyleForType(int adTypes) {
 
 - (void) initialize:(CDVInvokedUrlCommand*)command
 {
-    if (![Appodeal isInitalized])
-    {
-        [Appodeal setFramework:APDFrameworkCordova];
-        if ([[[command arguments] objectAtIndex:1] intValue] & BANNER) {
-            if (bannerOverlap) {
-                [self setDelegateOnOverlap:(AppodealAdType)nativeAdTypesForType([[[command arguments] objectAtIndex:1] intValue])];
-            }
-            [self detectStatusBarPlugin];
-            bannerHeight = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 90.f : 50.f);
-            isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? false : true);
+    [Appodeal setFramework:APDFrameworkCordova];
+    if ([[[command arguments] objectAtIndex:1] intValue] & BANNER) {
+        if (bannerOverlap) {
+            [self setDelegateOnOverlap:(AppodealAdType)nativeAdTypesForType([[[command arguments] objectAtIndex:1] intValue])];
         }
-        [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType ([[[command arguments] objectAtIndex:1] intValue])];
-        
+        [self detectStatusBarPlugin];
+        bannerHeight = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 90.f : 50.f);
+        isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? false : true);
     }
+    [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType ([[[command arguments] objectAtIndex:1] intValue])];    
 }
 
 - (void) isInitalized:(CDVInvokedUrlCommand*)command
