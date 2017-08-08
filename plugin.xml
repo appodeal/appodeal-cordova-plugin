@@ -209,17 +209,17 @@
         
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
-        <source-file src="libs/android/appodeal-2.0.2.jar" target-dir="libs" />
-        <source-file src="libs/android/applovin-7.0.2.jar" target-dir="libs" />
-        <source-file src="libs/android/chartboost-6.6.1.jar" target-dir="libs" />
-        <source-file src="libs/android/facebook-audience-network-4.22.0.jar" target-dir="libs" />
-        <source-file src="libs/android/inmobi-6.1.1.jar" target-dir="libs" />
-        <source-file src="libs/android/picasso-2.5.2.jar" target-dir="libs" />
-        <source-file src="libs/android/mailru-4.5.15.jar" target-dir="libs" />
-        <source-file src="libs/android/presage-lib-1.8.5.jar" target-dir="libs" />
-        <source-file src="libs/android/unity_ads-2.0.5.jar" target-dir="libs" />
-        <source-file src="libs/android/yandex-metrica-2.62.jar" target-dir="libs" />
-        <framework src="libs/android/adcolony" custom="true" />
+        <source-file src="libs/Android/appodeal-2.0.2.jar" target-dir="libs" />
+        <source-file src="libs/Android/applovin-7.0.2.jar" target-dir="libs" />
+        <source-file src="libs/Android/chartboost-6.6.1.jar" target-dir="libs" />
+        <source-file src="libs/Android/facebook-audience-network-4.22.0.jar" target-dir="libs" />
+        <source-file src="libs/Android/inmobi-6.1.1.jar" target-dir="libs" />
+        <source-file src="libs/Android/picasso-2.5.2.jar" target-dir="libs" />
+        <source-file src="libs/Android/mailru-4.5.15.jar" target-dir="libs" />
+        <source-file src="libs/Android/presage-lib-1.8.5.jar" target-dir="libs" />
+        <source-file src="libs/Android/unity_ads-2.0.5.jar" target-dir="libs" />
+        <source-file src="libs/Android/yandex-metrica-2.62.jar" target-dir="libs" />
+        <framework src="libs/Android/adcolony" custom="true" />
     </platform>
 
     <platform name="ios">
