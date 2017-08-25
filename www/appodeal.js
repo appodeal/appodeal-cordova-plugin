@@ -10,7 +10,10 @@ Appodeal.BANNER_TOP = 16;
 Appodeal.REWARDED_VIDEO = 128;
 Appodeal.NON_SKIPPABLE_VIDEO = 256;
 
+Appodeal.pluginVersion = '2.0.2';
+
 Appodeal.initialize = function(appKey, adType) {
+	exec(null, null, "AppodealPlugin", "setPluginVersion", [Appodeal.pluginVersion]);
     exec(null, null, "AppodealPlugin", "initialize", [appKey, adType]);
 };
 
@@ -94,6 +97,10 @@ Appodeal.getVersion = function(callback) {
     exec(callback, null, "AppodealPlugin", "getVersion", []);
 };
 
+Appodeal.getPluginVersion = function(){
+	return Appodeal.pluginVersion;
+};
+
 Appodeal.disableNetwork = function(network, adType) {
     exec(null, null, "AppodealPlugin", "disableNetwork", [network]);
 };
@@ -148,4 +155,8 @@ Appodeal.setAge = function(age) {
 
 Appodeal.setGender = function(gender) {
     exec(null, null, "AppodealPlugin", "setGender", [gender]);
+};
+
+Appodeal.setUserId = function(userid){
+	exec(null, null, "AppodealPlugin", "setUserId", [userid]);
 };
