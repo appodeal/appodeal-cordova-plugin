@@ -8,7 +8,7 @@
 @property (nonatomic, copy) NSString* nonSkippbaleCallbackID;
 @property (nonatomic, copy) NSString* rewardedCallbackID;
 
-    
+
 - (void) disableNetworkType:(CDVInvokedUrlCommand*)command;
 - (void) disableLocationPermissionCheck:(CDVInvokedUrlCommand*)command;
 - (void) setAutoCache:(CDVInvokedUrlCommand*)command;
@@ -38,5 +38,7 @@
 - (void) setAge:(CDVInvokedUrlCommand*)command;
 - (void) setGender:(CDVInvokedUrlCommand*)command;
 - (void) setBannerOverLap:(CDVInvokedUrlCommand*)command;
-    
+- (void) setUserId:(CDVInvokedUrlCommand*)command;
+- (void) setPluginVersion:(CDVInvokedUrlCommand*)command;
+
 @end

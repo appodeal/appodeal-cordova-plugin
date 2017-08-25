@@ -10,7 +10,7 @@ Appodeal.BANNER_TOP = 16;
 Appodeal.REWARDED_VIDEO = 128;
 Appodeal.NON_SKIPPABLE_VIDEO = 256;
 
-Appodeal.pluginVersion = '2.0.2';
+Appodeal.pluginVersion = '3.0.0';
 
 Appodeal.initialize = function(appKey, adType) {
 	exec(null, null, "AppodealPlugin", "setPluginVersion", [Appodeal.pluginVersion]);
