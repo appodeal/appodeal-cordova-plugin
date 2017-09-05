@@ -56,6 +56,7 @@ public class AppodealPlugin extends CordovaPlugin {
     private static final String ACTION_SET_LOGGING = "setLogging";
     private static final String ACTION_SET_TESTING = "setTesting";
     private static final String ACTION_GET_VERSION = "getVersion";
+	private static final String ACTION_SET_PLUGIN_VERSION = "setPluginVersion";
 
     private static final String ACTION_DISABLE_NETWORK = "disableNetwork";
     private static final String ACTION_DISABLE_NETWORK_FOR_TYPE = "disableNetworkType";
@@ -70,6 +71,7 @@ public class AppodealPlugin extends CordovaPlugin {
 
     private static final String ACTION_SET_AGE = "setAge";
     private static final String ACTION_SET_GENDER = "setGender";
+	private static final String ACTION_SET_USER_ID = "setUserId";
 
     private boolean isInitialized = false;
     private boolean bannerOverlap = true;
@@ -340,7 +342,16 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        } else if (action.equals(ACTION_DISABLE_NETWORK)) {
+        } else if(action.equals(ACTION_SET_PLUGIN_VERSION)){
+			final String pluginVersion = args.getString(0);
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run(){
+					Appodeal.setFramework("Cordova", pluginVersion);
+				}
+			});
+			return true;
+		} else if (action.equals(ACTION_DISABLE_NETWORK)) {
             final String network = args.getString(0);
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -481,7 +492,16 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
-        }
+        } else if(action.equals(ACTION_SET_USER_ID)){
+			final String userId = args.getString(0);
+			cordova.getActivity().runOnUiThread(new Runnable(){
+				@Override
+				public void run() {
+					getUserSettings().setUserId(userId);
+				}
+			});
+			return true;
+		}
         return false;
     }
 

@@ -33,22 +33,22 @@ bool isNonSkippableFinished = NO;
 
 int nativeAdTypesForType(int adTypes) {
     int nativeAdTypes = 0;
-    
+
     if ((adTypes & INTERSTITIAL) > 0) {
         nativeAdTypes |= AppodealAdTypeInterstitial;
     }
-    
+
     if ((adTypes & BANNER) > 0 ||
         (adTypes & BANNER_TOP) > 0 ||
         (adTypes & BANNER_BOTTOM) > 0) {
-        
+
         nativeAdTypes |= AppodealAdTypeBanner;
     }
-    
+
     if ((adTypes & REWARDED_VIDEO) > 0) {
         nativeAdTypes |= AppodealAdTypeRewardedVideo;
     }
-    
+
     if ((adTypes & NON_SKIPPABLE_VIDEO) >0) {
         nativeAdTypes |= AppodealAdTypeNonSkippableVideo;
     }
@@ -56,27 +56,27 @@ int nativeAdTypesForType(int adTypes) {
 }
 
 int nativeShowStyleForType(int adTypes) {
-    
+
     if ((adTypes & INTERSTITIAL) > 0) {
         return AppodealShowStyleInterstitial;
     }
-    
+
     if ((adTypes & BANNER_TOP) > 0) {
         return AppodealShowStyleBannerTop;
     }
-    
+
     if ((adTypes & BANNER_BOTTOM) > 0) {
         return AppodealShowStyleBannerBottom;
     }
-    
+
     if ((adTypes & REWARDED_VIDEO) > 0) {
         return AppodealShowStyleRewardedVideo;
     }
-    
+
     if ((adTypes & NON_SKIPPABLE_VIDEO) > 0) {
         return AppodealShowStyleNonSkippableVideo;
     }
-    
+
     return 0;
 }
 
@@ -112,7 +112,7 @@ int nativeShowStyleForType(int adTypes) {
     bannerIsShowing = true;
     if (bannerOverlap)
         [self changeWebViewWithOverlappedBanner];
-    
+
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -180,7 +180,7 @@ int nativeShowStyleForType(int adTypes) {
 - (void)rewardedVideoDidPresent
 {
     isRewardedFinished = NO;
-    
+
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -198,12 +198,12 @@ int nativeShowStyleForType(int adTypes) {
 - (void)rewardedVideoDidFinish:(NSUInteger)rewardAmount name:(NSString *)rewardName
 {
     isRewardedFinished = YES;
-    
+
     NSMutableDictionary * rewardDict = [NSMutableDictionary new];
     rewardDict[CALLBACK_EVENT] = CALLBACK_FINISHED;
     rewardDict[@"rewardName"] = rewardName;
     rewardDict[@"rewardCount"] = @(rewardAmount);
-    
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:rewardDict];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.rewardedCallbackID];
@@ -230,7 +230,7 @@ int nativeShowStyleForType(int adTypes) {
 - (void)nonSkippableVideoDidPresent
 {
     isNonSkippableFinished = NO;
-    
+
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_SHOWN};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -248,7 +248,7 @@ int nativeShowStyleForType(int adTypes) {
 - (void)nonSkippableVideoDidFinish
 {
     isNonSkippableFinished = YES;
-    
+
     NSDictionary *vals = @{CALLBACK_EVENT: CALLBACK_FINISHED};
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:vals];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -274,12 +274,18 @@ int nativeShowStyleForType(int adTypes) {
 - (void) isPrecache:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    
+
     if([Appodeal isAutocacheEnabled:nativeAdTypesForType([[[command arguments] objectAtIndex:0] intValue])])
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void) setPluginVersion:(CDVInvokedUrlCommand*)command
+{
+    NSString *pluginVersion = [[command arguments] objectAtIndex:0];
+    [Appodeal setPluginVersion:pluginVersion];
 }
 
 - (void) initialize:(CDVInvokedUrlCommand*)command
@@ -293,18 +299,18 @@ int nativeShowStyleForType(int adTypes) {
         bannerHeight = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 90.f : 50.f);
         isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? false : true);
     }
-    [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType ([[[command arguments] objectAtIndex:1] intValue])];    
+    [Appodeal initializeWithApiKey:[[command arguments] objectAtIndex:0] types:nativeAdTypesForType ([[[command arguments] objectAtIndex:1] intValue])];
 }
 
 - (void) isInitalized:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    
+
     if([Appodeal isInitalized])
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -394,7 +400,7 @@ int nativeShowStyleForType(int adTypes) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -432,24 +438,24 @@ int nativeShowStyleForType(int adTypes) {
 - (void) isLoaded:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    
+
     if([Appodeal isReadyForShowWithStyle:nativeShowStyleForType([[[command arguments] objectAtIndex:0] intValue])])
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void) canShow:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    
+
     if([Appodeal canShowAd:nativeShowStyleForType([[[command arguments] objectAtIndex:0] intValue]) forPlacement:[[command arguments] objectAtIndex:0]])
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -501,6 +507,12 @@ int nativeShowStyleForType(int adTypes) {
     [Appodeal setBannerAnimationEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
+- (void) setUserId:(CDVInvokedUrlCommand*)command
+{
+    NSString *userID = [[command arguments] objectAtIndex:0];
+    [Appodeal setUserId: userID];
+}
+
 - (void) setAge:(CDVInvokedUrlCommand*)command
 {
     [Appodeal setUserAge:[[[command arguments] objectAtIndex:0] integerValue]];
@@ -509,7 +521,7 @@ int nativeShowStyleForType(int adTypes) {
 - (void) setGender:(CDVInvokedUrlCommand*)command
 {
     NSString *AppodealUserGender = [[command arguments] objectAtIndex:0];
-    
+
     if([AppodealUserGender isEqualToString:@"other"])
         [Appodeal setUserGender:AppodealUserGenderOther];
     if([AppodealUserGender isEqualToString:@"male"])
@@ -560,7 +572,7 @@ int nativeShowStyleForType(int adTypes) {
         else
             statusBarHeight = 20.f;
     }
-    
+
     if (bannerOverlapTop) {
         [self.webView setFrame:CGRectMake(bounds.origin.x, bounds.origin.y + bannerHeight + statusBarHeight, bounds.size.width, bounds.size.height - bannerHeight - statusBarHeight)];
     }
@@ -593,7 +605,7 @@ int nativeShowStyleForType(int adTypes) {
     Class * classes = NULL;
     classes = NULL;
     numClasses = objc_getClassList(NULL, 0);
-    
+
     if (numClasses > 0 )
     {
         classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
@@ -601,7 +613,7 @@ int nativeShowStyleForType(int adTypes) {
         for (int i = 0; i < numClasses; i++) {
             Class c = classes[i];
             NSString * className = NSStringFromClass(c);
-            
+
             if ([className hasPrefix:@"CDVStatusBar"]) {
                 hasStatusBarPlugin = true;
             }
