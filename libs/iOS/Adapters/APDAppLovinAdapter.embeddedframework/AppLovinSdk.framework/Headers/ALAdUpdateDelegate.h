@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "ALAnnotations.h"
 
+AL_ASSUME_NONNULL_BEGIN
+
 @protocol ALAdUpdateObserver <NSObject>
 
-- (void)adService:(alnonnull ALAdService *)adService didUpdateAd:(alnullable ALAd *)ad;
+- (void)adService:(ALAdService *)adService didUpdateAd:(alnullable ALAd *)ad;
 
 - (BOOL)canAcceptUpdate;
 
 @end
+
+AL_ASSUME_NONNULL_END

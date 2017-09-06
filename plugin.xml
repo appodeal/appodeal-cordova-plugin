@@ -5,7 +5,7 @@
   <author>Appodeal</author>
 
   <engines>
-    <engine name="cordova" version=">=3.0.0" />
+    <engine name="cordova" version=">=3.0.1" />
     </engines>
 
     <js-module name="AppodealPlugin" src="www/appodeal.js">
@@ -90,7 +90,7 @@
 			<activity android:name="com.facebook.ads.AudienceNetworkActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
 
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.startapp.android.publish.list3d.List3DActivity"
+			<activity android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
 				android:theme="@android:style/Theme" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
@@ -160,6 +160,10 @@
 			<activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
 				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+				<!--suppress AndroidDomInspection -->
+			<activity android:name="com.vungle.publisher.FlexViewAdActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
 
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
@@ -214,47 +218,22 @@
 					<action android:name="com.inmobi.share.id"/>
 				</intent-filter>
 			</receiver>
-
-			<meta-data android:name="presage_key" android:value="000000"/>
-			<service android:name="io.presage.services.PresageServiceImp"/>
-			<activity android:name="io.presage.activities.PresageActivity"
-				android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:hardwareAccelerated="true">
-				<intent-filter>
-					<action android:name="io.presage.intent.action.LAUNCH_WEBVIEW" />
-					<category android:name="android.intent.category.DEFAULT" />
-				</intent-filter>
-			</activity>
-			<receiver android:name="io.presage.receivers.BootReceiver">
-				<intent-filter>
-					<action android:name="android.intent.action.BOOT_COMPLETED"/>
-					<action android:name="android.intent.action.DATE_CHANGED"/>
-					<action android:name="io.presage.receivers.BootReceiver.RESTART_SERVICE"/>
-				</intent-filter>
-			</receiver>
-
-			<provider
-				android:name="com.millennialmedia.internal.utils.MediaContentProvider"
-				android:authorities="${applicationId}.MediaContentProvider"
-				android:grantUriPermissions="true"
-				android:exported="false" />
         </config-file>
         <framework src="com.google.android.gms:play-services-ads:9+" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
         
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
-        <source-file src="libs/Android/appodeal-2.1.0.jar" target-dir="libs" />
-        <source-file src="libs/Android/applovin-7.2.0.jar" target-dir="libs" />
+        <source-file src="libs/Android/appodeal-2.1.3.jar" target-dir="libs" />
+        <source-file src="libs/Android/applovin-7.3.2.jar" target-dir="libs" />
         <source-file src="libs/Android/chartboost-6.6.3.jar" target-dir="libs" />
         <source-file src="libs/Android/inmobi-6.2.3.jar" target-dir="libs" />
         <source-file src="libs/Android/picasso-2.5.2.jar" target-dir="libs" />
         <source-file src="libs/Android/mailru-4.6.17.jar" target-dir="libs" />
-        <source-file src="libs/Android/presage-lib-1.8.5.jar" target-dir="libs" />
         <source-file src="libs/Android/unity_ads-2.1.0.jar" target-dir="libs" />
         <source-file src="libs/Android/yandex-metrica-2.73.jar" target-dir="libs" />
 		<source-file src="libs/Android/startapp-3.6.2.jar" target-dir="libs" />
         <framework src="libs/Android/adcolony" custom="true" />
-		<framework src="libs/Android/mmedia" custom="true" />
     </platform>
 
     <platform name="ios">
@@ -290,30 +269,26 @@
         <framework src="AudioToolbox.framework"/>
         <framework src="AVFoundation.framework"/>
         <framework src="CFNetwork.framework"/>
-        <framework src="CoreFoundation.framework"/>
         <framework src="CoreGraphics.framework"/>
         <framework src="CoreImage.framework"/>
         <framework src="CoreLocation.framework"/>
         <framework src="CoreMedia.framework"/>
         <framework src="CoreMotion.framework"/>
-        <framework src="EventKit.framework"/>
+        <framework src="CoreTelephony.framework"/>
         <framework src="EventKitUI.framework"/>
-        <framework src="JavaScriptCore.framework"/>
+        <framework src="GLKit.framework"/>
+        <framework src="ImageIO.framework"/>
         <framework src="MediaPlayer.framework"/>
         <framework src="MessageUI.framework"/>
         <framework src="MobileCoreServices.framework"/>
         <framework src="QuartzCore.framework"/>
         <framework src="Security.framework"/>
-        <framework src="Social.framework"/>
         <framework src="StoreKit.framework"/>
-        <framework src="SafariServices.framework"/>
         <framework src="SystemConfiguration.framework"/>
         <framework src="Twitter.framework"/>
         <framework src="UIKit.framework"/>
         <framework src="WebKit.framework"/>
-        <framework src="CoreBluetooth.framework"/>
-        <framework src="GLKit.framework"/>
-
+        
         <framework src="libc++.dylib"/>
         <framework src="libsqlite3.dylib"/>
         <framework src="libxml2.2.dylib"/>
@@ -365,7 +340,7 @@
         <resource-file src="libs/iOS/Adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.framework/Resources/TapjoyResources.bundle"/>
         <!-- MoPub -->
         <source-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/libAPDTwitterMoPubAdapter.a" framework="true"/>
-        <framework custom="true" src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/mopub-ios-sdk.framework"/>
+        <framework custom="true" src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/MoPubSDK.framework"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@2x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@3x.png"/>

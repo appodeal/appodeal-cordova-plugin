@@ -10,6 +10,8 @@
 #import "ALAnnotations.h"
 #import "ALPostbackDelegate.h"
 
+AL_ASSUME_NONNULL_BEGIN
+
 @class ALSdk;
 
 /**
@@ -25,6 +27,8 @@
  * @param targetURL URL to call via HTTP GET.
  * @param delegate Optional postback delegate. May be nil.
  */
-- (void)dispatchPostbackAsync:(alnonnull NSURL *)targetURL andNotify:(alnullable id <ALPostbackDelegate>)delegate;
+- (void)dispatchPostbackAsync:(NSURL *)targetURL andNotify:(alnullable id <ALPostbackDelegate>)delegate;
 
 @end
+
+AL_ASSUME_NONNULL_END

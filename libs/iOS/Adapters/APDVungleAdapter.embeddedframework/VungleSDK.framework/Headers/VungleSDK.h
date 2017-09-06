@@ -1,25 +1,48 @@
 //
 //  VungleSDK.h
 //  Vungle iOS SDK
-//  SDK Version: 4.1.0
+//  SDK Version: 5.1.0
 //
-//  Copyright (c) 2013-present Vungle Inc. All rights reserved.
+//  Copyright (c) 2013-Present Vungle Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ * VungleViewInfo is a container object for state passed
+ * indicating how the play experience went
+ */
+@interface VungleViewInfo : NSObject <NSCopying>
+
+/**
+ * Represents a BOOL whether or not the video can be considered a full view.
+ */
+@property (nonatomic, readonly) NSNumber *completedView;
+
+/**
+ * The time in seconds that the user watched the video.
+ */
+@property (nonatomic, readonly) NSNumber *playTime;
+
+/**
+ * Represents a BOOL whether or not the user clicked the download button.
+ */
+@property (nonatomic, readonly) NSNumber *didDownload;
+
+@end
+
 @protocol VungleAssetLoader;
 
 extern NSString *VungleSDKVersion;
-extern NSString *VunglePlayAdOptionKeyIncentivized;
 extern NSString *VunglePlayAdOptionKeyIncentivizedAlertTitleText;
 extern NSString *VunglePlayAdOptionKeyIncentivizedAlertBodyText;
 extern NSString *VunglePlayAdOptionKeyIncentivizedAlertCloseButtonText;
 extern NSString *VunglePlayAdOptionKeyIncentivizedAlertContinueButtonText;
 extern NSString *VunglePlayAdOptionKeyOrientations;
 extern NSString *VunglePlayAdOptionKeyUser;
-extern NSString *VunglePlayAdOptionKeyPlacement;
 extern NSString *VunglePlayAdOptionKeyExtraInfoDictionary;
 extern NSString *VunglePlayAdOptionKeyExtra1;
 extern NSString *VunglePlayAdOptionKeyExtra2;
@@ -35,8 +58,14 @@ typedef enum {
     VungleSDKErrorInvalidPlayAdOption = 1,
     VungleSDKErrorInvalidPlayAdExtraKey,
     VungleSDKErrorCannotPlayAd,
+    VungleSDKErrorCannotPlayAdAlreadyPlaying,
+    VungleSDKErrorCannotPlayAdWaiting,
     VungleSDKErrorNoAppID,
-    VungleSDKErrorTopMostViewControllerMismatch
+    InvalidPlacementsArray,
+    VungleSDKErrorInvalidiOSVersion,
+    VungleSDKErrorTopMostViewControllerMismatch,
+    VungleSDKErrorUnknownPlacementID,
+    VungleSDKErrorSDKNotInitialized
 } VungleSDKErrorCode;
 
 @protocol VungleSDKLogger <NSObject>
@@ -47,63 +76,48 @@ typedef enum {
 
 @protocol VungleSDKDelegate <NSObject>
 @optional
-/**
- * if implemented, this will get called when the SDK is about to show an ad. This point
- * might be a good time to pause your game, and turn off any sound you might be playing.
- */
-- (void)vungleSDKwillShowAd;
 
 /**
- * If implemented, this method gets called when a Vungle Ad Unit is completely dismissed.
- * At this point, it's recommended to resume your Game or App.
- *
- * The `viewInfo` NSDictionary parameter will contain the following keys:
- * - "completedView": NSNumber representing a BOOL whether or not the video can be considered a
- *                    full view.
- * - "playTime": NSNumber representing the time in seconds that the user watched the video.
- * - "didDownload": NSNumber representing a BOOL whether or not the user clicked the download
- *                  button.
- * - "videoLength": **Deprecated** This will no longer be returned
- *
- * NOTE: the `willPresentProductSheet` parameter is *always* `NO`. Because
- * `vungleSDKWillCloseAdWithViewInfo:willPresentProductSheet:` is now called
- * after Product Sheet dismissal, this method should no longer be necessary. It will be
- * removed in a future version. Use `vungleSDKWillCloseAdWithViewInfo:` instead.
+ * If implemented, this will get called when the SDK has an ad ready to be displayed. Also it will
+ * get called with an argument `NO` for `isAdPlayable` when for some reason, there is
+ * no ad available, for instance there is a corrupt ad or the OS wiped the cache.
+ * Please note that receiving a `NO` here does not mean that you can't play an Ad: if you haven't
+ * opted-out of our Exchange, you might be able to get a streaming ad if you call `play`.
+ * @param isAdPlayable A boolean indicating if an ad is currently in a playable state
+ * @param placementID The ID of a placement which is ready to be played
  */
+- (void)vungleAdPlayabilityUpdate:(BOOL)isAdPlayable placementID:(nullable NSString *)placementID;
+/**
+ * If implemented, this will get called when the SDK is about to show an ad. This point
+ * might be a good time to pause your game, and turn off any sound you might be playing.
+ * @param placementID The placement which is about to be shown.
+ */
+- (void)vungleWillShowAdForPlacementID:(nullable NSString *)placementID;
+
+/**
+ * If implemented, this method gets called when a Vungle Ad Unit is about to be completely dismissed.
+ * At this point, it's recommended to resume your Game or App.
+ */
+- (void)vungleWillCloseAdWithViewInfo:(nonnull VungleViewInfo *)info placementID:(nonnull NSString *)placementID;
+
 - (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary *)viewInfo
                  willPresentProductSheet:(BOOL)willPresentProductSheet __attribute__((deprecated("Use vungleSDKWillCloseAdWithViewInfo: instead.")));
 
-/**
- * If implemented, this will get called when the product sheet is about to be closed.
- *
- * @note Because `vungleSDKWillCloseAdWithViewInfo:willPresentProductSheet:` is now called
- * after Product Sheet dismissal, this method should no longer be necessary. It will be
- * removed in a future version.
- */
 - (void)vungleSDKwillCloseProductSheet:(id)productSheet __attribute__((deprecated("Use vungleSDKWillCloseAdWithViewInfo: instead.")));
 
 /**
- * If implemented, this method gets called when a Vungle Ad Unit is completely dismissed.
- * At this point, it's recommended to resume your Game or App.
- *
- * The `viewInfo` NSDictionary parameter will contain the following keys:
- * - "completedView": NSNumber representing a BOOL whether or not the video can be considered a
- *                    full view.
- * - "playTime": NSNumber representing the time in seconds that the user watched the video.
- * - "didDownload": NSNumber representing a BOOL whether or not the user clicked the download
- *                  button.
- * - "videoLength": **Deprecated** This will no longer be returned
+ * If implemented, this will get called when VungleSDK has finished initialization.
+ * It's only at this point that one can call `playAd:options:placementID:error`
+ * and `loadPlacementWithID:` without getting initialization errors
  */
-- (void)vungleSDKWillCloseAdWithViewInfo:(NSDictionary *)viewInfo;
+- (void)vungleSDKDidInitialize;
 
 /**
- * if implemented, this will get called when the SDK has an ad ready to be displayed. Also it will
- * get called with an argument `NO` when for some reason, there's no ad available, for instance
- * there is a corrupt ad or the OS wiped the cache.
- * Please note that receiving a `NO` here does not mean that you can't play an Ad: if you haven't
- * opted-out of our Exchange, you might be able to get a streaming ad if you call `play`.
+ * If implemented, this will get called if the VungleSDK fails to initialize.
+ * The included NSError object should give some information as to the failure reason.
+ * @note If initialization fails, you will need to restart the VungleSDK.
  */
-- (void)vungleSDKAdPlayableChanged:(BOOL)isAdPlayable;
+- (void)vungleSDKFailedToInitializeWithError:(NSError *)error;
 
 @end
 
@@ -112,6 +126,7 @@ typedef enum {
 @property (strong) id<VungleSDKDelegate> delegate;
 @property (strong) id<VungleAssetLoader> assetLoader;
 @property (assign) BOOL muted;
+@property (atomic, readonly, getter=isInitialized) BOOL initialized;
 
 /**
  * Returns the singleton instance.
@@ -119,40 +134,45 @@ typedef enum {
 + (VungleSDK *)sharedSDK;
 
 /**
- * Setup the SDK with an asset loader. This must be called before any call to shareSDK in order
+ * Setup the SDK with an asset loader. This must be called before any call to sharedSDK in order
  * to properly set the asset loader.
  */
 + (VungleSDK *)setupSDKWithAssetLoader:(id<VungleAssetLoader>)loader;
 
 /**
  * Initializes the SDK. You can get your app id on Vungle's dashboard: https://v.vungle.com
+ * @param appID the unique identifier for your app
+ * @param placements An array of strings representing placements defined in the dashboard.
+ * @param error An error object containing information about why initialization failed
+ * @return YES if the SDK has started, NO otherwise
  */
-- (void)startWithAppId:(NSString *)appId;
+- (BOOL)startWithAppId:(nonnull NSString *)appID placements:(nonnull NSArray<NSString *> *)placements error:(NSError **)error;
 
 /**
- * Will play Ad Unit presenting it over the `viewController` parameter
- * @param viewController A subclass of UIViewController. Should correspond to the ViewControler at the top of the ViewController hierarchy
- * @param error An optional reference to an NSError. In case this method returns `NO` it will be non-nil
- * @return YES/NO in case of success/error while presenting an AdUnit
- * @warning Should be called from the main-thread.
- */
-- (BOOL)playAd:(UIViewController *)viewController error:(NSError **)error;
-
-/**
- * Will play Ad Unit presenting it over the `viewController` parameter and applying playback options.
- * @param viewController A subclass of UIViewController. Should correspond to the ViewControler at the top of the ViewController hierarchy
+ * Will play Ad Unit presenting it over the `controller` parameter
+ * @param controller A subclass of UIViewController. Should correspond to the ViewControler at the top of the ViewController hierarchy
  * @param options A reference to an instance of NSDictionary with customized ad playback options
- * @param error An optional reference to a nil NSError reference. In case this method returns `NO` it will be non-nil
+ * @param placementID The placement defined on the Vungle dashboard
+ * @param error An optional double reference to an NSError. In case this method returns `NO` it will be non-nil
  * @return YES/NO in case of success/error while presenting an AdUnit
  * @warning Should be called from the main-thread.
  */
-- (BOOL)playAd:(UIViewController *)viewController withOptions:(id)options error:(NSError **)error;
+- (BOOL)playAd:(UIViewController *)controller options:(nullable NSDictionary *)options placementID:(nullable NSString *)placementID error:( NSError *__autoreleasing _Nullable *_Nullable)error;
 
 /**
- * returns `YES` when there is certainty that an add will be able to play. Returning `NO`, you can
- * still try to play and get a streaming Ad.
+ * Returns `YES` when there is certainty that an ad will be able to play for a given placementID.
+ * Returning `NO`, you can still try to play and get a streaming Ad.
+ * @param placementID the specific ID of the placement you are trying to present
  */
-- (BOOL)isAdPlayable;
+- (BOOL)isAdCachedForPlacementID:(nonnull NSString *)placementID;
+
+/**
+ * Prepares a placement when you know that you will want
+ * to show an ad experience tied to a specific placementID.
+ * @param placementID the specific ID of the placement you would like to present at some point soon
+ * @return NO if something goes immediately wrong with loading, YES otherwise
+ */
+- (BOOL)loadPlacementWithID:(NSString *)placementID error:(NSError **)error;
 
 /**
  * Returns debug info.
@@ -160,7 +180,7 @@ typedef enum {
 - (NSDictionary *)debugInfo;
 
 /**
- * by default, logging is off.
+ * By default, logging is off.
  */
 - (void)setLoggingEnabled:(BOOL)enable;
 
@@ -180,13 +200,10 @@ typedef enum {
 - (void)detachLogger:(id<VungleSDKLogger>)logger;
 
 /**
- * This method is no-op and has been deprecated. Will be removed in a future version.
- */
-- (void)clearCache __attribute__((deprecated));
-
-/**
- * this also only works on the simulator
+ * This only works on the simulator
  */
 - (void)clearSleep;
 
 @end
+
+NS_ASSUME_NONNULL_END

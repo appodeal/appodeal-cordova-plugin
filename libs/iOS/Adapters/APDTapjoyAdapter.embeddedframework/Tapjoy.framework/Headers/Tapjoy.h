@@ -105,6 +105,23 @@ typedef void (^networkCompletion)(BOOL success, NSError *error);
 + (BOOL)isConnected;
 
 /**
+ * This method returns URL to Tapjoy support web page. This will use your default currency.
+ *
+ * @return URL of Tapjoy support web page
+ */
++ (NSString*)getSupportURL;
+
+/**
+ * This method returns the URL to Tapjoy support web page for specified currency
+ * You can get your currencyID from the Tapjoy Dashboard under the currency section.
+ *
+ * @param currencyID the app's currency id
+ *
+ * @return URL of Tapjoy support web page for specified currency
+ */
++ (NSString*)getSupportURL:(NSString*)currencyID;
+
+/**
  *
  * This method enables/disables the debug mode of the SDK.
  * @param enabled true to enable, false to disable

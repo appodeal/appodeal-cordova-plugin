@@ -1,6 +1,6 @@
 //
 //  MTRGNativeAd.h
-//  myTargetSDK 4.6.14
+//  myTargetSDK 4.6.16
 //
 //  Created by Anton Bulankin on 10.11.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -18,6 +18,8 @@
 - (void)onNoAdWithReason:(NSString *)reason nativeAd:(MTRGNativeAd *)nativeAd;
 
 @optional
+
+- (void)onAdShowWithNativeAd:(MTRGNativeAd *)nativeAd;
 
 - (void)onAdClickWithNativeAd:(MTRGNativeAd *)nativeAd;
 

@@ -1,6 +1,6 @@
 //
 //  InterstitialAd.h
-//  myTargetSDK 4.6.14
+//  myTargetSDK 4.6.16
 //
 //  Created by Anton Bulankin on 04.02.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.

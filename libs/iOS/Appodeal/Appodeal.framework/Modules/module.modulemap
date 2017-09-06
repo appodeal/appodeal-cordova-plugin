@@ -19,4 +19,5 @@ framework module Appodeal {
   header "APDNativeAd.h"
   header "APDMediaView.h"
   header "APDImage.h"
+  header "AppodealRequestDelegateProtocol.h"
 }

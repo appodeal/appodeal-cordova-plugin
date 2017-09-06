@@ -15,36 +15,33 @@
 #import "ALAdLoadDelegate.h"
 #import "ALAdRewardDelegate.h"
 
+AL_ASSUME_NONNULL_BEGIN
+
 /**
  *  This class is used to show rewarded videos to the user. These differ from regular interstitials in that they allow you to provide you user virtual currency in exchange for watching a video.
  */
-
 @interface ALIncentivizedInterstitialAd : NSObject
 
-/**
- * @name Ad Delegates
- */
+#pragma mark - Ad Delegates
 
 /**
  *  An object conforming to the ALAdDisplayDelegate protocol, which, if set, will be notified of ad show/hide events.
  */
-@property (strong, nonatomic) id <ALAdDisplayDelegate> __alnullable adDisplayDelegate;
+@property (strong, nonatomic, alnullable) id <ALAdDisplayDelegate> adDisplayDelegate;
 
 /**
  *  An object conforming to the ALAdVideoPlaybackDelegate protocol, which, if set, will be notified of video start/stop events.
  */
-@property (strong, nonatomic) id <ALAdVideoPlaybackDelegate> __alnullable adVideoPlaybackDelegate;
+@property (strong, nonatomic, alnullable) id <ALAdVideoPlaybackDelegate> adVideoPlaybackDelegate;
 
-/**
- * @name Integration, Class Methods
- */
+#pragma mark - Integration, Class Methods
 
 /**
  * Get a reference to the shared instance of ALIncentivizedInterstitialAd.
  *
  * This wraps the [ALSdk shared] call, and will only work if you hve set your SDK key in Info.plist.
 */
-+ (alnonnull ALIncentivizedInterstitialAd *)shared;
++ (ALIncentivizedInterstitialAd *)shared;
 
 /**
  * Pre-load an incentivized interstitial, and notify your provided Ad Load Delegate.
@@ -127,7 +124,7 @@
  * @param window The UIWindow over which the rewarded video should be displayed.
  *
  */
-+ (void)showOver:(alnonnull UIWindow *)window andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
++ (void)showOver:(UIWindow *)window andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
 
 /**
  * Show an incentivized interstitial, using the most recently pre-loaded ad.
@@ -143,22 +140,20 @@
  * @param window The UIWindow over which the rewarded video should be displayed.
  * @param placement Placement to show the app over
  */
-+ (void)showOver:(alnonnull UIWindow *)window placement:(alnullable NSString *)placement andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
++ (void)showOver:(UIWindow *)window placement:(alnullable NSString *)placement andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
 
-/**
- * @name Integration, Instance Methods
- */
+#pragma mark - Integration, Instance Methods
 
 /**
  * Initialize an incentivized interstitial with a specific custom SDK.
  *
  * This is necessary if you use <code>[ALSdk sharedWithKey: ...]</code>.
  *
- * @param anSdk An SDK instance to use.
+ * @param sdk An SDK instance to use.
  */
-- (alnonnull instancetype)initWithSdk:(alnonnull ALSdk *)anSdk;
+- (instancetype)initWithSdk:(ALSdk *)sdk;
 
-- (alnonnull instancetype)initIncentivizedInterstitialWithSdk:(alnonnull ALSdk *)anSdk __deprecated_msg("Use initWithSdk instead.");
+- (instancetype)initIncentivizedInterstitialWithSdk:(ALSdk *)sdk __deprecated_msg("Use initWithSdk instead.");
 
 /**
  * Pre-load an incentivized interstitial, and notify your provided Ad Load Delegate.
@@ -215,7 +210,7 @@
  * @param adRewardDelegate The reward delegate to notify upon validating reward authenticity with AppLovin.
  * @param window The UIWindow over which the rewarded video should be displayed.
  */
-- (void)showOver:(alnonnull UIWindow *)window andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
+- (void)showOver:(UIWindow *)window andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
 
 /**
  * Show an incentivized interstitial, using the most recently pre-loaded ad.
@@ -231,7 +226,7 @@
  * @param window The UIWindow over which the rewarded video should be displayed.
  * @param placement A placement current incentivized ad is shown over
  */
-- (void)showOver:(alnonnull UIWindow *)window placement:(alnullable NSString *)placement andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
+- (void)showOver:(UIWindow *)window placement:(alnullable NSString *)placement andNotify:(alnullable id <ALAdRewardDelegate>)adRewardDelegate;
 
 /**
  * Dismiss an incentivized interstitial prematurely, before video playback has completed.
@@ -240,9 +235,7 @@
  */
 - (void)dismiss;
 
-/**
- * @name Custom User Identifiers
- */
+#pragma mark - Custom User Identifiers
 
 /**
  * Set a string which identifies the current user, which will be passed through to your server via our optional S2S postbacks.
@@ -262,6 +255,8 @@
  */
 + (alnullable NSString *)userIdentifier;
 
-- (alnullable id) init __attribute__((unavailable("Use [ALIncentivizedInterstitialAd shared] or initWithSdk: instead.")));
+- (instancetype)init __attribute__((unavailable("Use [ALIncentivizedInterstitialAd shared] or initWithSdk: instead.")));
 
 @end
+
+AL_ASSUME_NONNULL_END

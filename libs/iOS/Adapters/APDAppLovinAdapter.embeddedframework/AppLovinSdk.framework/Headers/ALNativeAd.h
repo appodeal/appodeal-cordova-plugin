@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ALAnnotations.h"
+#import "ALPostbackDelegate.h"
+
+AL_ASSUME_NONNULL_BEGIN
 
 @interface ALNativeAd : NSObject
 
@@ -16,66 +18,76 @@
  *
  *  Should you need to report a broken ad to AppLovin support, please include this number's longValue.
  */
-@property (strong, nonatomic, readonly) NSNumber * __alnonnull adIdNumber;
+@property (strong, nonatomic, readonly) NSNumber *adIdNumber;
 
 /**
  *  The title of the native ad.
  */
-@property (copy, nonatomic, readonly) NSString * __alnullable title;
+@property (copy, nonatomic, readonly, alnullable) NSString *title;
 
 /**
  *  The description of the native ad.
  */
-@property (copy, nonatomic, readonly) NSString * __alnullable descriptionText;
+@property (copy, nonatomic, readonly, alnullable) NSString *descriptionText;
 
 /**
  *  The caption text of the native ad.
  */
-@property (copy, nonatomic, readonly) NSString * __alnullable captionText;
+@property (copy, nonatomic, readonly, alnullable) NSString *captionText;
 
 /**
  *  The CTA text of the native ad.
  */
-@property (copy, nonatomic, readonly) NSString * __alnullable ctaText;
+@property (copy, nonatomic, readonly, alnullable) NSString *ctaText;
 
 /**
  *  The app icon URL of the native ad.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnullable iconURL;
+@property (strong, nonatomic, readonly, alnullable) NSURL *iconURL;
 
 /**
  *  The ad image URL for a non-video native ad.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnullable imageURL;
+@property (strong, nonatomic, readonly, alnullable) NSURL *imageURL;
 
 /**
  *  The star rating of the native ad. Please use floatValue when extracting value from the NSNumber
  */
-@property (strong, nonatomic, readonly) NSNumber * __alnullable starRating;
+@property (strong, nonatomic, readonly, alnullable) NSNumber *starRating;
 
 /**
  *  The video URL for a video native ad.
  *
  *  Note that if this native ad does not contain a video, this property will be nil.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnullable videoURL;
+@property (strong, nonatomic, readonly, alnullable) NSURL *videoURL;
 
 /**
  *  The impression tracking URL of the native ad.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnonnull impressionTrackingURL;
+@property (strong, nonatomic, readonly) NSURL *impressionTrackingURL __deprecated_msg("Invoke method -trackImpression or -trackImpressionAndNotify: rather than firing this URL yourself.");
+
+/**
+ *  Fires the impression asynchronously.
+ */
+- (void)trackImpression;
+
+/**
+ *  Fires the impression asynchronously and notifies the provided delegate.
+ */
+- (void)trackImpressionAndNotify:(alnullable id<ALPostbackDelegate>)postbackDelegate;
 
 /**
  *  The click URL the native ad redirects to.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnonnull clickURL __deprecated_msg("Invoke method -launchClickTarget rather than opening this URL yourself.");
+@property (strong, nonatomic, readonly, alnullable) NSURL *clickURL __deprecated_msg("Invoke method -launchClickTarget rather than opening this URL yourself.");
 
 /**
  *  The video begin tracking URL of the native ad.
  *
  *  Note that if this native ad does not contain a video, this property will be nil.
  */
-@property (strong, nonatomic, readonly) NSURL * __alnullable videoStartTrackingURL;
+@property (strong, nonatomic, readonly, alnullable) NSURL *videoStartTrackingURL;
 
 /**
  * Retrieve the URL which should be fired upon video completion.
@@ -106,3 +118,5 @@
 - (void)launchClickTarget;
 
 @end
+
+AL_ASSUME_NONNULL_END
