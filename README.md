@@ -9,27 +9,46 @@ This is an official Appodeal Cordova plugin, created to support Appodeal SDK wit
 
 Simply go to the project folder over console/terminal and run there following command:
 
-    cordova plugin add https://github.com/appodeal/appodeal-cordova-plugin.git#cordova2
+    cordova plugin add https://github.com/appodeal/appodeal-cordova-plugin.git
 
-Google Play Services (v9+) already included to plugin dependencies.
+Google Play Services (v10+) already included to plugin dependencies.
 
 If you have issues while installing plugin, follow the Command-line Interface Guide.
 
-Minimum OS requirements: Android API level 9 (Android OS 2.3).
+Minimum OS requirements: 
 
-Android Appodeal SDK version 2.0.2
++ iOS 8.1
++ Android API level 14 (Android OS 4.0)
 
-iOS Appodeal SDK version 2.0.0
+Appodeal SDK included:
+
++ Android Appodeal SDK version 2.1.4
++ iOS Appodeal SDK version 2.1.4
 
 
 ## Changelog
 
+3.0.2 (20.09.2017)
+
++ Appodeal iOS SDK updated to 2.1.4
++ Appodeal Android SDK updated to 2.1.4
++ Refactoring
++ Play services resolver added
++ Appodeal.setLogging renamed to Appodeal.setLogLevel
++ Appodeal.setChildDirectedTreatment added
++ Appodeal.muteVideosIfCallsMuted added
++ Appodeal.showTestScreen added (supported by Adnroid only atm)
++ Appodeal.canShowWithPlacement added
++ Appodeal.getRewardParameters added
++ Appodeal.getRewardParametersForPlacement added
+
+
 3.0.0 (14.06.2017)
 
 + Appodeal iOS SDK updated to 2.0.0
-+ Appodeal Android SDK updated to 2.02
++ Appodeal Android SDK updated to 2.0.2
 + Appodeal.confirm removed
 + Appodeal.canShow added
 + SetOnLoadedTriggerBoth renamed to setTriggerOnLoadedOnPrecache
-+ callbacks reworked, follow docs on appodeal.com/sdk/cordova2
++ callbacks reworked
 + optional permissions to AndroidManifest added
