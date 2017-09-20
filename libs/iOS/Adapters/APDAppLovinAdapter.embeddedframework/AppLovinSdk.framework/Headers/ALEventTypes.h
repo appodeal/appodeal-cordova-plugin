@@ -6,10 +6,12 @@
 //
 //
 
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
 #ifndef ALEventTypes_h
 #define ALEventTypes_h
+
+AL_ASSUME_NONNULL_BEGIN
 
 /**
  * @name Authentication Events
@@ -21,7 +23,7 @@
  * Suggested parameters: kALEventParameterUserAccountIdentifierKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserLoggedIn;
+extern NSString *const kALEventTypeUserLoggedIn;
 
 /**
  * Event signifying that the finished a registration flow and created a new account.
@@ -29,7 +31,7 @@ extern NSString * __alnonnull const kALEventTypeUserLoggedIn;
  * Suggested parameters: kALEventParameterUserAccountIdentifierKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCreatedAccount;
+extern NSString *const kALEventTypeUserCreatedAccount;
 
 /**
  * @name Content Events
@@ -43,7 +45,7 @@ extern NSString * __alnonnull const kALEventTypeUserCreatedAccount;
  * Suggested parameters: kALEventParameterContentIdentifierKey.
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserViewedContent;
+extern NSString *const kALEventTypeUserViewedContent;
 
 /**
  * Event signifying that the user executed a search query.
@@ -51,7 +53,7 @@ extern NSString * __alnonnull const kALEventTypeUserViewedContent;
  * Suggested parameters: kALEventParameterSearchQueryKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserExecutedSearch;
+extern NSString *const kALEventTypeUserExecutedSearch;
 
 /**
  * @name Gaming Events
@@ -62,7 +64,7 @@ extern NSString * __alnonnull const kALEventTypeUserExecutedSearch;
  *
  * Suggested parameters: None.
  */
-extern NSString * __alnonnull const kALEventTypeUserCompletedTutorial;
+extern NSString *const kALEventTypeUserCompletedTutorial;
 
 /**
  * Event signifying that the user completed a given level or game sequence.
@@ -70,7 +72,7 @@ extern NSString * __alnonnull const kALEventTypeUserCompletedTutorial;
  * Suggested parameters: kALEventParameterCompletedLevelKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCompletedLevel;
+extern NSString *const kALEventTypeUserCompletedLevel;
 
 /**
  * Event signifying that the user completed (or "unlocked") a particular achievement.
@@ -78,7 +80,7 @@ extern NSString * __alnonnull const kALEventTypeUserCompletedLevel;
  * Suggested parameters: kALEventParameterCompletedAchievementKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCompletedAchievement;
+extern NSString *const kALEventTypeUserCompletedAchievement;
 
 /**
  * Event signifying that the user spent virtual currency on an in-game purchase.
@@ -86,7 +88,7 @@ extern NSString * __alnonnull const kALEventTypeUserCompletedAchievement;
  * Suggested parameters: kALEventParameterVirtualCurrencyAmountKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserSpentVirtualCurrency;
+extern NSString *const kALEventTypeUserSpentVirtualCurrency;
 
 /**
  * @name Commerce Events
@@ -100,7 +102,7 @@ extern NSString * __alnonnull const kALEventTypeUserSpentVirtualCurrency;
  * Suggested parameters: kALEventParameterProductIdentifierKey.
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserViewedProduct;
+extern NSString *const kALEventTypeUserViewedProduct;
 
 /**
  * Event signifying that the user added a product/item to their shopping cart.
@@ -108,7 +110,7 @@ extern NSString * __alnonnull const kALEventTypeUserViewedProduct;
  * Suggested parameters: kALEventParameterProductIdentifierKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserAddedItemToCart;
+extern NSString *const kALEventTypeUserAddedItemToCart;
 
 /**
  * Event signifying that the user added a product/item to their wishlist.
@@ -116,7 +118,7 @@ extern NSString * __alnonnull const kALEventTypeUserAddedItemToCart;
  * Suggested parameters: kALEventParameterProductIdentifierKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserAddedItemToWishlist;
+extern NSString *const kALEventTypeUserAddedItemToWishlist;
 
 /**
  * Event signifying that the user provided payment information, such as a credit card number.
@@ -124,7 +126,7 @@ extern NSString * __alnonnull const kALEventTypeUserAddedItemToWishlist;
  * Suggested parameters: None.
  * Please DO NOT pass us any personally identifiable information (PII) or financial/payment information.
  */
-extern NSString * __alnonnull const kALEventTypeUserProvidedPaymentInformation;
+extern NSString *const kALEventTypeUserProvidedPaymentInformation;
 
 /**
  * Event signifying that the user began a check-out / purchase process.
@@ -132,7 +134,7 @@ extern NSString * __alnonnull const kALEventTypeUserProvidedPaymentInformation;
  * Suggested parameters: kALEventParameterProductIdentifierKey, kALEventParameterRevenueAmountKey and kALEventParameterRevenueCurrencyKey.
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserBeganCheckOut;
+extern NSString *const kALEventTypeUserBeganCheckOut;
 
 /**
  * Event signifying that the user completed a check-out / purchase.
@@ -140,7 +142,7 @@ extern NSString * __alnonnull const kALEventTypeUserBeganCheckOut;
  * Suggested parameters: kALEventParameterCheckoutTransactionIdentifierKey, kALEventParameterProductIdentifierKey, kALEventParameterRevenueAmountKey and kALEventParameterRevenueCurrencyKey.
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCompletedCheckOut;
+extern NSString *const kALEventTypeUserCompletedCheckOut;
 
 /**
  * Event signifying that the user completed an iTunes in-app purchase using StoreKit.
@@ -150,7 +152,7 @@ extern NSString * __alnonnull const kALEventTypeUserCompletedCheckOut;
  * Suggested parameters: kALEventParameterProductIdentifierKey, kALEventParameterStoreKitTransactionIDKey, kALEventParamterStoreKitReceiptKey, kALEventParameterRevenueAmountKey, kALEventParameterRevenueCurrencyKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCompletedInAppPurchase;
+extern NSString *const kALEventTypeUserCompletedInAppPurchase;
 
 /**
  * Event signifying that the user has created a reservation or other date-specific event.
@@ -158,7 +160,7 @@ extern NSString * __alnonnull const kALEventTypeUserCompletedInAppPurchase;
  * Suggested parameters: kALEventParameterProductIdentifierKey, kALEventParameterReservationStartDateKey and kALEventParameterReservationEndDateKey
  * We recommend you pass these key-value pairs to trackEvent:parameters:.
  */
-extern NSString * __alnonnull const kALEventTypeUserCreatedReservation;
+extern NSString *const kALEventTypeUserCreatedReservation;
 
 /**
  * @name Social Events
@@ -169,14 +171,14 @@ extern NSString * __alnonnull const kALEventTypeUserCreatedReservation;
  *
  * Suggested parameters: None.
  */
-extern NSString * __alnonnull const kALEventTypeUserSentInvitation;
+extern NSString *const kALEventTypeUserSentInvitation;
 
 /**
  * Event signifying that the user shared a link or deep-link to some content within your app.
  *
  * Suggested parameters: None.
  */
-extern NSString * __alnonnull const kALEventTypeUserSharedLink;
+extern NSString *const kALEventTypeUserSharedLink;
 
 /**
  * @name Event Parameters
@@ -185,7 +187,7 @@ extern NSString * __alnonnull const kALEventTypeUserSharedLink;
 /**
  * Dictionary key for trackEvent:parameters: which represents the username or account ID of the user. Expects corresponding value of type NSString.
  */
-extern NSString * __alnonnull const kALEventParameterUserAccountIdentifierKey;
+extern NSString *const kALEventParameterUserAccountIdentifierKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which identifies a particular piece of content viewed by the user.  Expects corresponding value of type NSString.
@@ -193,34 +195,34 @@ extern NSString * __alnonnull const kALEventParameterUserAccountIdentifierKey;
  * This could be something like a section title, or even a name of a view controller.
  * For views of particular products, it is preferred you pass an SKU under kALEventParameterProductIdentifierKey.
  */
-extern NSString * __alnonnull const kALEventParameterContentIdentifierKey;
+extern NSString *const kALEventParameterContentIdentifierKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents a search query executed by the user.  Expects corresponding value of type NSString.
  *
  * In most cases the text entered into a UISearchBar is what you'd want to provide.
  */
-extern NSString * __alnonnull const kALEventParameterSearchQueryKey;
+extern NSString *const kALEventParameterSearchQueryKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents an identifier of the level the user has just completed.  Expects corresponding value of type NSString.
  */
-extern NSString * __alnonnull const kALEventParameterCompletedLevelKey;
+extern NSString *const kALEventParameterCompletedLevelKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents an identifier of the achievement the user has just completed/unlocked.  Expects corresponding value of type NSString.
  */
-extern NSString * __alnonnull const kALEventParameterCompletedAchievementKey;
+extern NSString *const kALEventParameterCompletedAchievementKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the amount of virtual currency that a user spent on an in-game purchase.  Expects corresponding value of type NSNumber.
  */
-extern NSString * __alnonnull const kALEventParameterVirtualCurrencyAmountKey;
+extern NSString *const kALEventParameterVirtualCurrencyAmountKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the name of the virtual currency that a user spent on an in-game purchase.  Expects corresponding value of type NSString.
  */
-extern NSString * __alnonnull const kALEventParameterVirtualCurrencyNameKey;
+extern NSString *const kALEventParameterVirtualCurrencyNameKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which identifies a particular product.  Expects corresponding value of type NSString.
@@ -228,49 +230,51 @@ extern NSString * __alnonnull const kALEventParameterVirtualCurrencyNameKey;
  * This could be something like a product name, SKU or inventory ID.
  * For non-product content, like tracking uses of particular view controllers, it is preferred you pass kALEventParameterContentIdentifierKey instead.
  */
-extern NSString * __alnonnull const kALEventParameterProductIdentifierKey;
+extern NSString *const kALEventParameterProductIdentifierKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the amount of revenue generated by a purchase event.  Expects corresponding value of type NSNumber.
  */
-extern NSString * __alnonnull const kALEventParameterRevenueAmountKey;
+extern NSString *const kALEventParameterRevenueAmountKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the currency of the revenue event.  Expects corresponding value of type NSString.
  *
  * Ideally this should be an ISO 4217 3-letter currency code (for instance, USD, EUR, GBP...)
  */
-extern NSString * __alnonnull const kALEventParameterRevenueCurrencyKey;
+extern NSString *const kALEventParameterRevenueCurrencyKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents a unique identifier for the current checkout transaction.  Expects corresponding value of type NSString.
  */
-extern NSString * __alnonnull const kALEventParameterCheckoutTransactionIdentifierKey;
+extern NSString *const kALEventParameterCheckoutTransactionIdentifierKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the StoreKit transaction ID associated with the revenue keys.  Expects corresponding value of type NSString.
  *
  * This identifier should match the value of the transactionIdentifier property of SKPaymentTransaction.
  */
-extern NSString * __alnonnull const kALEventParameterStoreKitTransactionIdentifierKey;
+extern NSString *const kALEventParameterStoreKitTransactionIdentifierKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the StoreKit receipt associated with the revenue keys.  Expects corresponding value of type NSData.
  *
  * The receipt can be collected as such: NSData* receipt = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] appStoreReceiptURL]];
  */
-extern NSString * __alnonnull const kALEventParameterStoreKitReceiptKey;
+extern NSString *const kALEventParameterStoreKitReceiptKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the start date of a reservation.  Expects corresponding value of type NSDate.
  */
-extern NSString * __alnonnull const kALEventParameterReservationStartDateKey;
+extern NSString *const kALEventParameterReservationStartDateKey;
 
 /**
  * Dictionary key for trackEvent:parameters: which represents the end date of a reservation.  Expects corresponding value of type NSDate.
  *
  * If a reservation does not span multiple days, you can submit only kALEventParameterReservationStartDateKey and ignore this parameter.
  */
-extern NSString * __alnonnull const kALEventParameterReservationEndDateKey;
+extern NSString *const kALEventParameterReservationEndDateKey;
 
 #endif
+
+AL_ASSUME_NONNULL_END

@@ -5,38 +5,36 @@
 //  Copyright (c) 2013, AppLovin Corporation. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
-#import <AppLovinSdk/ALSdk.h>
-#import <AppLovinSdk/ALAdService.h>
+#import "ALSdk.h"
+#import "ALAdService.h"
+
+AL_ASSUME_NONNULL_BEGIN
 
 /**
  *  This class is used to display full-screen ads to the user.
  */
 @interface ALInterstitialAd : NSObject
 
-/**
- * @name Ad Delegates
- */
+#pragma mark - Ad Delegates
 
 /**
  *  An object conforming to the ALAdLoadDelegate protocol, which, if set, will be notified of ad load events.
  */
-@property (strong, atomic) id <ALAdLoadDelegate> __alnullable adLoadDelegate;
+@property (strong, nonatomic, alnullable) id <ALAdLoadDelegate> adLoadDelegate;
 
 /**
  *  An object conforming to the ALAdDisplayDelegate protocol, which, if set, will be notified of ad show/hide events.
  */
-@property (strong, atomic) id <ALAdDisplayDelegate> __alnullable adDisplayDelegate;
+@property (strong, nonatomic, alnullable) id <ALAdDisplayDelegate> adDisplayDelegate;
 
 /**
  *  An object conforming to the ALAdVideoPlaybackDelegate protocol, which, if set, will be notified of video start/finish events.
  */
-@property (strong, atomic) id <ALAdVideoPlaybackDelegate> __alnullable adVideoPlaybackDelegate;
+@property (strong, nonatomic, alnullable) id <ALAdVideoPlaybackDelegate> adVideoPlaybackDelegate;
 
-/**
- * @name Loading and Showing Ads, Class Methods
- */
+#pragma mark - Loading and Showing Ads, Class Methods
 
 /**
  * Show an interstitial over the application's key window.
@@ -45,7 +43,7 @@
  * Note that this method is functionally equivalent to calling
  * showOver: and passing [[UIApplication sharedApplication] keyWindow].
  */
-+ (alnonnull ALInterstitialAd *) show;
++ (ALInterstitialAd *)show;
 
 /**
  * Show a new interstitial ad. This method will display an interstitial*
@@ -53,8 +51,7 @@
  *
  * @param window  A window to show the interstitial over
  */
-+ (alnonnull ALInterstitialAd *) showOver: (alnonnull UIWindow *) window;
-
++ (ALInterstitialAd *)showOver:(UIWindow *)window;
 
 /**
  * Show a new interstitial ad. This method will display an interstitial over the
@@ -62,8 +59,7 @@
  *
  * @param placement  A placement to show the interstitial over
  */
-+ (alnonnull ALInterstitialAd *) showOverPlacement: (alnullable NSString *) placement;
-
++ (ALInterstitialAd *)showOverPlacement:(alnullable NSString *)placement;
 
 /**
  * Show a new interstitial ad. This method will display an interstitial*
@@ -72,14 +68,14 @@
  * @param window     A window to show the interstitial over
  * @param placement  A placement to show the interstitial over
  */
-+ (alnonnull ALInterstitialAd *) showOver: (alnonnull UIWindow *) window placement: (alnullable NSString* )placement;
++ (ALInterstitialAd *)showOver:(UIWindow *)window placement:(alnullable NSString* )placement;
 
 /**
  * Check if an ad is currently ready to display.
  *
  * @return YES if a subsequent call to a show method will result in an immediate display. NO if a call to a show method will require network activity first.
  */
-+ (BOOL) isReadyForDisplay;
++ (BOOL)isReadyForDisplay;
 
 /**
  * Get a reference to the shared singleton instance.
@@ -87,11 +83,9 @@
  * This method calls [ALSdk shared] which requires you to have an SDK key defined in <code>Info.plist</code>.
  * If you use <code>[ALSdk sharedWithKey: ...]</code> then you will need to use the instance methods instead.
  */
-+ (alnonnull ALInterstitialAd *) shared;
++ (ALInterstitialAd *)shared;
 
-/**
- * @name Loading and Showing Ads, Instance Methods
- */
+#pragma mark - Loading and Showing Ads, Instance Methods
 
 /**
  * Show an interstitial over the application's key window.
@@ -100,7 +94,7 @@
  * Note that this method is functionally equivalent to calling
  * showOver: and passing [[UIApplication sharedApplication] keyWindow].
  */
-- (void) show;
+- (void)show;
 
 /**
  * Show an interstitial over the application's key window.
@@ -112,13 +106,13 @@
  * @param placement  Placement over which this ad is displayed
  */
 
-- (void) showOverPlacement: (alnonnull NSString *) placement;
+- (void)showOverPlacement:(NSString *)placement;
 
 /**
  * Show an interstitial over a given window.
  * @param window An instance of window to show the interstitial over.
  */
-- (void) showOver: (alnonnull UIWindow *) window;
+- (void)showOver:(UIWindow *)window;
 
 /**
  * Show current interstitial over a given window and render a specified ad loaded by ALAdService.
@@ -126,7 +120,7 @@
  * @param window An instance of window to show the interstitial over.
  * @param ad     The ad to render into this interstitial.
  */
-- (void) showOver: (alnonnull UIWindow *) window andRender: (alnonnull ALAd *) ad;
+- (void)showOver:(UIWindow *)window andRender:(ALAd *)ad;
 
 /**
  * Show current interstitial over a given window and render a specified ad loaded by ALAdService.
@@ -135,8 +129,7 @@
  * @param ad         The ad to render into this interstitial.
  * @param placement  Placement over which this ad is displayed
  */
-- (void) showOver: (alnonnull UIWindow *) window  placement: (alnullable NSString *)placement andRender: (alnonnull ALAd *) ad;
-
+- (void)showOver:(UIWindow *)window placement:(alnullable NSString *)placement andRender:(ALAd *)ad;
 
 /**
  * Check if an ad is currently ready to display.
@@ -145,30 +138,26 @@
  */
 @property (readonly, atomic, getter=isReadyForDisplay) BOOL readyForDisplay;
 
-/**
- *  @name Dismissing Interstitials Expliticly
- */
+#pragma mark - Dismissing Interstitials Expliticly
 
 /**
  * Dismiss this interstitial.
  *
  * In general, this is not recommended as it negatively impacts click through rate.
  */
-- (void) dismiss;
+- (void)dismiss;
 
-/**
- *  @name Initialization
- */
+#pragma mark - Initialization
+
 /**
  * Init this interstitial ad with a custom SDK instance.
  *
  * To simply display an interstitial, use [ALInterstitialAd showOver:window]
  *
- * @param anSdk Instance of AppLovin SDK to use.
+ * @param sdk Instance of AppLovin SDK to use.
  */
-- (alnonnull instancetype) initWithSdk: (alnonnull ALSdk *) anSdk;
-
-- (alnonnull instancetype) initInterstitialAdWithSdk: (alnonnull ALSdk *) anSdk __deprecated_msg("Use initWithSdk instead.");
+- (instancetype)initWithSdk:(ALSdk *)sdk;
+- (instancetype)initInterstitialAdWithSdk:(ALSdk *)sdk __deprecated_msg("Use initWithSdk instead.");
 
 /**
  * Init this interstitial ad with a custom SDK instance and frame.
@@ -177,14 +166,12 @@
  * In general, setting a custom frame is not recommended, unless absolutely necessary.
  * Interstitial ads are intended to be full-screen and may not look right if sized otherwise.
  *
- * @param aFrame   Frame to use with the new interstitial.
- * @param anSdk    Instance of AppLovin SDK to use.
+ * @param frame Frame to use with the new interstitial.
+ * @param sdk   Instance of AppLovin SDK to use.
  */
-- (alnonnull id) initWithFrame: (CGRect) aFrame sdk: (alnonnull ALSdk *) anSdk;
+- (instancetype)initWithFrame:(CGRect)frame sdk:(ALSdk *)sdk;
 
-/**
- *  @name Advanced Configuration
- */
+#pragma mark - Advanced Configuration
 
 /**
  *  Frame to be passed through to the descendent UIView containing this interstitial.
@@ -200,5 +187,9 @@
  */
 @property (assign, nonatomic) BOOL hidden;
 
-- (alnullable id) init __attribute__((unavailable("Use [ALInterstitialAd shared] or initInterstitialAdWithSdk: instead.")));
+
+- (instancetype) init __attribute__((unavailable("Use [ALInterstitialAd shared] or initInterstitialAdWithSdk: instead.")));
+
 @end
+
+AL_ASSUME_NONNULL_END

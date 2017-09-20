@@ -347,20 +347,6 @@ namespace tapjoy {
     static void setVideoListener(TJVideoListener* listener);
 
     /**
-     * @brief ONLY USE FOR PAID APP INSTALLS.<br>
-     *        This method should be called in the onCreate() method of your first
-     *        activity after calling connect.<br>
-     *        Must enable a paid app Pay-Per-Action on the Tapjoy dashboard. Starts a
-     *        15 minute timer. After which, will send an actionComplete call with the
-     *        paid app PPA to inform the Tapjoy server that the paid install PPA has
-     *        been completed.
-     *
-     * @param paidAppPayPerActionID
-     *        The Pay-Per-Action ID for this paid app download action.
-     */
-    static void enablePaidAppWithActionID(const char* paidAppPayPerActionID);
-
-    /**
      * @brief Informs the Tapjoy server that the specified Pay-Per-Action was
      *        completed. Should be called whenever a user completes an in-game action.
      *

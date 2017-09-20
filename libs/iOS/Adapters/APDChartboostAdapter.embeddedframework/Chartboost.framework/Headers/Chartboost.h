@@ -1,7 +1,7 @@
 /*
  * Chartboost.h
  * Chartboost
- * 6.5.1
+ * 6.6.1
  *
  * Copyright 2011 Chartboost. All rights reserved.
  */
@@ -64,7 +64,9 @@ typedef NS_ENUM(NSUInteger, CBMediation) {
     /*! AdMob */
     CBMediationAdMob,
     /*! HyprMX */
-    CBMediationHyprMX
+    CBMediationHyprMX,
+    /*! AerServ */
+    CBMediationAerServ
 };
 
 

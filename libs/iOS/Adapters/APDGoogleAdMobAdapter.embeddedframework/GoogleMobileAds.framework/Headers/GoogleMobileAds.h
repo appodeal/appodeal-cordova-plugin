@@ -20,6 +20,8 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/GADAdDelegate.h>
 #import <GoogleMobileAds/GADAdNetworkExtras.h>
 #import <GoogleMobileAds/GADAdSize.h>
+#import <GoogleMobileAds/GADAudioVideoManagerDelegate.h>
+#import <GoogleMobileAds/GADAudioVideoManager.h>
 #import <GoogleMobileAds/GADBannerView.h>
 #import <GoogleMobileAds/GADBannerViewDelegate.h>
 #import <GoogleMobileAds/GADCorrelator.h>
@@ -53,12 +55,15 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/GADAdLoaderAdTypes.h>
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
 
+#import <GoogleMobileAds/GADAdChoicesView.h>
 #import <GoogleMobileAds/GADNativeAd.h>
 #import <GoogleMobileAds/GADNativeAdDelegate.h>
 #import <GoogleMobileAds/GADNativeAdImage.h>
 #import <GoogleMobileAds/GADNativeAdImage+Mediation.h>
 #import <GoogleMobileAds/GADNativeAppInstallAd.h>
+#import <GoogleMobileAds/GADNativeAppInstallAdAssetIDs.h>
 #import <GoogleMobileAds/GADNativeContentAd.h>
+#import <GoogleMobileAds/GADNativeContentAdAssetIDs.h>
 #import <GoogleMobileAds/GADNativeCustomTemplateAd.h>
 
 #import <GoogleMobileAds/GADNativeAdImageAdLoaderOptions.h>

@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
+#import "ALAd.h"
 
-#import <AppLovinSdk/ALAd.h>
+AL_ASSUME_NONNULL_BEGIN
 
 /**
  * This protocol defines a listener for ad load events.
@@ -26,7 +27,7 @@
  * @param adService AdService which loaded the ad. Will not be nil.
  * @param ad        Ad that was loaded. Will not be nil.
  */
-- (void) adService: (alnonnull ALAdService *) adService didLoadAd: (alnonnull ALAd *) ad;
+- (void)adService:(ALAdService *)adService didLoadAd:(ALAd *)ad;
 
 /**
  * This method is invoked when an ad load fails.
@@ -36,6 +37,8 @@
  * @param adService AdService which failed to load an ad. Will not be nil.
  * @param code      An error code corresponding with a constant defined in <code>ALErrorCodes.h</code>.
  */
-- (void) adService: (alnonnull ALAdService *) adService didFailToLoadAdWithError: (int) code;
+- (void)adService:(ALAdService *)adService didFailToLoadAdWithError:(int)code;
 
 @end
+
+AL_ASSUME_NONNULL_END

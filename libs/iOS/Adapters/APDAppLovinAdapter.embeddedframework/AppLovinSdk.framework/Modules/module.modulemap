@@ -1,32 +1,18 @@
+framework module AppLovinSDK {
+    umbrella header "AppLovinSDK.h"
 
-framework module AppLovinSdk { 
-  umbrella header "AppLovinSdk.h"
-  export * 
-    module * { export * }
-  header "ALAd.h"
-  header "ALAdDisplayDelegate.h"
-  header "ALAdLoadDelegate.h"
-  header "ALAdRewardDelegate.h"
-  header "ALAdService.h"
-  header "ALAdSize.h"
-  header "ALAdType.h"
-  header "ALAdUpdateDelegate.h"
-  header "ALAdVideoPlaybackDelegate.h"
-  header "ALAdView.h"
-  header "ALAnnotations.h"
-  header "ALErrorCodes.h"
-  header "ALEventService.h"
-  header "ALEventTypes.h"
-  header "ALIncentivizedInterstitialAd.h"
-  header "ALInterstitialAd.h"
-  header "ALNativeAd.h"
-  header "ALNativeAdLoadDelegate.h"
-  header "ALNativeAdPrecacheDelegate.h"
-  header "ALNativeAdService.h"
-  header "ALPostbackDelegate.h"
-  header "ALPostbackService.h"
-  header "ALSdk.h"
-  header "ALSdkSettings.h"
-  header "ALSwiftHeaders.h"
-  header "ALTargetingData.h"
+    export *
+    module * {
+        export *
+    }
+
+    link framework "AdSupport"
+    link framework "AVFoundation"
+    link framework "CoreGraphics"
+    link framework "CoreMedia"
+    link framework "CoreTelephony"
+    link framework "Foundation"
+    link framework "StoreKit"
+    link framework "SystemConfiguration"
+    link framework "UIKit"
 }

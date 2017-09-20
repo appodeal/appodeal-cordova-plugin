@@ -19,22 +19,26 @@
 #ifndef sdk_ALNullabilityAnnotations_h
 #define sdk_ALNullabilityAnnotations_h
 
-#if  __has_feature(nullability)
+#if __has_feature(nullability)
     #define alnullable nullable
     #define alnonnull nonnull
     #define __alnullable __nullable
     #define __alnonnull __nonnull
+    #define AL_ASSUME_NONNULL_BEGIN NS_ASSUME_NONNULL_BEGIN
+    #define AL_ASSUME_NONNULL_END NS_ASSUME_NONNULL_END
 #else
     #define alnullable
     #define alnonnull
     #define __alnullable
     #define __alnonnull
+    #define AL_ASSUME_NONNULL_BEGIN
+    #define AL_ASSUME_NONNULL_END
 #endif
 
-#if __has_feature(attribute_availability_tvos)
-    #define __AL_TVOS_PROHIBITED __OS_AVAILABILITY(tvos,unavailable)
+#if __has_feature(objc_generics)
+    #define AL_OF_TYPE(...) __VA_ARGS__
 #else
-    #define __AL_TVOS_PROHIBITED
+    #define AL_OF_TYPE(...)
 #endif
 
 #endif

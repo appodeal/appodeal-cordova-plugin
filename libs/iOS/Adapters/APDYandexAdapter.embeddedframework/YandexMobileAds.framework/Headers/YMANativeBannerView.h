@@ -3,7 +3,7 @@
  *
  * This file is a part of the Yandex Advertising Network.
  *
- * Version for iOS © 2016 YANDEX
+ * Version for iOS © 2017 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at https://legal.yandex.com/partner_ch/
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param ad Native ad.
  * @param width Banner width.
- * @appearance Banner appearance which is used as parameter in @p applyAppearance: method for banner. 
+ * @param appearance Banner appearance which is used as parameter in @p applyAppearance: method for banner.
  * Default appearance is used if @p appearance is nil.
  *
  * @return Banner height.

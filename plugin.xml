@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="com.appodeal.plugin" version="2.1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+<plugin id="com.appodeal.plugin" version="3.0.2" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
   <name>Appodeal Plugin</name>
   <description>Appodeal Plugin</description>
   <author>Appodeal</author>
@@ -19,78 +19,112 @@
             </feature>
         </config-file>
         <config-file parent="/manifest" target="AndroidManifest.xml">
-            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-            <uses-permission android:name="android.permission.INTERNET"/>
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!--optional -->
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!--optional -->
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--optional-->
         </config-file>
         <framework src="com.google.android.gms:play-services-ads:9+" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <meta-data android:name="com.appodeal.framework" android:value="phonegap" />
-			<receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
-			<intent-filter>
-				<action android:name="android.intent.action.PACKAGE_ADDED" />
-				<data android:scheme="package" />
-			</intent-filter>
-			</receiver>
-
 			<activity android:name="com.appodeal.ads.InterstitialActivity"
-				  android:configChanges="orientation|screenSize"
-				  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				android:configChanges="orientation|screenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 			<activity android:name="com.appodeal.ads.VideoActivity"
-				  android:configChanges="orientation|screenSize"
-				  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
+				android:configChanges="orientation|screenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 			<activity android:name="com.appodeal.ads.LoaderActivity"
-				  android:configChanges="orientation|screenSize"
-				  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				android:configChanges="orientation|screenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+			<activity android:name="com.appodeal.ads.VideoPlayerActivity"
+				android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+			<receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
+				<intent-filter>
+					<action android:name="android.intent.action.PACKAGE_ADDED" />
+					<data android:scheme="package" />
+				</intent-filter>
+			</receiver>
+			<activity android:name="com.appodeal.ads.TestActivity"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
 			<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
 			<activity android:name="com.google.android.gms.ads.AdActivity"
-				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-				  android:theme="@android:style/Theme.Translucent" />
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent" />
 
 			<activity android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true"
-				  android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-				  android:configChanges="keyboardHidden|orientation|screenSize" />
+				android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+				android:configChanges="keyboardHidden|orientation|screenSize" />
 
-			<activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
-				  android:theme="@android:style/Theme.Translucent" />
+			<activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:configChanges="orientation|screenSize"/>
+			<activity android:name="com.applovin.adview.AppLovinConfirmationActivity" android:configChanges="orientation|screenSize"/>
 
 			<activity android:name="com.mopub.mobileads.MoPubActivity"
-				  android:configChanges="keyboardHidden|orientation|screenSize"
-				  android:theme="@android:style/Theme.Translucent" />
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:theme="@android:style/Theme.Translucent" />
 			<activity android:name="com.mopub.common.MoPubBrowser"
-				  android:configChanges="keyboardHidden|orientation|screenSize" />
+				android:configChanges="keyboardHidden|orientation|screenSize" />
 			<activity android:name="com.mopub.mobileads.MraidActivity"
-				  android:configChanges="keyboardHidden|orientation|screenSize" />
+				android:configChanges="keyboardHidden|orientation|screenSize" />
 			<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
-				  android:configChanges="keyboardHidden|orientation|screenSize" />
+				android:configChanges="keyboardHidden|orientation|screenSize" />
+			<activity android:name="com.mopub.mobileads.RewardedMraidActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-			<activity android:name="org.nexage.sourcekit.mraid.MRAIDBrowser"
-				  android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-				  android:theme="@android:style/Theme.Translucent" />
+			<activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+				android:configChanges="keyboardHidden|orientation|screenSize"/>
 
+			<activity android:name="org.nexage.sourcekit.vast.activity.VPAIDActivity"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+			<activity android:name="com.appodeal.ads.networks.vpaid.VPAIDActivity"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 			<activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-			<activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:hardwareAccelerated="true"/>
-
-			<activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
-				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-			<activity android:name="org.nexage.sourcekit.vast.activity.VPAIDActivity"
-				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+			<activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:hardwareAccelerated="true"/>
 
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.appodeal.ads.networks.vpaid.VPAIDActivity"
-				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+			<activity android:name="com.facebook.ads.AudienceNetworkActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
 
-			<activity android:name="com.appodeal.ads.networks.SpotXActivity"
-				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.facebook.ads.InterstitialAdActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
+			<activity android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
+				android:theme="@android:style/Theme" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+				android:theme="@android:style/Theme.Translucent"
+				android:configChanges="orientation|keyboardHidden|screenSize" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+				android:theme="@android:style/Theme"
+				android:configChanges="orientation|keyboardHidden|screenSize" />
+			<!--suppress AndroidDomInspection -->
+			<service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
+			<!--suppress AndroidDomInspection -->
+			<service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
+
+
+			<service android:name="com.yandex.metrica.MetricaService" android:enabled="true"
+				android:exported="true" android:process=":Metrica">
+				<intent-filter>
+					<category android:name="android.intent.category.DEFAULT" />
+					<action android:name="com.yandex.metrica.IMetricaService" />
+					<data android:scheme="metrica" />
+				</intent-filter>
+				<meta-data android:name="metrica:api:level" android:value="58" />
+			</service>
+			<receiver android:name="com.yandex.metrica.MetricaEventHandler"
+				android:enabled="true" android:exported="true">
+				<intent-filter>
+					<action android:name="com.android.vending.INSTALL_REFERRER" />
+				</intent-filter>
+			</receiver>
+
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.yandex.mobile.ads.AdActivity"
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
 			<activity android:name="com.unity3d.ads.adunit.AdUnitActivity"
 				android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
@@ -105,89 +139,102 @@
 				android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
 				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" />
 
-
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.jirbo.adcolony.AdColonyOverlay"
-				  android:configChanges="keyboardHidden|orientation|screenSize"
-				  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
-				  android:configChanges="keyboardHidden|orientation|screenSize"
-				  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.jirbo.adcolony.AdColonyBrowser"
-				  android:configChanges="keyboardHidden|orientation|screenSize"
-				  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.vungle.publisher.FullScreenAdActivity"
-				  android:configChanges="keyboardHidden|orientation|screenSize"
-				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+			<activity android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.startapp.android.publish.list3d.List3DActivity"
-				  android:theme="@android:style/Theme" />
-			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.startapp.android.publish.OverlayActivity"
-				  android:theme="@android:style/Theme.Translucent"
-				  android:configChanges="orientation|keyboardHidden|screenSize" />
-			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.startapp.android.publish.FullScreenActivity"
-				  android:theme="@android:style/Theme"
-				  android:configChanges="orientation|keyboardHidden|screenSize" />
-			<service android:name="com.yandex.metrica.MetricaService" android:enabled="true"
-				 android:exported="true" android:process=":Metrica">
-				<intent-filter>
-					<category android:name="android.intent.category.DEFAULT" />
-					<action android:name="com.yandex.metrica.IMetricaService" />
-					<data android:scheme="metrica" />
-				</intent-filter>
-				<meta-data android:name="metrica:api:level" android:value="52" />
-			</service>
-			<receiver android:name="com.yandex.metrica.MetricaEventHandler"
-				  android:enabled="true" android:exported="true">
-				<intent-filter>
-					<action android:name="com.android.vending.INSTALL_REFERRER" />
-				</intent-filter>
-			</receiver>
-			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.yandex.mobile.ads.AdActivity"
-				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+			<activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+				<!--suppress AndroidDomInspection -->
+			<activity android:name="com.vungle.publisher.FlexViewAdActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
 
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
-				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-
-			<activity android:name="com.appodeal.ads.VideoPlayerActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
-
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 			<!--suppress AndroidDomInspection -->
-			<activity android:name="com.revmob.FullscreenActivity" android:theme="@android:style/Theme.Translucent"
-				android:configChanges="keyboardHidden|orientation"/>
+			<activity android:name="com.flurry.android.FlurryShareActivity"
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.flurry.android.FlurryTileAdActivity"
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:screenOrientation="portrait"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.flurry.android.FlurryBrowserActivity"
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.tapjoy.TJAdUnitActivity" android:configChanges="orientation|keyboardHidden|screenSize"
-						android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+				android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.tapjoy.mraid.view.ActionHandler" android:configChanges="orientation|keyboardHidden|screenSize" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.tapjoy.mraid.view.Browser" android:configChanges="orientation|keyboardHidden|screenSize" />
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.tapjoy.TJContentActivity" android:configChanges="orientation|keyboardHidden|screenSize"
-						android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
-			<activity android:name="com.cmcm.picks.PicksLoadingActivity" android:launchMode="singleTask" android:taskAffinity="com.cmcm.adsdk.nativead" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-            <activity android:name="com.cmcm.adsdk.interstitial.PicksInterstitialActivity" android:launchMode="singleTask" android:theme="@style/cm_interstital" />
-            <activity android:name="com.cmcm.picks.webview.PicksBrowser" android:launchMode="singleTask" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-            <service android:name="com.cmcm.picks.init.DownloadService" android:exported="false" android:process=":PickService" />
-            <activity android:name="com.cmcm.picks.vastvideo.FullScreenVideoActivity" android:excludeFromRecents="true" android:launchMode="singleInstance" android:screenOrientation="landscape"/>
+				android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
+
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.ironsource.sdk.controller.ControllerActivity" android:configChanges="orientation|screenSize"
+				android:hardwareAccelerated="true" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.ironsource.sdk.controller.InterstitialActivity" android:configChanges="orientation|screenSize"
+				android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent" />
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.ironsource.sdk.controller.OpenUrlActivity" android:configChanges="orientation|screenSize"
+				android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent" />
+
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+				android:hardwareAccelerated="true"/>
+			<!--suppress AndroidDomInspection -->
+			<activity android:name="com.adcolony.sdk.AdColonyAdViewActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+				android:hardwareAccelerated="true"/>
+
+			<activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize|screenLayout"
+				android:hardwareAccelerated="true" android:resizeableActivity="false" android:theme="@android:style/Theme.NoTitleBar" />
+			<receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true">
+				<intent-filter>
+					<action android:name="com.inmobi.share.id"/>
+				</intent-filter>
+			</receiver>
+        </config-file>
+        <framework src="com.google.android.gms:play-services-ads:9+" />
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+        
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
-        <source-file src="libs/android/appodeal-1.15.9.jar" target-dir="libs" />
-        <source-file src="libs/android/applovin-6.3.0.jar" target-dir="libs" />
-        <source-file src="libs/android/chartboost-6.6.1.jar" target-dir="libs" />
-        <source-file src="libs/android/flurry-analytics-6.5.0.jar" target-dir="libs" />
-        <source-file src="libs/android/my-target-4.5.10.jar" target-dir="libs" />
-        <source-file src="libs/android/yandex-metrica-2.62.jar" target-dir="libs" />
-        <source-file src="libs/android/unity-ads-2.0.4.jar" target-dir="libs" />
-        <framework src="libs/android/cheetah-mobile" custom="true" />
-		<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
+    		<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
+        <source-file src="libs/Android/appodeal-2.1.4.jar" target-dir="libs" />
+        <source-file src="libs/Android/applovin-7.3.2.jar" target-dir="libs" />
+        <source-file src="libs/Android/chartboost-6.6.3.jar" target-dir="libs" />
+        <source-file src="libs/Android/inmobi-6.2.3.jar" target-dir="libs" />
+        <source-file src="libs/Android/picasso-2.5.2.jar" target-dir="libs" />
+        <source-file src="libs/Android/mailru-4.6.17.jar" target-dir="libs" />
+        <source-file src="libs/Android/unity_ads-2.1.0.jar" target-dir="libs" />
+        <source-file src="libs/Android/yandex-metrica-2.73.jar" target-dir="libs" />
+    		<source-file src="libs/Android/startapp-3.6.2.jar" target-dir="libs" />
+        <framework src="libs/Android/adcolony" custom="true" />
     </platform>
 
     <platform name="ios">
@@ -223,30 +270,26 @@
         <framework src="AudioToolbox.framework"/>
         <framework src="AVFoundation.framework"/>
         <framework src="CFNetwork.framework"/>
-        <framework src="CoreFoundation.framework"/>
         <framework src="CoreGraphics.framework"/>
         <framework src="CoreImage.framework"/>
         <framework src="CoreLocation.framework"/>
         <framework src="CoreMedia.framework"/>
         <framework src="CoreMotion.framework"/>
-        <framework src="EventKit.framework"/>
+        <framework src="CoreTelephony.framework"/>
         <framework src="EventKitUI.framework"/>
-        <framework src="JavaScriptCore.framework"/>
+        <framework src="GLKit.framework"/>
+        <framework src="ImageIO.framework"/>
         <framework src="MediaPlayer.framework"/>
         <framework src="MessageUI.framework"/>
         <framework src="MobileCoreServices.framework"/>
         <framework src="QuartzCore.framework"/>
         <framework src="Security.framework"/>
-        <framework src="Social.framework"/>
         <framework src="StoreKit.framework"/>
-        <framework src="SafariServices.framework"/>
         <framework src="SystemConfiguration.framework"/>
         <framework src="Twitter.framework"/>
         <framework src="UIKit.framework"/>
         <framework src="WebKit.framework"/>
-        <framework src="CoreBluetooth.framework"/>
-        <framework src="GLKit.framework"/>
-
+        
         <framework src="libc++.dylib"/>
         <framework src="libsqlite3.dylib"/>
         <framework src="libxml2.2.dylib"/>
@@ -273,9 +316,18 @@
         <!-- AdMob -->
         <framework custom="true" src="libs/iOS/Adapters/APDGoogleAdMobAdapter.embeddedframework/GoogleMobileAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDGoogleAdMobAdapter.embeddedframework/libAPDGoogleAdMobAdapter.a" framework="true"/>
+        <!-- Flurry -->
+        <framework custom="true" src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/Flurry.framework"/>
+		    <framework custom="true" src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/FlurryAds.framework"/>
+        <source-file src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/libAPDFlurryAdapter.a" framework="true"/>
         <!-- InMobi -->
-        <framework custom="true" src="libs/iOS/Adapters/APDInMobyAdapter.embeddedframework/InMobiSDK.framework"/>
-        <source-file src="libs/iOS/Adapters/APDInMobyAdapter.embeddedframework/libAPDInMobyAdapter.a" framework="true"/>
+        <framework custom="true" src="libs/iOS/Adapters/APDInMobiAdapter.embeddedframework/InMobiSDK.framework"/>
+        <source-file src="libs/iOS/Adapters/APDInMobiAdapter.embeddedframework/libAPDInMobiAdapter.a" framework="true"/>
+        <!-- Ironsource -->
+        <framework custom="true" src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Supersonic.framework"/>
+        <source-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/libAPDIronSourceAdapter.a" framework="true"/>
+        <resource-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Resources/button-close-highlighted.png"/>
+        <resource-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Resources/button-close-default.png"/>
         <!-- MyTarget -->
         <framework custom="true" src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/MyTargetSDK.framework"/>
         <source-file src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/libAPDMyTargetAdapter.a" framework="true"/>
@@ -289,7 +341,7 @@
         <resource-file src="libs/iOS/Adapters/APDTapjoyAdapter.embeddedframework/Tapjoy.framework/Resources/TapjoyResources.bundle"/>
         <!-- MoPub -->
         <source-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/libAPDTwitterMoPubAdapter.a" framework="true"/>
-        <framework custom="true" src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/mopub-ios-sdk.framework"/>
+        <framework custom="true" src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/MoPubSDK.framework"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@2x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPCloseBtn@3x.png"/>
@@ -309,24 +361,18 @@
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@2x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@3x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MRAID.bundle"/>
-	<resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPAdBrowserController.xib"/>
+		    <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPAdBrowserController.xib"/>
         <!-- UnityAds -->
         <framework custom="true" src="libs/iOS/Adapters/APDUnityAdapter.embeddedframework/UnityAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDUnityAdapter.embeddedframework/libAPDUnityAdapter.a" framework="true"/>
-        <resource-file src="libs/iOS/Adapters/APDUnityAdapter.embeddedframework/Resources/UnityAds.bundle"/>
         <!-- Vungle -->
         <framework custom="true" src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/VungleSDK.framework"/>
         <source-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/libAPDVungleAdapter.a" framework="true"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/__vungle.db"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/vg_close.png"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/vg_cta.png"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_off.png"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/vg_mute_on.png"/>
-        <resource-file src="libs/iOS/Adapters/APDVungleAdapter.embeddedframework/Resources/vg_privacy.png"/>
         <!-- Yandex -->
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileMetrica.framework"/>
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/libAPDYandexAdapter.a" framework="true"/>
-        
+        <!-- Yandex -->
+        <source-file src="libs/iOS/Adapters/APDZplayAdapter.embeddedframework/libAPDZplayAdapter.a" framework="true"/>
       </platform>
 </plugin>
