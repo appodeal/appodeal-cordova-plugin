@@ -25,7 +25,7 @@
 			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!--optional -->
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--optional-->
         </config-file>
-        <framework src="com.google.android.gms:play-services-ads:9+" />
+        <framework src="com.google.android.gms:play-services-ads:10+" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
 			<activity android:name="com.appodeal.ads.InterstitialActivity"
 				android:configChanges="orientation|screenSize"
