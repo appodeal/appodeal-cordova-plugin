@@ -2,7 +2,7 @@
 //  APDImage.h
 //  Appodeal
 //
-//  AppodealSDK version 2.1.1-Release
+//  AppodealSDK version 2.1.4-Release
 //
 //  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //

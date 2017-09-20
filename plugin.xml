@@ -5,7 +5,7 @@
   <author>Appodeal</author>
 
   <engines>
-    <engine name="cordova" version=">=3.0.1" />
+    <engine name="cordova" version=">=3.0.2" />
     </engines>
 
     <js-module name="AppodealPlugin" src="www/appodeal.js">
@@ -224,7 +224,7 @@
         
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
-        <source-file src="libs/Android/appodeal-2.1.3.jar" target-dir="libs" />
+        <source-file src="libs/Android/appodeal-2.1.4.jar" target-dir="libs" />
         <source-file src="libs/Android/applovin-7.3.2.jar" target-dir="libs" />
         <source-file src="libs/Android/chartboost-6.6.3.jar" target-dir="libs" />
         <source-file src="libs/Android/inmobi-6.2.3.jar" target-dir="libs" />

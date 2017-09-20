@@ -31,16 +31,22 @@ AL_ASSUME_NONNULL_BEGIN
 
 /**
  *  An object conforming to the ALAdLoadDelegate protocol, which, if set, will be notified of ad load events.
+ *
+ *  Please note: This delegate is retained strongly and might lead to retain cycles if delegate holds strong reference to this ALAdView.
  */
 @property (strong, atomic, alnullable) id <ALAdLoadDelegate> adLoadDelegate;
 
 /**
  *  An object conforming to the ALAdDisplayDelegate protocol, which, if set, will be notified of ad show/hide events.
+ *
+ *  Please note: This delegate is retained strongly and might lead to retain cycles if delegate holds strong reference to this ALAdView.
  */
 @property (strong, atomic, alnullable) id <ALAdDisplayDelegate> adDisplayDelegate;
 
 /**
  *  An object conforming to the ALAdViewEventDelegate protocol, which, if set, will be notified of ALAdView-specific events.
+ *
+ *  Please note: This delegate is retained strongly and might lead to retain cycles if delegate holds strong reference to this ALAdView.
  */
 @property (strong, atomic, alnullable) id <ALAdViewEventDelegate> adEventDelegate;
 
