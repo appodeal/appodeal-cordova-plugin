@@ -498,19 +498,30 @@ int nativeShowStyleForType(int adTypes) {
 - (void) showBannerInView {
     [bannerView removeFromSuperview];
     
-    UIViewController* rootView = [[UIApplication sharedApplication] keyWindow].rootViewController;
-    
+    UIViewController* rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
     CGSize superviewSize = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject].frame.size;
-    CGFloat xOffset = (superviewSize.width - 320)/2;
-    CGFloat yOffset = superviewSize.height - 50;
+    UIViewAutoresizing mask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     
     if(!bannerView) {
-        bannerView = [[AppodealBannerView alloc] initWithSize:kAppodealUnitSize_320x50 rootViewController:rootView];
+        CGSize size = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? kAPDAdSize728x90 : kAPDAdSize320x50;
+        bannerView = [[AppodealBannerView alloc] initWithSize:size rootViewController:rootViewController];
     }
     
-    CGRect bannerRect = CGRectMake(xOffset, yOffset, 320, 50);
+    CGFloat bannerHeight    = bannerView.frame.size.height;
+    CGFloat bannerWidth     = bannerView.frame.size.width;
+    
+    CGFloat xOffset = (superviewSize.width - bannerWidth) / 2;
+    CGFloat yOffset = superviewSize.height - bannerView.frame.size.height;
+    
+    CGRect bannerRect = CGRectMake(xOffset, yOffset, bannerWidth, bannerHeight);
+    
+    bannerView.rootViewController = rootViewController;
+    
+    [bannerView setAutoresizingMask:mask];
     [bannerView setFrame:bannerRect];
-    [rootView.view addSubview:bannerView];
+    [bannerView layoutSubviews];
+    [rootViewController.view addSubview:bannerView];
+    [rootViewController.view bringSubviewToFront:bannerView];
     [bannerView loadAd];
 }
 
