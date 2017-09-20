@@ -3,7 +3,7 @@
  *
  * This file is a part of the Yandex Advertising Network.
  *
- * Version for iOS © 2016 YANDEX
+ * Version for iOS © 2017 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at https://legal.yandex.com/partner_ch/
@@ -43,13 +43,13 @@
  *
  * @param blockID Unique string that identifies ad type, size ... at application.
  * This ID should be obtained from the partner interface.
- * @param size Banner size. One of banner sizes represented by #YMAAdSize class. 
+ * @param adSize Banner size. One of banner sizes represented by #YMAAdSize class.
  * Banners with flexible sizes have adaptive background.
  * @param delegate Object that implements #YMAAdViewDelegate protocol.
  */
-- (id)initWithBlockID:(NSString *)blockID
-               adSize:(YMAAdSize *)adSize
-             delegate:(id<YMAAdViewDelegate>)delegate;
+- (instancetype)initWithBlockID:(NSString *)blockID
+                         adSize:(YMAAdSize *)adSize
+                       delegate:(id<YMAAdViewDelegate>)delegate;
 
 /**
  * Create and initialize ad view with given blockID and fixed size.
@@ -66,9 +66,9 @@
  * @param delegate Object that implements #YMAAdViewDelegate protocol.
  * @param size Banner size. One of fixed banner sizes defined in YMAAdSize.h or maximum space available for ad.
  */
-- (id)initWithBlockID:(NSString *)blockID
-                 size:(CGSize)size
-             delegate:(id<YMAAdViewDelegate>)delegate __attribute__((deprecated("[YMAAdView initWithBlockID:adSize:delegate:] should be used instead")));
+- (instancetype)initWithBlockID:(NSString *)blockID
+                           size:(CGSize)size
+                       delegate:(id<YMAAdViewDelegate>)delegate __attribute__((deprecated("[YMAAdView initWithBlockID:adSize:delegate:] should be used instead")));
 
 /**
  * Add banner at the top-center of view. This implemented by adding layout constraints to adView.

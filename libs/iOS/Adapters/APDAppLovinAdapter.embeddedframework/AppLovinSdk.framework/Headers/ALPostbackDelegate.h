@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
+
+AL_ASSUME_NONNULL_BEGIN
 
 @class ALPostbackService;
 
@@ -20,7 +22,7 @@
  *
  * @param postbackURL URL which was notified.
  */
-- (void) postbackService: (alnonnull ALPostbackService *) postbackService didExecutePostback: (alnonnull NSURL *) postbackURL;
+- (void)postbackService:(ALPostbackService *)postbackService didExecutePostback:(NSURL *)postbackURL;
 
 /**
  * Indicates that a postback dispatched to a given URL has failed.
@@ -30,6 +32,8 @@
  * @param postbackURL URL which was notified.
  * @param errorCode HTTP status code received, if any; otherwise a negative constant.
  */
-- (void) postbackService: (alnonnull ALPostbackService *) postbackService didFailToExecutePostback: (alnullable NSURL *) postbackURL errorCode: (NSInteger) errorCode;
+- (void)postbackService:(ALPostbackService *)postbackService didFailToExecutePostback:(alnullable NSURL *)postbackURL errorCode:(NSInteger)errorCode;
 
 @end
+
+AL_ASSUME_NONNULL_END

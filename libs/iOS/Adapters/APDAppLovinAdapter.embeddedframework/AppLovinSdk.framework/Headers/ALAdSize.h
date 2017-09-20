@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
 
-/*
- * @author Basil Shikin, Matt Szaro
- * @version 1.1
- */
+AL_ASSUME_NONNULL_BEGIN
 
 /**
  * This class defines a size of an ad to be displayed. It is recommended to use default sizes that are
@@ -27,7 +24,7 @@
 /**
  *  An <code>NSString</code> label which describes this ad size.
  */
-@property (copy, nonatomic, readonly) NSString * __alnonnull label;
+@property (copy, nonatomic, readonly) NSString *label;
 
 /**
  * @name Supported Ad Size Singletons
@@ -40,7 +37,7 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>BANNER</code>.
  */
-+ (alnonnull ALAdSize *) sizeBanner __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (ALAdSize *)sizeBanner;
 
 /**
  *  Retrieve a singleton instance of the <code>INTERSTITIAL</code> ad size object.
@@ -49,16 +46,23 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>INTERSTITIAL</code>.
  */
-+ (alnonnull ALAdSize *) sizeInterstitial;
++ (ALAdSize *)sizeInterstitial;
+
+/**
+ *  Retrieve a singleton instance of the <code>NATIVE</code> ad size object.
+ *
+ *  @return An instance of ALAdSize which represents the size <code>NATIVE</code>.
+ */
++ (ALAdSize *)sizeNative;
 
 /**
  *  Retrieve a singleton instance of the <code>MREC</code> ad size object.
  *
- *  MRECs are 320x250 (mostly square) advertisements.
+ *  MRECs are 300x250 (mostly square) advertisements.
  *
  *  @return An instance of ALAdSize which represents the size <code>MREC</code>.
  */
-+ (alnonnull ALAdSize *) sizeMRec __deprecated_msg("Banners and MRecs are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (ALAdSize *)sizeMRec;
 
 /**
  *  Retrieve a singleton instance of the <code>LEADER</code> ad size object.
@@ -67,14 +71,14 @@
  *
  *  @return An instance of ALAdSize which represents the size <code>LEADER</code>.
  */
-+ (alnonnull ALAdSize *) sizeLeader __deprecated_msg("Leaderboards are deprecated and will be removed in a future SDK version.") __AL_TVOS_PROHIBITED;
++ (ALAdSize *)sizeLeader;
 
 /**
  *  Retrieve an <code>NSArray</code> of all available ad size singleton instances.
  *
  *  @return [NSArray arrayWithObjects: [ALAdSize sizeBanner], [ALAdSize sizeInterstitial], ..., nil];
  */
-+ (alnonnull NSArray *) allSizes;
++ (NSArray *)allSizes __deprecated_msg("Retrieval of all sizes is deprecated and will be removed in a future SDK version.");
 
 // ----------------------------------------------------
 
@@ -83,7 +87,10 @@
 @property (assign, nonatomic) NSUInteger width __deprecated;
 @property (assign, nonatomic) NSUInteger height __deprecated;
 
-+ (alnonnull ALAdSize *) sizeWithLabel: (alnonnull NSString *) label orDefault: (alnonnull ALAdSize *) defaultSize __deprecated_msg("Custom ad sizes are no longer supported; use an existing singleton size like [ALAdSize sizeBanner]");
++ (ALAdSize *)sizeWithLabel:(NSString *)label orDefault:(ALAdSize *)defaultSize __deprecated_msg("Custom ad sizes are no longer supported; use an existing singleton size like [ALAdSize sizeBanner]");
 
-- (alnullable id) init __attribute__((unavailable("Do not alloc-init your own instances; use an existing singleton size like [ALAdSize sizeBanner]")));
+- (id)init __attribute__((unavailable("Do not alloc-init your own instances; use an existing singleton size like [ALAdSize sizeBanner]")));
+
 @end
+
+AL_ASSUME_NONNULL_END

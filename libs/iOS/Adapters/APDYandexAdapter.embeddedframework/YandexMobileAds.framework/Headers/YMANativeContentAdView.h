@@ -3,7 +3,7 @@
  *
  * This file is a part of the Yandex Advertising Network.
  *
- * Version for iOS © 2016 YANDEX
+ * Version for iOS © 2017 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at https://legal.yandex.com/partner_ch/
@@ -14,7 +14,7 @@
 @protocol YMANativeContentAd;
 
 /**
- * YMANativeContentAdView represents view for content ad type. It contains view for all of content ad assets.
+ * YMANativeContentAdView represents view for content ad type. It contains views for all of content ad assets.
  * Views for all of the required assets should be set,
  * although ad may not contain age restrictions, image or warning.
  * If any of the required views is not provided for ad which contains corresponding assets, binding fails.

@@ -63,7 +63,7 @@ typedef enum TJCActionRequestTypeEnum {
  
   - requestDidSucceed: Called when a placement request is sent successfully
   - requestDidFail:error: Called when an error occurs while sending the placement request
-  - contentIsReady:Called when content for a placement is loaded and ready to display
+  - contentIsReady: Called when content for a placement is loaded and ready to display
   - contentDidAppear: Called when placement content did appear
   - contentDidDisappear: Called when placement content did disappear
   - placement:didRequestPurchase:productId: Called when the user has successfully completed a purchase request
@@ -131,7 +131,7 @@ typedef enum TJCActionRequestTypeEnum {
 @end
 
 /**
- * Delegate used to recieve video events from TJPlacement
+ * Delegate used to receive video events from TJPlacement
  */
 @protocol TJPlacementVideoDelegate <NSObject>
 
@@ -184,7 +184,8 @@ typedef enum TJCActionRequestTypeEnum {
 /** The TJPlacementDelegate used to handle responses that are received upon sending this placement*/
 @property (nonatomic, weak) id<TJPlacementDelegate> delegate;
 
-@property (nonatomic, weak) id<TJPlacementVideoDelegate> videoDelegate;	/*!< The delegate that implements the TJPlacementVideoDelegate protocol */
+/** The delegate that implements the TJPlacementVideoDelegate protocol */
+@property (nonatomic, weak) id<TJPlacementVideoDelegate> videoDelegate;
 
 /** The name of the placement */
 @property (nonatomic, copy) NSString *placementName;

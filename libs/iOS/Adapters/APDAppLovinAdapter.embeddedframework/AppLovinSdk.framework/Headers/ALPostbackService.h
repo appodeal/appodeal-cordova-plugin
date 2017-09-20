@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
-#import <AppLovinSdk/ALPostbackDelegate.h>
+#import "ALAnnotations.h"
+#import "ALPostbackDelegate.h"
+
+AL_ASSUME_NONNULL_BEGIN
 
 @class ALSdk;
 
@@ -22,9 +24,11 @@
 /**
  * Dispatch a postback to a given URL.
  *
- * @param targetUrl URL to call via HTTP GET.
+ * @param targetURL URL to call via HTTP GET.
  * @param delegate Optional postback delegate. May be nil.
  */
-- (void) dispatchPostbackAsync: (alnonnull NSURL *) targetURL andNotify: (alnullable id <ALPostbackDelegate>) delegate;
+- (void)dispatchPostbackAsync:(NSURL *)targetURL andNotify:(alnullable id <ALPostbackDelegate>)delegate;
 
 @end
+
+AL_ASSUME_NONNULL_END

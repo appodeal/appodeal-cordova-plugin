@@ -1,0 +1,16 @@
+def right_version = "10+"; //version from Appodeal plugin
+configurations.all{
+	dependencies.all{ Dependency d ->
+		def right_version_copy = right_version
+		if(d.getName().contains("play-services") && d.getVersion() != right_version_copy){
+			right_version = d.getVersion()
+		}
+	}
+    resolutionStrategy{
+		eachDependency { DependencyResolveDetails details ->
+			if ( details.requested.name.contains('play-services') ){
+				details.useVersion right_version
+			}
+		}
+    }
+}

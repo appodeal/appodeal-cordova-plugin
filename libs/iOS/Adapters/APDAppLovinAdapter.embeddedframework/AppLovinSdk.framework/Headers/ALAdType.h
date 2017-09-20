@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppLovinSdk/ALAnnotations.h>
+#import "ALAnnotations.h"
+
+AL_ASSUME_NONNULL_BEGIN
 
 /**
  *  This class represents the behavior of an ad.
@@ -22,7 +24,7 @@
 /**
  *  String representing the name of this ad type.
  */
-@property (copy, nonatomic, readonly) NSString * __alnonnull label;
+@property (copy, nonatomic, readonly) NSString *label;
 
 /**
  *  @name Supported Ad Type Singletons
@@ -33,7 +35,7 @@
  *
  *  @return ALAdType representing a standard advertisement.
  */
-+ (alnonnull ALAdType *) typeRegular;
++ (ALAdType *)typeRegular;
 
 /**
  *  Represents a rewarded video.
@@ -42,13 +44,22 @@
  *
  *  @return ALAdType representing a rewarded video.
  */
-+ (alnonnull ALAdType *) typeIncentivized;
++ (ALAdType *)typeIncentivized;
+
+/**
+ *  Represents a native ad.
+ *
+ *  @return ALAdType representing a native ad.
+ */
++ (ALAdType *)typeNative;
 
 /**
  *  Retrieve an <code>NSArray</code> of all available ad size singleton instances.
  *
  *  @return <code>[NSArray arrayWithObjects: [ALAdType typeRegular], [ALAdType typeIncentivized], nil];</code>
  */
-+ (alnonnull NSArray *) allTypes;
++ (NSArray *)allTypes;
 
 @end
+
+AL_ASSUME_NONNULL_END

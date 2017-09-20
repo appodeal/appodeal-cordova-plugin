@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import <GoogleMobileAds/GADAdChoicesView.h>
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
 #import <GoogleMobileAds/GADMediaView.h>
 #import <GoogleMobileAds/GADNativeAd.h>
@@ -45,8 +46,15 @@ GAD_ASSUME_NONNULL_BEGIN
 /// App store rating (0 to 5).
 @property(nonatomic, readonly, copy, GAD_NULLABLE) NSDecimalNumber *starRating;
 /// Video controller for controlling video playback in GADNativeAppInstallAdView's mediaView.
-/// Returns nil if the ad doesn't contain a video asset.
-@property(nonatomic, strong, readonly, GAD_NULLABLE) GADVideoController *videoController;
+@property(nonatomic, strong, readonly) GADVideoController *videoController;
+
+/// Registers ad view and asset views created from this native ad.
+/// @param assetViews Dictionary of asset views keyed by asset IDs.
+- (void)registerAdView:(UIView *)adView assetViews:(NSDictionary<NSString *, UIView *> *)assetViews;
+
+/// Unregisters ad view from this native ad. The corresponding asset views will also be
+/// unregistered.
+- (void)unregisterAdView;
 
 @end
 
@@ -87,6 +95,10 @@ GAD_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *starRatingView;
 /// Weak reference to your ad view's media asset view.
 @property(nonatomic, weak, GAD_NULLABLE) IBOutlet GADMediaView *mediaView;
+/// Weak reference to your ad view's AdChoices view. Must set adChoicesView before setting
+/// nativeAppInstallAd, otherwise AdChoices will be rendered in the publisher's
+/// preferredAdChoicesPosition as defined in GADNativeAdViewAdOptions.
+@property(nonatomic, weak, GAD_NULLABLE) IBOutlet GADAdChoicesView *adChoicesView;
 
 @end
 
