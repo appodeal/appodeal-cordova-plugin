@@ -1,4 +1,4 @@
-def right_version = "9+"; //version from Appodeal plugin
+def right_version = "10+"; //version from Appodeal plugin
 configurations.all{
 	dependencies.all{ Dependency d ->
 		def right_version_copy = right_version
