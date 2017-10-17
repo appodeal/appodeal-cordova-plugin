@@ -1,7 +1,7 @@
 #import <Cordova/CDV.h>
 #import <Appodeal/Appodeal.h>
 
-@interface AppodealPlugin : CDVPlugin <AppodealBannerDelegate, AppodealBannerViewDelegate, AppodealInterstitialDelegate, AppodealRewardedVideoDelegate, AppodealNonSkippableVideoDelegate>
+@interface AppodealPlugin : CDVPlugin <AppodealBannerDelegate, APDBannerViewDelegate, AppodealInterstitialDelegate, AppodealRewardedVideoDelegate, AppodealNonSkippableVideoDelegate>
 
 @property (nonatomic, copy) NSString* interstitialCallbackID;
 @property (nonatomic, copy) NSString* bannerCallbackID;

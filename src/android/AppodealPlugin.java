@@ -19,6 +19,7 @@ import com.appodeal.ads.NonSkippableVideoCallbacks;
 import com.appodeal.ads.UserSettings;
 import com.appodeal.ads.BannerView;
 import com.appodeal.ads.utils.Log;
+import com.appodeal.unity.AppodealUnityBannerView;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class AppodealPlugin extends CordovaPlugin {
 
     private static final String ACTION_SHOW = "show";
     private static final String ACTION_SHOW_WITH_PLACEMENT = "showWithPlacement";
+    private static final String ACTION_SHOW_BANNER_VIEW = "showBannerView";
     private static final String ACTION_IS_LOADED = "isLoaded";
     private static final String ACTION_CACHE = "cache";
     private static final String ACTION_HIDE = "hide";
@@ -152,6 +154,21 @@ public class AppodealPlugin extends CordovaPlugin {
                 }
             });
             return true;
+        } else if (action.equals(ACTION_SHOW_BANNER_VIEW)) {
+            final int xAxis = args.getInt(0);
+            final int yAxis = args.getInt(1);
+            final String placement = args.getString(2);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(placement != null) {
+                        AppodealUnityBannerView.getInstance().showBannerView(cordova.getActivity(), xAxis, yAxis, placement);
+                    } else {
+                        AppodealUnityBannerView.getInstance().showBannerView(cordova.getActivity(), xAxis, yAxis, "");
+                    }
+                }
+            });
+            return true;
         } else if (action.equals(ACTION_IS_LOADED)) {
             final int adType = args.getInt(0);
             cordova.getActivity().runOnUiThread(new Runnable() {
@@ -180,6 +197,7 @@ public class AppodealPlugin extends CordovaPlugin {
                 @Override
                 public void run() {
                     Appodeal.hide(cordova.getActivity(), getAdType(adType));
+                    AppodealUnityBannerView.getInstance().hideBannerView(cordova.getActivity());
                 }
             });
             return true;
@@ -358,7 +376,7 @@ public class AppodealPlugin extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run(){
-                    Appodeal.setFramework("cordova", pluginVersion);
+                    Appodeal.setFramework("cordova", pluginVersion, false, false);
                 }
             });
             return true;

@@ -6,9 +6,13 @@ const int INTERSTITIAL        = 3;
 const int BANNER              = 4;
 const int BANNER_BOTTOM       = 8;
 const int BANNER_TOP          = 16;
-const int BANNER_VIEW         = 32;
 const int REWARDED_VIDEO      = 128;
 const int NON_SKIPPABLE_VIDEO = 256;
+
+const int BANNER_X_SMART = 0;
+const int BANNER_X_CENTER = 1;
+const int BANNER_X_LEFT = 2;
+const int BANNER_X_RIGHT = 3;
 
 float bannerHeight = 50.f;
 float statusBarHeight = 20.f;
@@ -20,7 +24,7 @@ bool bannerIsShowing;
 bool hasStatusBarPlugin = false;
 bool isIphone;
 
-AppodealBannerView* bannerView;
+APDBannerView* bannerView;
 
 NSString *CALLBACK_EVENT = @"event";
 NSString *CALLBACK_INIT = @"onInit";
@@ -118,10 +122,7 @@ int nativeShowStyleForType(int adTypes) {
         }
     }
     CDVPluginResult* pluginResult = nil;
-    if((int)[[[command arguments] objectAtIndex:0] integerValue] == BANNER_VIEW) {
-        [self showBannerInView];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
-    } else if([Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] integerValue]) rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController]) {
+    if([Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] integerValue]) rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController]) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
@@ -145,10 +146,7 @@ int nativeShowStyleForType(int adTypes) {
         }
     }
     CDVPluginResult* pluginResult = nil;
-    if((int)[[[command arguments] objectAtIndex:0] integerValue] == BANNER_VIEW) {
-        [self showBannerInView];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
-    } else if([Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] intValue]) forPlacement:[[command arguments] objectAtIndex:1] rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
+    if([Appodeal showAd:nativeShowStyleForType((int)[[[command arguments] objectAtIndex:0] intValue]) forPlacement:[[command arguments] objectAtIndex:1] rootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController])
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
     else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:NO];
@@ -175,7 +173,6 @@ int nativeShowStyleForType(int adTypes) {
     if(bannerView) {
         [bannerView removeFromSuperview];
     }
-    
     
     [Appodeal hideBanner];
     if (bannerOverlap && bannerIsShowing) {
@@ -213,6 +210,9 @@ int nativeShowStyleForType(int adTypes) {
 }
 
 - (void) setSmartBanners:(CDVInvokedUrlCommand*)command {
+    if(bannerView) {
+        bannerView.usesSmartSizing = [[[command arguments] objectAtIndex:0] boolValue];
+    }
     [Appodeal setSmartBannersEnabled:[[[command arguments] objectAtIndex:0] boolValue]];
 }
 
@@ -495,34 +495,120 @@ int nativeShowStyleForType(int adTypes) {
     }
 }
 
-- (void) showBannerInView {
-    [bannerView removeFromSuperview];
-    
-    UIViewController* rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-    CGSize superviewSize = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject].frame.size;
-    UIViewAutoresizing mask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    
+- (void)setSharedBannerFrame:(CGFloat)XAxis YAxis:(CGFloat)YAxis {
     if(!bannerView) {
         CGSize size = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? kAPDAdSize728x90 : kAPDAdSize320x50;
-        bannerView = [[AppodealBannerView alloc] initWithSize:size rootViewController:rootViewController];
+        bannerView = [[APDBannerView alloc] initWithSize:size];
     }
+    
+    UIViewAutoresizing mask = UIViewAutoresizingNone;
+    
+    CGSize  superviewSize = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject].frame.size;
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
     
     CGFloat bannerHeight    = bannerView.frame.size.height;
     CGFloat bannerWidth     = bannerView.frame.size.width;
     
-    CGFloat xOffset = (superviewSize.width - bannerWidth) / 2;
-    CGFloat yOffset = superviewSize.height - bannerView.frame.size.height;
+    CGFloat xOffset = .0f;
+    CGFloat yOffset = .0f;
     
+    //Сalculate X offset
+    if (XAxis == BANNER_X_SMART) { //Smart banners
+        mask |= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+        bannerView.usesSmartSizing = YES;
+        bannerWidth = superviewSize.width;
+    } else if (XAxis == BANNER_X_LEFT) { //Left
+        mask |= UIViewAutoresizingFlexibleRightMargin;
+        bannerView.usesSmartSizing = NO;
+    } else if (XAxis == BANNER_X_RIGHT) { //Right
+        mask |= UIViewAutoresizingFlexibleLeftMargin;
+        xOffset = superviewSize.width - bannerWidth;
+        bannerView.usesSmartSizing = NO;
+    } else if (XAxis == BANNER_X_CENTER) { //Center
+        xOffset = (superviewSize.width - bannerWidth) / 2;
+        mask |= UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+        bannerView.usesSmartSizing = NO;
+    } else if (XAxis / screenScale > superviewSize.width - bannerWidth) { //User defined offset more than screen width
+        NSLog(@"[Appodeal Banner view][error] Banner view x offset can'not be more than Screen width - acutual banner width");
+        xOffset = superviewSize.width - bannerWidth;
+        mask |= UIViewAutoresizingFlexibleLeftMargin;
+        bannerView.usesSmartSizing = NO;
+    } else if (XAxis < -5) {
+        bannerView.usesSmartSizing = NO;
+        NSLog(@"[Appodeal Banner view][error] Banner view x offset can'not be less than 0");
+        xOffset = 0;
+    } else {
+        bannerView.usesSmartSizing = NO;
+        mask |= UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+        xOffset = XAxis / screenScale;
+    }
+    
+    //Calculate Y offset
+    if (YAxis / screenScale > superviewSize.height - bannerHeight) { //User defined offset more than banner width
+        NSLog(@"[Appodeal Banner view][error] Banner view y offset can'not be more than Screen height - acutual banner height");
+        yOffset = superviewSize.height - bannerHeight;
+        mask |= UIViewAutoresizingFlexibleTopMargin;
+    } else if (YAxis == 8) {
+        yOffset = superviewSize.height - bannerHeight;
+        mask |= UIViewAutoresizingFlexibleTopMargin;
+    } else if (YAxis == 16) {
+        yOffset = 0;
+    } else if (YAxis < 0) {
+        NSLog(@"[Appodeal Banner view][error] Banner view y offset can'not be less than 0");
+        yOffset = 0;
+    } else if (YAxis == .0f) { // All good
+        mask |= UIViewAutoresizingFlexibleBottomMargin;
+    } else {
+        yOffset = YAxis / screenScale;
+        mask |= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    }
+    
+    NSLog(@"Creating banner frame with parameters: xOffset = %f, yOffset = %f", xOffset, yOffset);
     CGRect bannerRect = CGRectMake(xOffset, yOffset, bannerWidth, bannerHeight);
-    
-    bannerView.rootViewController = rootViewController;
-    
     [bannerView setAutoresizingMask:mask];
     [bannerView setFrame:bannerRect];
     [bannerView layoutSubviews];
+}
+
+- (UIViewController*)topViewController {
+    return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
+}
+
+- (void)showBannerView:(CDVInvokedUrlCommand*)command {
+    [bannerView removeFromSuperview];
+    
+    UIViewController* rootViewController = [self topViewController];
+    CGFloat XAxis = (CGFloat) [[[command arguments] objectAtIndex:0] intValue];
+    CGFloat YAxis = (CGFloat) [[[command arguments] objectAtIndex:1] intValue];
+    
+    bannerView.rootViewController = rootViewController;
+    if([[command arguments] objectAtIndex:2] != nil)
+        bannerView.placement = [[command arguments] objectAtIndex:2];
     [rootViewController.view addSubview:bannerView];
     [rootViewController.view bringSubviewToFront:bannerView];
+    [self setSharedBannerFrame:XAxis YAxis:YAxis];
     [bannerView loadAd];
+}
+
+-(void)hideBannerView {
+    if(bannerView) {
+        [bannerView removeFromSuperview];
+    }
 }
 
 - (void) setInterstitialCallbacks:(CDVInvokedUrlCommand*)command {
