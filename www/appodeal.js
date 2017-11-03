@@ -58,6 +58,10 @@ Appodeal.hide = function(adType) {
     exec(null, null, "AppodealPlugin", "hide", [adType]);
 };
 
+Appodeal.destroy = function(adType) {
+	exec(null, null, "AppodealPlugin", "destroy", [adType]);
+}
+
 Appodeal.setAutoCache = function(adType, autoCache) {
     exec(null, null, "AppodealPlugin", "setAutoCache", [adType, autoCache]);
 };
