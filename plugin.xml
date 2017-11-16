@@ -219,7 +219,6 @@
 				</intent-filter>
 			</receiver>
         </config-file>
-        <framework src="com.google.android.gms:play-services-ads:10+" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
         
         </config-file>
