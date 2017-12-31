@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 /**
  Enum representing AdColony ad request error codes
  */

@@ -4,6 +4,7 @@
 #import "AdColonyInterstitial.h"
 #import "AdColonyAdRequestError.h"
 #import "AdColonyUserMetadata.h"
+#import "AdColonyEventTracker.h"
 #import "AdColonyNativeAdView.h"
 #import <Foundation/Foundation.h>
 
@@ -90,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return The device's current advertising identifier.
  */
 + (NSString *)getAdvertisingID;
- 
+
 /**
  @abstract Retrieves a custom identifier for the current user if it has been set.
  @discussion This is an arbitrary, application-specific identifier string for the current user.

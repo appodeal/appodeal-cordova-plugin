@@ -20,6 +20,7 @@ framework module GoogleMobileAds {
   link framework "MobileCoreServices"
   link framework "OpenGLES"
   link framework "SafariServices"
+  link framework "Security"
   link framework "StoreKit"
   link framework "SystemConfiguration"
   link framework "UIKit"
@@ -27,7 +28,6 @@ framework module GoogleMobileAds {
 
   header "GoogleMobileAdsDefines.h"
 
-  header "GADAdDelegate.h"
   header "GADAdNetworkExtras.h"
   header "GADAdSize.h"
   header "GADAudioVideoManagerDelegate.h"
@@ -53,6 +53,7 @@ framework module GoogleMobileAds {
   header "GADVideoOptions.h"
 
   header "DFPBannerView.h"
+  header "DFPBannerViewOptions.h"
   header "DFPCustomRenderedAd.h"
   header "DFPCustomRenderedBannerViewDelegate.h"
   header "DFPCustomRenderedInterstitialDelegate.h"
@@ -76,6 +77,7 @@ framework module GoogleMobileAds {
   header "GADNativeContentAdAssetIDs.h"
   header "GADNativeCustomTemplateAd.h"
 
+  header "GADMultipleAdsAdLoaderOptions.h"
   header "GADNativeAdImageAdLoaderOptions.h"
   header "GADNativeAdViewAdOptions.h"
 

@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  @abstract Triggers a fullscreen ad experience.
  @param viewController The view controller on which the interstitial will display itself.
- @return Whether the ad was able to start playback.
+ @return Whether the SDK was ready to begin playback.
  */
 - (BOOL)showWithPresentingViewController:(UIViewController *)viewController;
 

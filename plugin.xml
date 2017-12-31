@@ -318,16 +318,14 @@
         <source-file src="libs/iOS/Adapters/APDGoogleAdMobAdapter.embeddedframework/libAPDGoogleAdMobAdapter.a" framework="true"/>
         <!-- Flurry -->
         <framework custom="true" src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/Flurry.framework"/>
-	<framework custom="true" src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/FlurryAds.framework"/>
+		<framework custom="true" src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/FlurryAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDFlurryAdapter.embeddedframework/libAPDFlurryAdapter.a" framework="true"/>
         <!-- InMobi -->
         <framework custom="true" src="libs/iOS/Adapters/APDInMobiAdapter.embeddedframework/InMobiSDK.framework"/>
         <source-file src="libs/iOS/Adapters/APDInMobiAdapter.embeddedframework/libAPDInMobiAdapter.a" framework="true"/>
         <!-- Ironsource -->
-        <framework custom="true" src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Supersonic.framework"/>
+        <framework custom="true" src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/IronSource.framework"/>
         <source-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/libAPDIronSourceAdapter.a" framework="true"/>
-        <resource-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Resources/button-close-highlighted.png"/>
-        <resource-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/Resources/button-close-default.png"/>
         <!-- MyTarget -->
         <framework custom="true" src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/MyTargetSDK.framework"/>
         <source-file src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/libAPDMyTargetAdapter.a" framework="true"/>
@@ -361,7 +359,7 @@
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@2x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPUnmutedBtn@3x.png"/>
         <resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MRAID.bundle"/>
-	<resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPAdBrowserController.xib"/>
+		<resource-file src="libs/iOS/Adapters/APDTwitterMoPubAdapter.embeddedframework/Resources/MPAdBrowserController.xib"/>
         <!-- UnityAds -->
         <framework custom="true" src="libs/iOS/Adapters/APDUnityAdapter.embeddedframework/UnityAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDUnityAdapter.embeddedframework/libAPDUnityAdapter.a" framework="true"/>
@@ -372,7 +370,5 @@
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileMetrica.framework"/>
         <framework custom="true" src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/YandexMobileAds.framework"/>
         <source-file src="libs/iOS/Adapters/APDYandexAdapter.embeddedframework/libAPDYandexAdapter.a" framework="true"/>
-        <!-- Yandex -->
-        <source-file src="libs/iOS/Adapters/APDZplayAdapter.embeddedframework/libAPDZplayAdapter.a" framework="true"/>
       </platform>
 </plugin>

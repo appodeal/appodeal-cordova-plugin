@@ -1,8 +1,7 @@
 //
 //  AppodealRequestDelegateProtocol.h
 //  Appodeal
-//
-//  Created by Stas Kochkin on 05/07/2017.
+
 //  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
 

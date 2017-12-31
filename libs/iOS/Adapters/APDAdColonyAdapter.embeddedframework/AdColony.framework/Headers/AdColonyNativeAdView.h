@@ -141,11 +141,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setIapOpportunity:(nullable void (^)(NSString *iapProductID, AdColonyIAPEngagement engagement))iapOpportunity;
 
 /**
- @abstract Notifies your app that a native ad was muted or unmuted by a user.
+ @abstract Sets the block of code to be executed when the native ad has been unmuted by the user.
  @discussion Note that the associated code block will be dispatched on the main thread.
- @param mute The block of code to be executed.
+ @param audioStart The block of code to be executed.
  */
-- (void)setMute:(void (^)(BOOL muted))mute;
+- (void)setAudioStart:(nullable void (^)(void))audioStart;
+
+/**
+ @abstract Sets the block of code to be executed when the native ad has been muted by the user.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param audioStop The block of code to be executed.
+ */
+- (void)setAudioStop:(nullable void (^)(void))audioStop;
 
 /**
  @abstract Notifies your app that a user has engaged with the native ad via an in-video engagement mechanism.

@@ -2,7 +2,7 @@
 //  APDDefines.h
 //  Appodeal
 //
-//  AppodealSDK version 2.1.4-Release
+//  AppodealSDK version 2.1.7-Release
 //
 //  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
@@ -725,7 +725,8 @@ typedef NS_ENUM(NSUInteger, APDFramework) {
     APDFrameworkCorona,
     APDFrameworkStencyl,
     APDFrameworkSDKBox,
-    APDFrameworkDefold
+    APDFrameworkDefold,
+    APDFrameworkBuildBox
 };
 
 

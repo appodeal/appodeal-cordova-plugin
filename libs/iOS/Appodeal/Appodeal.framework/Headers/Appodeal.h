@@ -2,7 +2,7 @@
 //  Appodeal.h
 //  Appodeal
 //
-//  AppodealSDK version 2.1.4-Release
+//  AppodealSDK version 2.1.7-Release
 //
 //  Copyright (c) 2017 Appodeal, Inc. All rights reserved.
 //
@@ -372,6 +372,7 @@
  */
 + (void)setTestingEnabled:(BOOL)testingEnabled;
 
++ (void)trackInAppPurchase:(NSNumber *)amount currency:(NSString *)currency;
 
 /*!
  *  @discussion return current UUID for tracking/targeting ad

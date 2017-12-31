@@ -1,18 +1,19 @@
-/*
- * CBAnalytics.h
- * Chartboost
- * 6.6.1
- *
- * Copyright 2011 Chartboost. All rights reserved.
- */
+//
+//  CBAnalytics.h
+//  Chartboost
+//
+//  Created by Geoff Heeren on 4/19/17.
+//
+//
 
+#import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
 /*!
  @typedef NS_ENUM (NSUInteger, CBLevelType)
  
  @abstract
- Used with trackLevelInfo calls to describe meta information about the level value as it 
+ Used with trackLevelInfo calls to describe meta information about the level value as it
  pertains to the game's context.
  */
 typedef NS_ENUM(NSUInteger, CBLevelType) {
@@ -42,7 +43,7 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
 /*!
  @abstract
  Track an In App Purchase Event.
-
+ 
  @param receipt The transaction receipt used to validate the purchase.
  
  @param productTitle The localized title of the product.
@@ -54,10 +55,10 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
  @param productCurrency The localized currency of the product.
  
  @param productIdentifier The IOS identifier for the product.
-
+ 
  @discussion Tracks In App Purchases for later use with user segmentation
  and targeting.
-*/
+ */
 + (void)trackInAppPurchaseEvent:(NSData *)receipt
                    productTitle:(NSString *)productTitle
              productDescription:(NSString *)productDescription
@@ -68,7 +69,7 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
 /*!
  @abstract
  Track an In App Purchase Event.
-
+ 
  @param receiptString The base64 encoded receipt string used to validate the purchase.
  
  @param productTitle The localized title of the product.
@@ -80,16 +81,16 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
  @param productCurrency The localized currency of the product.
  
  @param productIdentifier The IOS identifier for the product.
-
+ 
  @discussion Tracks In App Purchases for later use with user segmentation
  and targeting.
-*/
+ */
 + (void)trackInAppPurchaseEventWithString:(NSString *)receiptString
-                   productTitle:(NSString *)productTitle
-             productDescription:(NSString *)productDescription
-                   productPrice:(NSDecimalNumber *)productPrice
-                productCurrency:(NSString *)productCurrency
-              productIdentifier:(NSString *)productIdentifier;
+                             productTitle:(NSString *)productTitle
+                       productDescription:(NSString *)productDescription
+                             productPrice:(NSDecimalNumber *)productPrice
+                          productCurrency:(NSString *)productCurrency
+                        productIdentifier:(NSString *)productIdentifier;
 /*!
  @abstract
  Track an In App Purchase Event.
@@ -107,7 +108,7 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
 
 /*!
  @abstract
- Track level information about your user. Can be sequential levelling, non-sequential levelling, character level, or other. 
+ Track level information about your user. Can be sequential levelling, non-sequential levelling, character level, or other.
  
  @param eventLabel A string that disambiguates the eventField. Use it to provides a human readable string to answer the question - What are we tracking ?
  
@@ -130,7 +131,7 @@ typedef NS_ENUM(NSUInteger, CBLevelType) {
 
 /*!
  @abstract
- Track level information about your user. Can be sequential levelling, non-sequential levelling, character level, or other. 
+ Track level information about your user. Can be sequential levelling, non-sequential levelling, character level, or other.
  
  @param eventLabel A string that disambiguates the eventField. Use it to provides a human readable string to answer the question - What are we tracking ?
  

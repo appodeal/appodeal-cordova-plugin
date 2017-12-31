@@ -11,13 +11,16 @@
 #error The Google Mobile Ads SDK requires a deployment target of iOS 6.0 or later.
 #endif
 
+#if defined(__ARM_ARCH_7S__) && __ARM_ARCH_7S__
+#error The Google Mobile Ads SDK doesn't support linking with armv7s. Remove armv7s from "ARCHS" (Architectures) in your Build Settings.
+#endif
+
 /// Project version string for GoogleMobileAds.
 FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 
 // Header files.
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
-#import <GoogleMobileAds/GADAdDelegate.h>
 #import <GoogleMobileAds/GADAdNetworkExtras.h>
 #import <GoogleMobileAds/GADAdSize.h>
 #import <GoogleMobileAds/GADAudioVideoManagerDelegate.h>
@@ -43,6 +46,7 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/GADVideoOptions.h>
 
 #import <GoogleMobileAds/DFPBannerView.h>
+#import <GoogleMobileAds/DFPBannerViewOptions.h>
 #import <GoogleMobileAds/DFPCustomRenderedAd.h>
 #import <GoogleMobileAds/DFPCustomRenderedBannerViewDelegate.h>
 #import <GoogleMobileAds/DFPCustomRenderedInterstitialDelegate.h>
@@ -66,6 +70,7 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/GADNativeContentAdAssetIDs.h>
 #import <GoogleMobileAds/GADNativeCustomTemplateAd.h>
 
+#import <GoogleMobileAds/GADMultipleAdsAdLoaderOptions.h>
 #import <GoogleMobileAds/GADNativeAdImageAdLoaderOptions.h>
 #import <GoogleMobileAds/GADNativeAdViewAdOptions.h>
 
