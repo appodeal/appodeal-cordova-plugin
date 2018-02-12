@@ -18,7 +18,7 @@
                 <param name="android-package" value="com.appodeal.plugin.AppodealPlugin"/>
             </feature>
         </config-file>
-        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml">
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest" mode="merge">
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 			<uses-permission android:name="android.permission.INTERNET" />
 			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!--optional -->
@@ -26,7 +26,7 @@
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--optional-->
         </config-file>
         <framework src="com.google.android.gms:play-services-ads:10+" />
-        <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application" mode="merge">
 			<activity android:name="com.appodeal.ads.InterstitialActivity"
 				android:configChanges="orientation|screenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
