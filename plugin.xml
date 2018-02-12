@@ -18,7 +18,7 @@
                 <param name="android-package" value="com.appodeal.plugin.AppodealPlugin"/>
             </feature>
         </config-file>
-        <config-file parent="/manifest" target="AndroidManifest.xml">
+        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml">
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 			<uses-permission android:name="android.permission.INTERNET" />
 			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!--optional -->
@@ -26,7 +26,7 @@
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--optional-->
         </config-file>
         <framework src="com.google.android.gms:play-services-ads:10+" />
-        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+        <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
 			<activity android:name="com.appodeal.ads.InterstitialActivity"
 				android:configChanges="orientation|screenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -218,9 +218,6 @@
 					<action android:name="com.inmobi.share.id"/>
 				</intent-filter>
 			</receiver>
-        </config-file>
-        <config-file parent="/manifest/application" target="AndroidManifest.xml">
-        
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
     	<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
