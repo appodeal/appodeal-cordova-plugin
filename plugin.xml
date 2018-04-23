@@ -25,17 +25,16 @@
 			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!--optional -->
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--optional-->
         </config-file>
-        <framework src="com.google.android.gms:play-services-ads:10+" />
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
 			<activity android:name="com.appodeal.ads.InterstitialActivity"
 				android:configChanges="orientation|screenSize"
-				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 			<activity android:name="com.appodeal.ads.VideoActivity"
 				android:configChanges="orientation|screenSize"
-				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 			<activity android:name="com.appodeal.ads.LoaderActivity"
 				android:configChanges="orientation|screenSize"
-				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 			<activity android:name="com.appodeal.ads.VideoPlayerActivity"
 				android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 			<receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
@@ -104,6 +103,11 @@
 			<service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
 			<!--suppress AndroidDomInspection -->
 			<service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
+			<receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener" >
+				<intent-filter>
+					<action android:name="android.intent.action.BOOT_COMPLETED" />
+				</intent-filter>
+			</receiver>
 
 
 			<service android:name="com.yandex.metrica.MetricaService" android:enabled="true"
@@ -160,7 +164,7 @@
 			<activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
 				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-				<!--suppress AndroidDomInspection -->
+			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.vungle.publisher.FlexViewAdActivity"
 				android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
@@ -182,6 +186,29 @@
 			<activity android:name="com.flurry.android.FlurryBrowserActivity"
 				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
 				android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+			<activity android:name="com.mobvista.msdk.offerwall.view.MVOfferWallActivity"
+				android:configChanges="screenSize|orientation"
+				android:screenOrientation="portrait" />
+			<activity android:name="com.mobvista.msdk.offerwall.view.MVOfferWallRewardVideoActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:screenOrientation="landscape"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+			<activity android:name="com.mobvista.msdk.reward.player.MVRewardVideoActivity"
+				android:configChanges="orientation|keyboardHidden|screenSize"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+			<activity android:name="com.mobvista.msdk.videofeeds.vfplayer.VideoFeedsActivity"
+				android:configChanges="keyboardHidden|orientation|screenSize"
+				android:screenOrientation="portrait" />
+			<activity android:name="com.mobvista.msdk.out.LoadingActivity" />
+			<activity android:name="com.mobvista.msdk.interstitial.view.MVInterstitialActivity"
+				android:configChanges="orientation|screenSize"
+				android:screenOrientation="portrait"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+			<activity android:name="com.mobvista.msdk.shell.MVActivity"
+				android:configChanges="keyboard|orientation"
+				android:screenOrientation="portrait"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 
 			<!--suppress AndroidDomInspection -->
 			<activity android:name="com.tapjoy.TJAdUnitActivity" android:configChanges="orientation|keyboardHidden|screenSize"
@@ -224,17 +251,31 @@
         </config-file>
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
     	<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
-        <source-file src="libs/Android/appodeal-2.1.7.jar" target-dir="libs" />
+        <source-file src="libs/Android/appodeal-2.1.9.jar" target-dir="libs" />
         <source-file src="libs/Android/appodeal-banner-view-2.3.0.jar" target-dir="libs" />
-        <source-file src="libs/Android/applovin-7.4.0.jar" target-dir="libs" />
+        <source-file src="libs/Android/applovin-7.5.0.jar" target-dir="libs" />
         <source-file src="libs/Android/chartboost-6.6.3.jar" target-dir="libs" />
         <source-file src="libs/Android/inmobi-6.2.3.jar" target-dir="libs" />
         <source-file src="libs/Android/picasso-2.5.2.jar" target-dir="libs" />
         <source-file src="libs/Android/mailru-4.6.17.jar" target-dir="libs" />
         <source-file src="libs/Android/unity_ads-2.1.0.jar" target-dir="libs" />
         <source-file src="libs/Android/yandex-metrica-2.73.jar" target-dir="libs" />
-    	<source-file src="libs/Android/startapp-3.6.2.jar" target-dir="libs" />
+    	<source-file src="libs/Android/startapp-3.6.7.jar" target-dir="libs" />
+		<source-file src="libs/Android/mobvista_alphab.jar" target-dir="libs" />
+		<source-file src="libs/Android/mobvista_appwallext.jar" target-dir="libs" />
+		<source-file src="libs/Android/mobvista_mvjscommon.jar" target-dir="libs" />
         <framework src="libs/Android/adcolony" custom="true" />
+		<framework src="libs/Android/mobvista_appwall" custom="true" />
+		<framework src="libs/Android/mobvista_common" custom="true" />
+		<framework src="libs/Android/mobvista_interstitial" custom="true" />
+		<framework src="libs/Android/mobvista_mvdownloads" custom="true" />
+		<framework src="libs/Android/mobvista_mvnative" custom="true" />
+		<framework src="libs/Android/mobvista_nativeex" custom="true" />
+		<framework src="libs/Android/mobvista_offerwall" custom="true" />
+		<framework src="libs/Android/mobvista_playercommon" custom="true" />
+		<framework src="libs/Android/mobvista_reward" custom="true" />
+		<framework src="libs/Android/mobvista_videocommon" custom="true" />
+		<framework src="libs/Android/mobvista_videofeeds" custom="true" />
     </platform>
 
     <platform name="ios">
