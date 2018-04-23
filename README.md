@@ -3,7 +3,7 @@
 This is an official Appodeal Cordova plugin, created to support Appodeal SDK with Apache Cordova.
 
 ## SDK
-[![](https://img.shields.io/badge/docs-here-green.svg)](appodeal.com/sdk/cordova2)
+[![](https://img.shields.io/badge/docs-here-green.svg)](https://www.appodeal.com/sdk/cordova2)
 
 ## Install
 
