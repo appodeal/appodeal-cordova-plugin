@@ -1,12 +1,14 @@
 //
 //  MTRGPromoCardViewProtocol.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Andrey Seredkin on 20.10.16.
 //  Copyright © 2016 Mail.ru. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGMediaAdView;
 
@@ -22,3 +24,5 @@
 - (CGFloat)heightWithCardWidth:(CGFloat)width;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,6 +1,6 @@
 //
 //  MTRGChatListAdView.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 05.12.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -10,20 +10,23 @@
 #import <MyTargetSDK/MTRGNativePromoBanner.h>
 #import <MyTargetSDK/MTRGStarsRatingLabel.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MTRGChatListAdView : UIView
 
-@property(nonatomic) MTRGNativePromoBanner *banner;
+@property(nonatomic, nullable) MTRGNativePromoBanner *banner;
 @property(nonatomic) UIColor *backgroundColor;
+
 @property(nonatomic, readonly) UILabel *ageRestrictionsLabel;
 @property(nonatomic, readonly) UILabel *adLabel;
-
 @property(nonatomic, readonly) UILabel *titleLabel;
 @property(nonatomic, readonly) UILabel *descriptionLabel;
 @property(nonatomic, readonly) UIImageView *iconImageView;
-@property(nonatomic, readonly) UILabel *domainLabel;
-@property(nonatomic, readonly) UILabel *disclaimerLabel;
-@property(nonatomic, readonly) MTRGStarsRatingLabel *ratingStarsLabel;
-@property(nonatomic, readonly) UILabel *votesLabel;
+
+@property(nonatomic, readonly, nullable) UILabel *domainLabel;
+@property(nonatomic, readonly, nullable) UILabel *disclaimerLabel;
+@property(nonatomic, readonly, nullable) MTRGStarsRatingLabel *ratingStarsLabel;
+@property(nonatomic, readonly, nullable) UILabel *votesLabel;
 
 @property(nonatomic) UIEdgeInsets contentMargins;
 @property(nonatomic) UIEdgeInsets adLabelMargins;
@@ -39,3 +42,5 @@
 - (void)loadImages;
 
 @end
+
+NS_ASSUME_NONNULL_END

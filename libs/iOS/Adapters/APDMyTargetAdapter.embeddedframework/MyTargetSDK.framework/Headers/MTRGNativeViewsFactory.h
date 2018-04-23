@@ -1,6 +1,6 @@
 //
 //  MTRGNativeViewsFactory.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 17.11.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -23,6 +23,8 @@
 #import <MyTargetSDK/MTRGContentStreamCardAdView.h>
 #import <MyTargetSDK/MTRGPromoCardCollectionView.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MTRGNativeViewsFactory : NSObject
 
 + (MTRGNewsFeedAdView *)createNewsFeedViewWithBanner:(MTRGNativePromoBanner *)teaserBanner;
@@ -33,10 +35,9 @@
 
 + (MTRGContentWallAdView *)createContentWallViewWithBanner:(MTRGNativePromoBanner *)imageBanner;
 
-+ (MTRGAppwallBannerAdView *)createAppWallBannerViewWithBanner:(MTRGNativeAppwallBanner *)appWallBanner
-                                                      delegate:(id <MTRGAppwallBannerAdViewDelegate>)delegate;
++ (MTRGAppwallBannerAdView *)createAppWallBannerViewWithBanner:(MTRGNativeAppwallBanner *)appWallBanner delegate:(nullable id <MTRGAppwallBannerAdViewDelegate>)delegate;
 
-+ (MTRGAppwallBannerAdView *)createAppWallBannerViewWithDelegate:(id <MTRGAppwallBannerAdViewDelegate>)delegate;
++ (MTRGAppwallBannerAdView *)createAppWallBannerViewWithDelegate:(nullable id <MTRGAppwallBannerAdViewDelegate>)delegate;
 
 + (MTRGAppwallAdView *)createAppWallAdViewWithBanners:(NSArray *)banners;
 
@@ -47,3 +48,5 @@
 + (MTRGPromoCardCollectionView *)createPromoCardCollectionView;
 
 @end
+
+NS_ASSUME_NONNULL_END

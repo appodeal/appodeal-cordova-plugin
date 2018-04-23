@@ -23,7 +23,7 @@
  * natively support a wide variety of third-party ad networks.
  *
  * At runtime, the MoPub SDK will find and instantiate an `MPRewardedVideoCustomEvent` subclass as needed and
- * invoke its `-requestRewardedVideoWithCustomEventInfo:` method.
+ * invoke its `-requestRewardedVideoWithCustomEventInfo:` method and `+initializeSdkWithParameters:` method.
  */
 
 @interface MPRewardedVideoCustomEvent : NSObject
@@ -31,6 +31,24 @@
 @property (nonatomic, weak) id<MPRewardedVideoCustomEventDelegate> delegate;
 
 /** @name Requesting and Displaying a Rewarded Video Ad */
+
+/**
+ * Called when the MoPub SDK requires the underlying network SDK to be initialized.
+ *
+ * This method may be invoked either at rewarded video initialization or on-demand when
+ * `requestRewardedVideoWithCustomEventInfo:` is invoked.
+ *
+ * The default implementation of this method does nothing. Subclasses must override this method and implement
+ * code to initialize the underlying SDK here.
+ *
+ * This method may be called multiple times during the lifetime of the app. As such
+ * it is recommended that the implementation is encapsulated by a `dispatch_once`
+ * block.
+ *
+ * @param parameters A dictionary containing any SDK-specific information needed for initialization,
+ * such as app IDs.
+ */
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters;
 
 /**
  * Called when the MoPub SDK requires a new rewarded video ad.

@@ -23,7 +23,7 @@ framework module IronSource {
     link framework "CoreVideo"
     link framework "Foundation"
     link framework "WebKit"
-    
+    link framework "AudioToolbox"
     
     link "xml2"
     link "z"
@@ -33,11 +33,13 @@ framework module IronSource {
     header "ISGender.h"
     header "ISIntegrationHelper.h"
     header "ISInterstitialDelegate.h"
+    header "ISDemandOnlyInterstitialDelegate.h"
     header "ISLogDelegate.h"
     header "ISOfferwallDelegate.h"
     header "ISPlacementInfo.h"
     header "ISRewardedInterstitialDelegate.h"
     header "ISRewardedVideoDelegate.h"
+    header "ISDemandOnlyRewardedVideoDelegate.h"
     header "ISSupersonicAdsConfiguration.h"
     
     

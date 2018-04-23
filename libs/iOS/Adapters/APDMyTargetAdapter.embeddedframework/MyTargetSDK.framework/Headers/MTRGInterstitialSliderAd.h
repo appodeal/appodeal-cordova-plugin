@@ -1,6 +1,6 @@
 //
 //  MTRGInterstitialSliderAd.h
-//  MyTargetSDK
+//  myTargetSDK 4.6.22
 //
 //  Created by Andrey Seredkin on 10.11.16.
 //  Copyright © 2016 Mail.ru Group. All rights reserved.
@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGCustomParams.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGInterstitialSliderAd;
 
@@ -30,18 +32,17 @@
 
 @end
 
-
 @interface MTRGInterstitialSliderAd : NSObject
 
-@property(nonatomic, weak) id <MTRGInterstitialSliderAdDelegate> delegate;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
+@property(nonatomic, weak, nullable) id <MTRGInterstitialSliderAdDelegate> delegate;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 
 + (void)setDebugMode:(BOOL)enabled;
 
 + (BOOL)isDebugMode;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
@@ -52,3 +53,5 @@
 - (void)close;
 
 @end
+
+NS_ASSUME_NONNULL_END

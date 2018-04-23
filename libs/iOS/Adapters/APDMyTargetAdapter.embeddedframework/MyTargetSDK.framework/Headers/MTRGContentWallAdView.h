@@ -1,6 +1,6 @@
 //
 //  MTRGContentWallAdView.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 05.12.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -10,10 +10,12 @@
 #import <MyTargetSDK/MTRGNativePromoBanner.h>
 #import <MyTargetSDK/MTRGMediaAdView.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MTRGContentWallAdView : UIView
 
-@property(nonatomic) MTRGNativePromoBanner *banner;
-@property(nonatomic) UIColor *backgroundColor;
+@property(nonatomic, nullable) MTRGNativePromoBanner *banner;
+@property(nonatomic, nullable) UIColor *backgroundColor;
 
 @property(nonatomic, readonly) UILabel *ageRestrictionsLabel;
 @property(nonatomic, readonly) UILabel *adLabel;
@@ -28,3 +30,5 @@
 - (void)loadImages;
 
 @end
+
+NS_ASSUME_NONNULL_END

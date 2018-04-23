@@ -3,10 +3,11 @@
 //  StartAppAdSDK
 //
 //  Copyright (c) 2013 StartApp. All rights reserved.
-//  SDK version 3.4.3
+//  SDK version 3.5.1
 
 #import <UIKit/UIKit.h>
 #import "STAAbstractAd.h"
+#import "STAAdPreferences.h"
 
 /* StartAppAd enumeration */
 typedef enum {
@@ -20,8 +21,6 @@ typedef enum {
 
 @property (nonatomic, assign) bool STAShouldAutoRotate;
 @property STAAdType startAppAdType;
-
-@property (nonatomic, strong) STAAdPreferences *preferences;
 
 - (id) init;
 

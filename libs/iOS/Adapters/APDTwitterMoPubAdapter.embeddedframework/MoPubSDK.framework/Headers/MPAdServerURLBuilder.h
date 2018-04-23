@@ -21,7 +21,8 @@
       versionParameterName:(NSString *)versionParameterName
                    version:(NSString *)version
                    testing:(BOOL)testing
-             desiredAssets:(NSArray *)assets;
+             desiredAssets:(NSArray *)assets
+               viewability:(BOOL)viewability;
 
 + (NSURL *)URLWithAdUnitID:(NSString *)adUnitID
                   keywords:(NSString *)keywords
@@ -30,6 +31,7 @@
                    version:(NSString *)version
                    testing:(BOOL)testing
              desiredAssets:(NSArray *)assets
-                adSequence:(NSInteger)adSequence;
+                adSequence:(NSInteger)adSequence
+               viewability:(BOOL)viewability;
 
 @end

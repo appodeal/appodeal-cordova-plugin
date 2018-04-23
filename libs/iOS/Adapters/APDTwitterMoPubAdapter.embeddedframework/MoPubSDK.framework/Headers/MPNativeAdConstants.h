@@ -21,7 +21,7 @@ extern NSString *const kAdCTATextKey;
 extern NSString *const kAdStarRatingKey;
 extern NSString *const kVideoConfigKey;
 extern NSString *const kVASTVideoKey;
-extern NSString *const kNativeVideoAdConfigKey;
+extern NSString *const kNativeAdConfigKey;
 extern NSString *const kAdDAAIconImageKey;
 extern NSString *const kAdDAAIconUIImageKey;
 extern NSString *const kDAAIconImageName;

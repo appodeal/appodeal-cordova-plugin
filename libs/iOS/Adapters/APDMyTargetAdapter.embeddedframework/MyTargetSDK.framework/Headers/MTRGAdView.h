@@ -1,6 +1,6 @@
 //
 //  MTRGAdView.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 05.03.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGCustomParams.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger
 {
@@ -38,20 +40,20 @@ typedef enum : NSUInteger
 
 @interface MTRGAdView : UIView
 
-@property(nonatomic, weak) id <MTRGAdViewDelegate> delegate;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
-@property(nonatomic, weak) UIViewController *viewController;
+@property(nonatomic, weak, nullable) id <MTRGAdViewDelegate> delegate;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
+@property(nonatomic, weak, nullable) UIViewController *viewController;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 
 + (void)setDebugMode:(BOOL)enabled;
 
 + (BOOL)isDebugMode;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
-- (instancetype)initWithSlotId:(NSUInteger)slotId adSize:(MTRGAdSize)adSize;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId adSize:(MTRGAdSize)adSize;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId withRefreshAd:(BOOL)refreshAd;
-- (instancetype)initWithSlotId:(NSUInteger)slotId withRefreshAd:(BOOL)refreshAd adSize:(MTRGAdSize)adSize;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId withRefreshAd:(BOOL)refreshAd;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId withRefreshAd:(BOOL)refreshAd adSize:(MTRGAdSize)adSize;
 
 - (void)load;
 
@@ -60,3 +62,5 @@ typedef enum : NSUInteger
 - (void)stop;
 
 @end
+
+NS_ASSUME_NONNULL_END

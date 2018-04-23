@@ -1,6 +1,6 @@
 //
 //  MTRGNewsFeedAdView.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 05.12.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -10,22 +10,24 @@
 #import <MyTargetSDK/MTRGNativePromoBanner.h>
 #import <MyTargetSDK/MTRGStarsRatingLabel.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MTRGNewsFeedAdView : UIView
 
-@property(nonatomic) MTRGNativePromoBanner *banner;
-@property(nonatomic) UIColor *backgroundColor;
-@property(nonatomic, readonly) UILabel *ageRestrictionsLabel;
-@property(nonatomic, readonly) UILabel *adLabel;
+@property(nonatomic, nullable) MTRGNativePromoBanner *banner;
+@property(nonatomic, nullable) UIColor *backgroundColor;
+@property(nonatomic, readonly, nullable) UILabel *ageRestrictionsLabel;
+@property(nonatomic, readonly, nullable) UILabel *adLabel;
 
-@property(nonatomic, readonly) UIImageView *iconImageView;
-@property(nonatomic, readonly) UILabel *domainLabel;
-@property(nonatomic, readonly) UILabel *categoryLabel;
-@property(nonatomic, readonly) UILabel *disclaimerLabel;
-@property(nonatomic, readonly) MTRGStarsRatingLabel *ratingStarsLabel;
-@property(nonatomic, readonly) UILabel *votesLabel;
-@property(nonatomic, readonly) UIView *buttonView;
-@property(nonatomic, readonly) UILabel *buttonToLabel;
-@property(nonatomic, readonly) UILabel *titleLabel;
+@property(nonatomic, readonly, nullable) UIImageView *iconImageView;
+@property(nonatomic, readonly, nullable) UILabel *domainLabel;
+@property(nonatomic, readonly, nullable) UILabel *categoryLabel;
+@property(nonatomic, readonly, nullable) UILabel *disclaimerLabel;
+@property(nonatomic, readonly, nullable) MTRGStarsRatingLabel *ratingStarsLabel;
+@property(nonatomic, readonly, nullable) UILabel *votesLabel;
+@property(nonatomic, readonly, nullable) UIView *buttonView;
+@property(nonatomic, readonly, nullable) UILabel *buttonToLabel;
+@property(nonatomic, readonly, nullable) UILabel *titleLabel;
 
 @property(nonatomic) UIEdgeInsets contentMargins;
 @property(nonatomic) UIEdgeInsets adLabelMargins;
@@ -43,3 +45,5 @@
 - (void)loadImages;
 
 @end
+
+NS_ASSUME_NONNULL_END

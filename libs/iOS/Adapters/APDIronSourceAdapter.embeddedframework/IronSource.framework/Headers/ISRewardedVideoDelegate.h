@@ -59,6 +59,11 @@
  */
 - (void)rewardedVideoDidEnd;
 
+/**
+ Called after a video has been clicked.
+ */
+- (void)didClickRewardedVideo:(ISPlacementInfo *)placementInfo;
+
 @end
 
 #endif

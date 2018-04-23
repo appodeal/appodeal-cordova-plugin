@@ -1,6 +1,6 @@
 //
 //  MTRGNativeAppwallAd.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 13.01.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -12,6 +12,7 @@
 #import <MyTargetSDK/MTRGNativeAppwallBanner.h>
 #import <MyTargetSDK/MTRGAppwallAdView.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGNativeAppwallAd;
 
@@ -30,12 +31,12 @@
 
 @interface MTRGNativeAppwallAd : NSObject
 
-@property(nonatomic, weak) id <MTRGNativeAppwallAdDelegate> delegate;
-@property(nonatomic, copy) NSString *appWallTitle;
-@property(nonatomic, copy) NSString *closeButtonTitle;
+@property(nonatomic, weak, nullable) id <MTRGNativeAppwallAdDelegate> delegate;
+@property(nonatomic, copy, nullable) NSString *appWallTitle;
+@property(nonatomic, copy, nullable) NSString *closeButtonTitle;
 @property(nonatomic) NSUInteger cachePeriodInSec;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
-@property(nonatomic, readonly) NSArray *banners;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
+@property(nonatomic, readonly, nullable) NSArray *banners;
 @property(nonatomic) BOOL autoLoadImages;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 
@@ -45,12 +46,11 @@
 
 + (void)loadImage:(MTRGImageData *)imageData toView:(UIImageView *)imageView;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
-- (void)showWithController:(UIViewController *)controller onComplete:(void (^)())onComplete
-                   onError:(void (^)(NSError *error))onError;
+- (void)showWithController:(UIViewController *)controller onComplete:(nullable void (^)(void))onComplete onError:(nullable void (^)(NSError *error))onError;
 
 - (void)registerAppWallAdView:(MTRGAppwallAdView *)appWallAdView withController:(UIViewController *)controller;
 
@@ -63,3 +63,5 @@
 - (void)handleClick:(MTRGNativeAppwallBanner *)appWallBanner withController:(UIViewController *)controller;
 
 @end
+
+NS_ASSUME_NONNULL_END

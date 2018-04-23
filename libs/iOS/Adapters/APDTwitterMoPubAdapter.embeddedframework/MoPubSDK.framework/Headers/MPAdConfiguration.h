@@ -57,6 +57,8 @@ extern NSString * const kAdTypeNativeVideo;
 
 extern NSString * const kClickthroughExperimentBrowserAgent;
 
+extern NSString * const kViewabilityDisableHeaderKey;
+
 @interface MPAdConfiguration : NSObject
 
 @property (nonatomic, assign) MPAdType adType;
@@ -85,8 +87,8 @@ extern NSString * const kClickthroughExperimentBrowserAgent;
 @property (nonatomic, copy) NSString *headerAdType;
 @property (nonatomic, assign) NSInteger nativeVideoPlayVisiblePercent;
 @property (nonatomic, assign) NSInteger nativeVideoPauseVisiblePercent;
-@property (nonatomic, assign) NSInteger nativeVideoImpressionMinVisiblePercent;
-@property (nonatomic, assign) NSTimeInterval nativeVideoImpressionVisible;
+@property (nonatomic, assign) NSInteger nativeImpressionMinVisiblePercent;
+@property (nonatomic, assign) NSTimeInterval nativeImpressionMinVisibleTimeInterval;
 @property (nonatomic, assign) NSTimeInterval nativeVideoMaxBufferingTime;
 @property (nonatomic) NSDictionary *nativeVideoTrackers;
 @property (nonatomic, readonly) NSArray *availableRewards;

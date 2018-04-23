@@ -126,7 +126,9 @@ typedef NS_ENUM(NSUInteger, CBLoadError) {
     /*! Video Prefetching is not finished */
     CBLoadErrorPrefetchingIncomplete = 21,
     /*! Error Originating from the JS side of a Web View */
-    CBLoadErrorWebViewScriptError = 22
+    CBLoadErrorWebViewScriptError = 22,
+    /*! Network is unavailable while attempting to show. */
+    CBLoadErrorInternetUnavailableAtShow = 25
 };
 
 /*!
@@ -228,7 +230,15 @@ FOUNDATION_EXPORT CBLocation const CBLocationDefault;
 
 @optional
 
-// TODO: JIRA: https://chartboost.atlassian.net/browse/MO-2668
+/*!
+ @abstract
+ Called by the SDK to show customized AgeGate View. 
+  
+ @return A valid UIView. Reutrn nil if no customized Age Gate is needed.
+ 
+ @discussion SDK will call this method to see if user wants to implement their own custom age gate view. 
+             Check for didPassAgeGate for other details.
+ */
 - (UIView*)customAgeGateView;
 
 /*!

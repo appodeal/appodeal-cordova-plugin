@@ -1,6 +1,6 @@
 //
 //  MyTargetSDK.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 24.09.15.
 //  Copyright © 2015 Mail.ru. All rights reserved.
@@ -37,3 +37,4 @@
 #import <MyTargetSDK/MTRGInstreamAdCompanionBanner.h>
 #import <MyTargetSDK/MTRGInstreamAudioAd.h>
 #import <MyTargetSDK/MTRGInstreamAudioAdPlayer.h>
+#import <MyTargetSDK/MTRGVersion.h>

@@ -63,21 +63,16 @@
 - (BOOL)hasAdAvailable;
 
 /**
- * Plays a rewarded video ad, choosing the first reward from `availableRewards` to award the user.
- *
- * @param viewController Presents the rewarded video ad from viewController.
- */
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController __deprecated_msg("use presentRewardedVideoAdFromViewController:withReward: instead.");
-
-/**
  * Plays a rewarded video ad.
  *
  * @param viewController Presents the rewarded video ad from viewController.
  * @param reward A reward chosen from `availableRewards` to award the user upon completion.
  * This value should not be `nil`. If the reward that is passed in did not come from `availableRewards`,
  * this method will not present the rewarded ad and invoke `rewardedVideoDidFailToPlayForAdManager:error:`.
+ * @param customData Optional custom data string to include in the server-to-server callback. If a server-to-server callback
+ * is not used, or if the ad unit is configured for local rewarding, this value will not be persisted.
  */
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward;
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward customData:(NSString *)customData;
 
 /**
  * This method is called when another ad unit has played a rewarded video from the same network this ad manager's custom event

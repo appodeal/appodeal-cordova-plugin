@@ -2,7 +2,7 @@
 //  APDDefines.h
 //  Appodeal
 //
-//  AppodealSDK version 2.1.7-Release
+//  AppodealSDK version 2.1.10-Release
 //
 //  Copyright © 2017 Appodeal, Inc. All rights reserved.
 //
@@ -14,7 +14,7 @@ FOUNDATION_EXPORT const CGSize kAppodealUnitSize_320x50;
 FOUNDATION_EXPORT const CGSize kAppodealUnitSize_300x250;
 FOUNDATION_EXPORT const CGSize kAppodealUnitSize_728x90;
 
-FOUNDATION_EXPORT NSArray * AppodealAvailableUnitSizes();
+FOUNDATION_EXPORT NSArray * AppodealAvailableUnitSizes(void);
 
 FOUNDATION_EXPORT BOOL AppodealIsUnitSizeSupported(const CGSize size, NSArray *supportedSizes);
 FOUNDATION_EXPORT BOOL AppodealIsUnitSizeAvailable(const CGSize size);
@@ -412,7 +412,7 @@ extern CGSize APDNearestValidAdSizeForCGSize(const CGSize size);
  *
  *  @return current SDK version
  */
-NSString * APDSdkVersionString();
+NSString * APDSdkVersionString(void);
 
 extern NSString * const kAPDErrorDomain;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="com.appodeal.plugin" version="3.0.4" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+<plugin id="com.appodeal.plugin" version="3.0.5" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
   <name>Appodeal Plugin</name>
   <description>Appodeal Plugin</description>
   <author>Appodeal</author>
@@ -245,17 +245,48 @@
 					<action android:name="com.inmobi.share.id"/>
 				</intent-filter>
 			</receiver>
+
+			<meta-data android:name="presage_key" android:value="000000"/>
+			<service android:name="io.presage.PresageService" android:enabled="true" android:exported="true" android:process=":remote">
+				<intent-filter>
+					<action android:name="io.presage.PresageService.PIVOT" />
+				</intent-filter>
+			</service>
+			<activity android:name="io.presage.activities.PresageActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+				android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+				<intent-filter>
+					<action android:name="io.presage.intent.action.LAUNCH_WEBVIEW" />
+					<category android:name="android.intent.category.DEFAULT" />
+				</intent-filter>
+			</activity>
+			<receiver android:name="io.presage.receiver.NetworkChangeReceiver">
+				<intent-filter>
+					<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+					<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+					<action android:name="io.presage.receiver.NetworkChangeReceiver.ONDESTROY" />
+				</intent-filter>
+			</receiver>
+			<receiver android:name="io.presage.receiver.AlarmReceiver" />
+			<provider
+				android:name="io.presage.provider.PresageProvider"
+				android:authorities="${applicationId}.PresageProvider"
+				android:enabled="true"
+				android:exported="true" />
         </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
         
         </config-file>
+        
+        <framework src="com.google.android.gms:play-services-ads:10+" />
+
         <source-file src="src/android/AppodealPlugin.java" target-dir="src/com/appodeal/plugin" />
     	<framework src="src/android/dependency_fix.gradle" custom="true" type="gradleReference" />
-        <source-file src="libs/Android/appodeal-2.1.9.jar" target-dir="libs" />
+        <source-file src="libs/Android/appodeal-2.1.11.jar" target-dir="libs" />
         <source-file src="libs/Android/appodeal-banner-view-2.3.0.jar" target-dir="libs" />
         <source-file src="libs/Android/applovin-7.5.0.jar" target-dir="libs" />
         <source-file src="libs/Android/chartboost-6.6.3.jar" target-dir="libs" />
         <source-file src="libs/Android/inmobi-6.2.3.jar" target-dir="libs" />
+        <source-file src="libs/Android/ogury-2.1.15.jar" target-dir="libs" />
         <source-file src="libs/Android/picasso-2.5.2.jar" target-dir="libs" />
         <source-file src="libs/Android/mailru-4.6.17.jar" target-dir="libs" />
         <source-file src="libs/Android/unity_ads-2.1.0.jar" target-dir="libs" />
@@ -367,6 +398,9 @@
         <!-- Ironsource -->
         <framework custom="true" src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/IronSource.framework"/>
         <source-file src="libs/iOS/Adapters/APDIronSourceAdapter.embeddedframework/libAPDIronSourceAdapter.a" framework="true"/>
+        <!-- Mobvista -->
+        <framework custom="true" src="libs/iOS/Adapters/APDMobvistaAdapter.embeddedframework/MVSDK.framework"/>
+        <source-file src="libs/iOS/Adapters/APDMobvistaAdapter.embeddedframework/libAPDMobvistaAdapter.a" framework="true"/>
         <!-- MyTarget -->
         <framework custom="true" src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/MyTargetSDK.framework"/>
         <source-file src="libs/iOS/Adapters/APDMyTargetAdapter.embeddedframework/libAPDMyTargetAdapter.a" framework="true"/>

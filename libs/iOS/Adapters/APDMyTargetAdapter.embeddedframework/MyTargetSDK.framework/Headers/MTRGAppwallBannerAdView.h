@@ -1,6 +1,6 @@
 //
 //  MTRGAppwallBannerAdView.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 15.01.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGNativeAppwallBanner.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGAppwallBannerAdView;
 
@@ -27,12 +29,7 @@
 
 @interface MTRGAppwallBannerAdView : UIView
 
-@property(nonatomic) MTRGNativeAppwallBanner *appWallBanner;
-
-- (instancetype)initWithDelegate:(id <MTRGAppwallBannerAdViewDelegate>)delegate;
-- (void)setAppWallBanner:(MTRGNativeAppwallBanner *)appWallBanner;
-
-- (void)setFixedWidth:(CGFloat)width;
+@property(nonatomic, nullable) MTRGNativeAppwallBanner *appWallBanner;
 
 @property(nonatomic) UIEdgeInsets titleMargins;
 @property(nonatomic) UIEdgeInsets descriptionMargins;
@@ -46,8 +43,8 @@
 
 @property(nonatomic) UIEdgeInsets paddings;
 
-@property(nonatomic) UIColor * touchColor;
-@property(nonatomic) UIColor * normalColor;
+@property(nonatomic, nullable) UIColor *touchColor;
+@property(nonatomic, nullable) UIColor *normalColor;
 
 @property(nonatomic) CGSize iconSize;
 @property(nonatomic) CGSize ratingSize;
@@ -60,17 +57,17 @@
 
 @property(nonatomic) CGPoint bubblePosition;
 
-@property(nonatomic) UIFont * titleFont;
-@property(nonatomic) UIFont * descriptionFont;
-@property(nonatomic) UIFont * votesFont;
-@property(nonatomic) UIFont * coinFont;
+@property(nonatomic, nullable) UIFont *titleFont;
+@property(nonatomic, nullable) UIFont *descriptionFont;
+@property(nonatomic, nullable) UIFont *votesFont;
+@property(nonatomic, nullable) UIFont *coinFont;
 
 @property(nonatomic) NSInteger descriptionNumberOfLines;
 @property(nonatomic) NSLineBreakMode descriptionLineBreakMode;
 
-@property(nonatomic) UIColor * titleColor;
-@property(nonatomic) UIColor * descriptionColor;
-@property(nonatomic) UIColor * votesColor;
+@property(nonatomic, nullable) UIColor *titleColor;
+@property(nonatomic, nullable) UIColor *descriptionColor;
+@property(nonatomic, nullable) UIColor *votesColor;
 
 @property(nonatomic) BOOL showTopBorder;
 @property(nonatomic) BOOL showGotoAppIcon;
@@ -80,4 +77,10 @@
 @property(nonatomic) BOOL showCoins;
 @property(nonatomic) BOOL showCrossNotifIcon;
 
+- (nullable instancetype)initWithDelegate:(nullable id <MTRGAppwallBannerAdViewDelegate>)delegate;
+- (void)setAppWallBanner:(MTRGNativeAppwallBanner *)appWallBanner;
+- (void)setFixedWidth:(CGFloat)width;
+
 @end
+
+NS_ASSUME_NONNULL_END

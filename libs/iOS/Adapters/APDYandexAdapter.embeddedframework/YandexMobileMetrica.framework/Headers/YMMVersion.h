@@ -1,12 +1,9 @@
 /*
- *  YMMVersion.h
- *
- * This file is a part of the AppMetrica
- *
- * Version for iOS © 2017 YANDEX
- *
+ * Version for iOS
+ * © 2012–2017 YANDEX
  * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at http://legal.yandex.com/metrica_termsofuse/
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
 #ifndef __YMM_VERSION_H__
@@ -14,8 +11,8 @@
 
 #define YMM_VERSION_MAJOR 2
 #define YMM_VERSION_MINOR 9
-#define YMM_VERSION_PATCH 1
+#define YMM_VERSION_PATCH 6
 
-#define YMM_BUILD_NUMBER 8517
+#define YMM_BUILD_NUMBER 9251
 
 #endif // __YMM_VERSION_H__

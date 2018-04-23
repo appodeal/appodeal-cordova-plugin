@@ -27,6 +27,7 @@ typedef enum LogTagValue
     TAG_NETWORK,
     TAG_NATIVE,
     TAG_INTERNAL,
+    TAG_EVENT
     
 } LogTag;
 

@@ -3,7 +3,7 @@
 //  StartAppAdSDK
 //
 //  Copyright (c) 2013 StartApp. All rights reserved.
-//  SDK version 3.4.3
+//  SDK version 3.5.1
 
 #import <Foundation/Foundation.h>
 
@@ -29,22 +29,6 @@
 - (void) didCompleteVideo:(STAAbstractAd*)ad;
 
 @end
-
-@interface STAUserLocation : NSObject
-@property  double latitude;
-@property  double longitude;
-
-
-@end
-
-
-// STAAdPreferences holds params specific to an ad
-@interface STAAdPreferences : NSObject
-@property (nonatomic,retain) STAUserLocation *userLocation;
-
-+ (instancetype)prefrencesWithLatitude:(double) latitude andLongitude:(double)longitude;
-@end
-
 
 @interface STAAbstractAd : NSObject
 

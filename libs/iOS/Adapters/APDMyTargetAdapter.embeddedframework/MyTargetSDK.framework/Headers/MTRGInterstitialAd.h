@@ -1,6 +1,6 @@
 //
 //  InterstitialAd.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 04.02.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGCustomParams.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGInterstitialAd;
 
@@ -35,15 +37,15 @@
 
 @interface MTRGInterstitialAd : NSObject
 
-@property(nonatomic, weak) id <MTRGInterstitialAdDelegate> delegate;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
+@property(nonatomic, weak, nullable) id <MTRGInterstitialAdDelegate> delegate;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 
 + (void)setDebugMode:(BOOL)enabled;
 
 + (BOOL)isDebugMode;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
@@ -54,3 +56,5 @@
 - (void)close;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 #import "MPConstants.h"
 
 #import "MPAdConversionTracker.h"
+#import "MPAdDestinationDisplayAgent.h"
 #import "MPAdView.h"
 #import "MPBannerCustomEvent.h"
 #import "MPBannerCustomEventDelegate.h"
@@ -16,10 +17,11 @@
 #import "MPInterstitialCustomEventDelegate.h"
 #import "MPMediationSettingsProtocol.h"
 #import "MPRewardedVideo.h"
+#import "MPRewardedVideoNetwork.h"
 #import "MPRewardedVideoReward.h"
 #import "MPRewardedVideoCustomEvent.h"
 #import "MPRewardedVideoError.h"
-#import "MPAdDestinationDisplayAgent.h"
+#import "MPViewabilityTracker.h"
 
 #if MP_HAS_NATIVE_PACKAGE
 #import "MPNativeAd.h"
@@ -80,7 +82,7 @@
  * This only occurs if location services are enabled and the user has already authorized the use
  * of location services for the application. The default value is YES.
  *
- * @param enabled A Boolean value indicating whether the SDK should listen for location updates.
+ * @return A Boolean value indicating whether the SDK should listen for location updates.
  */
 @property (nonatomic, assign) BOOL locationUpdatesEnabled;
 
@@ -96,22 +98,43 @@
  */
 @property (nonatomic) BOOL frequencyCappingIdUsageEnabled;
 
+/**
+ * Forces the usage of WKWebView (if able).
+ */
+@property (nonatomic, assign) BOOL forceWKWebView;
+
 /** @name Rewarded Video */
 /**
- * Initializes the rewarded video system.
+ * Initializes the rewarded video system and preinitializes all cached rewarded video network SDKs.
  *
  * This method should only be called once. It should also be called prior to requesting any rewarded video ads.
- * Once the global mediation settings and delegate are set, they cannot be changed.
+ * Once the global mediation settings and delegate are set, they cannot be changed for the rest of the app session.
  *
  * @param globalMediationSettings Global configurations for all rewarded video ad networks your app supports.
- *
  * @param delegate The delegate that will receive all events related to rewarded video.
  */
-- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings delegate:(id<MPRewardedVideoDelegate>)delegate;
+- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings
+                                                  delegate:(id<MPRewardedVideoDelegate>)delegate;
+
+/** @name Rewarded Video */
+/**
+ * Initializes the rewarded video system and preinitializes all specified rewarded video network SDKs.
+ *
+ * This method should only be called once at app launch, prior to requesting any rewarded video ads.
+ * Once the global mediation settings and delegate are set, they cannot be changed the rest of the app session.
+ *
+ * @param globalMediationSettings Global configurations for all rewarded video ad networks your app supports.
+ * @param delegate The delegate that will receive all events related to rewarded video.
+ * @param order An array of rewarded video custom event networks to preinitialize. For convenience, use
+ * the constants from `MPRewardedVideoNetwork`. If `nil` is passed in, no network SDKs will be preinitialized.
+ */
+- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings
+                                                  delegate:(id<MPRewardedVideoDelegate>)delegate
+                                networkInitializationOrder:(NSArray<NSString *> *)order;
 
 /**
  * Retrieves the global mediation settings for a given class type.
-*
+ *
  * @param aClass The type of mediation settings object you want to receive from the collection.
  */
 - (id<MPMediationSettingsProtocol>)globalMediationSettingsForClass:(Class)aClass;
@@ -130,5 +153,13 @@
  *
  */
 - (void)setClickthroughDisplayAgentType:(MOPUBDisplayAgentType)displayAgentType;
+
+/**
+ * Disables viewability measurement via the specified vendor(s) for the rest of the app session. A given vendor cannot
+ * be re-enabled after being disabled.
+ *
+ * @param vendors The viewability vendor(s) to be disabled. This is a bitmask value; ORing vendors together is okay.
+ */
+- (void)disableViewability:(MPViewabilityOption)vendors;
 
 @end

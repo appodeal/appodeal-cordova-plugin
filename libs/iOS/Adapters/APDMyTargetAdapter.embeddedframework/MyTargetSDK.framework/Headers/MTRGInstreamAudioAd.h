@@ -1,6 +1,6 @@
 //
 //  MTRGInstreamAudioAd.h
-//  MyTargetSDK
+//  myTargetSDK 4.6.22
 //
 //  Created by Andrey Seredkin on 20.12.16.
 //  Copyright © 2016 Mail.ru Group. All rights reserved.
@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGInstreamAudioAdPlayer.h>
 #import <MyTargetSDK/MTRGInstreamAdCompanionBanner.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGInstreamAudioAd;
 @class MTRGCustomParams;
@@ -19,8 +21,8 @@
 @property(nonatomic) BOOL allowSeek;
 @property(nonatomic) BOOL allowSkip;
 @property(nonatomic) BOOL allowTrackChange;
-@property(nonatomic, copy) NSString *adText;
-@property(nonatomic) NSArray<MTRGInstreamAdCompanionBanner *> *companionBanners;
+@property(nonatomic, copy, nullable) NSString *adText;
+@property(nonatomic, nullable) NSArray<MTRGInstreamAdCompanionBanner *> *companionBanners;
 
 @end
 
@@ -52,17 +54,18 @@
 
 @interface MTRGInstreamAudioAd : NSObject
 
-@property(nonatomic, weak) id <MTRGInstreamAudioAdDelegate> delegate;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
-@property(nonatomic) id <MTRGInstreamAudioAdPlayer> player;
+@property(nonatomic, weak, nullable) id <MTRGInstreamAudioAdDelegate> delegate;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
+@property(nonatomic, nullable) id <MTRGInstreamAudioAdPlayer> player;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 @property(nonatomic) float volume;
+@property(nonatomic) NSUInteger loadingTimeout;
 
 + (void)setDebugMode:(BOOL)enabled;
 
 + (BOOL)isDebugMode;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
@@ -97,3 +100,5 @@
 - (NSArray<NSNumber *> *)midpoints;
 
 @end
+
+NS_ASSUME_NONNULL_END

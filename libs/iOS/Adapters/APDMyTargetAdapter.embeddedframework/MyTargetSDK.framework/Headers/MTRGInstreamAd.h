@@ -1,6 +1,6 @@
 //
 //  MTRGInstreamAd.h
-//  myTargetSDK 4.6.16
+//  myTargetSDK 4.6.22
 //
 //  Created by Anton Bulankin on 31.08.16.
 //  Copyright © 2016 Mail.ru. All rights reserved.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MyTargetSDK/MTRGInstreamAdPlayer.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MTRGCustomParams;
 @class MTRGInstreamAd;
@@ -19,7 +21,7 @@
 @property(nonatomic) BOOL allowClose;
 @property(nonatomic) NSTimeInterval allowCloseDelay;
 @property(nonatomic) CGSize size;
-@property(nonatomic, copy) NSString *ctaText;
+@property(nonatomic, copy, nullable) NSString *ctaText;
 
 @end
 
@@ -51,19 +53,20 @@
 
 @interface MTRGInstreamAd : NSObject
 
-@property(nonatomic, weak) id <MTRGInstreamAdDelegate> delegate;
-@property(nonatomic, readonly) MTRGCustomParams *customParams;
+@property(nonatomic, weak, nullable) id <MTRGInstreamAdDelegate> delegate;
+@property(nonatomic, readonly, nullable) MTRGCustomParams *customParams;
 @property(nonatomic) NSUInteger videoQuality;
-@property(nonatomic) id <MTRGInstreamAdPlayer> player;
+@property(nonatomic, nullable) id <MTRGInstreamAdPlayer> player;
 @property(nonatomic) BOOL fullscreen;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 @property(nonatomic) float volume;
+@property(nonatomic) NSUInteger loadingTimeout;
 
 + (void)setDebugMode:(BOOL)enabled;
 
 + (BOOL)isDebugMode;
 
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (nullable instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
@@ -98,3 +101,5 @@
 - (NSArray<NSNumber *> *)midpoints;
 
 @end
+
+NS_ASSUME_NONNULL_END
