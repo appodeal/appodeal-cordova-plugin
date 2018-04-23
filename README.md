@@ -2,8 +2,6 @@
 
 This is an official Appodeal Cordova plugin, created to support Appodeal SDK with Apache Cordova.
 
-## SDK
-[![](https://img.shields.io/badge/docs-here-green.svg)](https://www.appodeal.com/sdk/cordova2)
 
 ## Install
 
@@ -22,11 +20,17 @@ Minimum OS requirements:
 
 Appodeal SDK included:
 
-+ Android Appodeal SDK version 2.1.4
-+ iOS Appodeal SDK version 2.1.4
++ Android Appodeal SDK version 2.1.11
++ iOS Appodeal SDK version 2.1.10
 
 
 ## Changelog
+
+3.0.5 (21.04.2018)
+
++ Appodeal iOS SDK updated to 2.1.10
++ Appodeal Android SDK updated to 2.1.11
++ Ogury for Android added as required library
 
 3.0.2 (20.09.2017)
 
