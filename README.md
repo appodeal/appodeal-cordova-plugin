@@ -70,11 +70,11 @@ Appodeal.disableLocationPermissionCheck();
 Appodeal.initialize(appKey, Appodeal.INTERSTITIAL);
 ```
 
-To initialize only interstitials use Appodeal.initialize(appKey, Appodeal.INTERSTITIAL)
-To initialize only rewarded video use Appodeal.initialize(appKey, Appodeal.REWARDED_VIDEO)
-To initialize only non-skippable video use Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO)
-To initialize interstitials and non-skippable videos use Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)
-To initialize only banners use Appodeal.initialize(appKey, Appodeal.BANNER)
++ To initialize only interstitials use `Appodeal.initialize(appKey, Appodeal.INTERSTITIAL)`
++ To initialize only rewarded video use `Appodeal.initialize(appKey, Appodeal.REWARDED_VIDEO)`
++ To initialize only non-skippable video use `Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO)`
++ To initialize interstitials and non-skippable videos use `Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)`
++ To initialize only banners use `Appodeal.initialize(appKey, Appodeal.BANNER)`
 
 ### Display Ad
 
@@ -84,14 +84,20 @@ To display ad you need to call the following code:
 Appodeal.show(adTypes);
 ```
 
-To display interstitial use Appodeal.show(Appodeal.INTERSTITIAL)
-To display rewarded video use Appodeal.show(Appodeal.REWARDED_VIDEO)
-To display non-skippable video use Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO)
-To display interstitial or non-skippable video use Appodeal.show(Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)
-To display banner at the bottom of the screen use Appodeal.show(Appodeal.BANNER_BOTTOM)
-To display banner at the top of the screen use Appodeal.show(Appodeal.BANNER_TOP)
++ To display interstitial use `Appodeal.show(Appodeal.INTERSTITIAL)`
++ To display rewarded video use `Appodeal.show(Appodeal.REWARDED_VIDEO)`
++ To display non-skippable video use `Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO)`
++ To display interstitial or non-skippable video use `Appodeal.show(Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)`
++ To display banner at the bottom of the screen use `Appodeal.show(Appodeal.BANNER_BOTTOM)`
++ To display banner at the top of the screen use `Appodeal.show(Appodeal.BANNER_TOP)`
 
-Appodeal.show(adTypes, function(result){ // result is a boolean value, that is indicates whether show call was passed to appropriate SDK });
+Also it can be used in this way, to get boolean value if ad was successfully shown:
+
+```javascript
+Appodeal.show(adTypes, function(result) {
+   // result is a boolean value, that is indicates whether show call was passed to appropriate SDK 
+});
+```
 
 ### Checking if interstitial is loaded
 
@@ -251,8 +257,10 @@ Appodeal.isPrecache(adTypes, function(result){
 ```
 
 Currently supported only for interstitials and banners
-To check if loaded interstitial is precache: use Appodeal.isPrecache(Appodeal.INTERSTITIAL);
-To check if loaded banner is precache: use Appodeal.isPrecache(Appodeal.BANNER);
+
+To check if loaded interstitial is precache: use `Appodeal.isPrecache(Appodeal.INTERSTITIAL);`
+
+To check if loaded banner is precache: use `Appodeal.isPrecache(Appodeal.BANNER);`
 
 #### Manual ad caching
 
@@ -260,11 +268,11 @@ To check if loaded banner is precache: use Appodeal.isPrecache(Appodeal.BANNER);
 Appodeal.cache(adTypes);
 ```
 
-You should disable automatic caching before SDK initialization using setAutoCache(adTypes, false).
-To cache interstitial use Appodeal.cache(Appodeal.INTERSTITIAL)
-To cache rewarded video use Appodeal.cache(Appodeal.REWARDED_VIDEO)
-To cache interstitial and non-skippable video use Appodeal.cache(Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)
-To cache banner use Appodeal.cache(Appodeal.BANNER)
++ You should disable automatic caching before SDK initialization using `setAutoCache(adTypes, false)`.
++ To cache interstitial use `Appodeal.cache(Appodeal.INTERSTITIAL)`
++ To cache rewarded video use `Appodeal.cache(Appodeal.REWARDED_VIDEO)`
++ To cache interstitial and non-skippable video use `Appodeal.cache(Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO)`
++ To cache banner use `Appodeal.cache(Appodeal.BANNER)`
 
 #### Enabling or disabling automatic caching
 
@@ -272,10 +280,10 @@ To cache banner use Appodeal.cache(Appodeal.BANNER)
 Appodeal.setAutoCache(adTypes, false);
 ```
 
-Should be used before SDK initialization
-To disable automatic caching for interstitials use Appodeal.setAutoCache(Appodeal.INTERSTITIAL, false)
-To disable automatic caching for rewarded videos use Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, false)
-To disable automatic caching for banners use Appodeal.setAutoCache(Appodeal.BANNER, false)
++ Should be used before SDK initialization
++ To disable automatic caching for interstitials use `Appodeal.setAutoCache(Appodeal.INTERSTITIAL, false)`
++ To disable automatic caching for rewarded videos use `Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, false)`
++ To disable automatic caching for banners use `Appodeal.setAutoCache(Appodeal.BANNER, false)`
 
 #### Triggering onLoaded callback on precache
 
@@ -283,10 +291,10 @@ To disable automatic caching for banners use Appodeal.setAutoCache(Appodeal.BANN
 Appodeal.setTriggerOnLoadedOnPrecache(adTypes, true);
 ```
 
-Currently supported only for interstitials
-setOnLoadedTriggerBoth(Appodeal.INTERSTITIAL, false) - onInterstitialLoaded will trigger only when normal ad was loaded (default)..
-setOnLoadedTriggerBoth(Appodeal.INTERSTITIAL, true) - onInterstitialLoaded will trigger twice, both when precache and normal ad were loaded..
-Should be used before SDK initialization
++ Currently supported only for interstitials
++ `setOnLoadedTriggerBoth(Appodeal.INTERSTITIAL, false)` - onInterstitialLoaded will trigger only when normal ad was loaded (default)..
++ `setOnLoadedTriggerBoth(Appodeal.INTERSTITIAL, true)` - onInterstitialLoaded will trigger twice, both when precache and normal ad were loaded..
++ Should be used before SDK initialization
 
 #### Disabling data collection for kids apps
 
@@ -323,6 +331,7 @@ Appodeal.disableWriteExternalStoragePermissionCheck();
 ```
 
 Disables all ad networks that need this permission may lead to low video fillrates.
+
 Should be used before SDK initialization.
 
 #### Tracking in-app purchase
