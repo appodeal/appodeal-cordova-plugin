@@ -26,7 +26,7 @@ This is an official Appodeal Cordova plugin, created to support Appodeal SDK wit
 <resource-file src="libs/iOS/Appodeal/Resources/MPCloseBtn.png"/>
 ```
 
-+ Check [AppodealPlugin.m](/scr/ios/AppodealPlugin.m) for any API changes.
++ Check [AppodealPlugin.m](/src/ios/AppodealPlugin.m) for any API changes.
 + Done, you can use updated plugin for iOS Platform.
 
 ## Install
